@@ -1,0 +1,34 @@
+##### How to create modal uji2021 #####
+
+1. At the beggining of the file where you want to open the Modal Create a div like this or put it in the header.php as global div:
+    <div id="modal-container">
+        <!-- Modal will be opened here!.... -->
+    </div>
+    
+1. Create button to trigger the modal:
+ <button type="button" class="btn btn-sm btn-success mr-2" data-toggle="modal" data-target="#dataModal" data-id="nothing" id="openDataModal" data-backdrop="static" data-keyboard="false" onclick="showModal(fullPath, header)">view</button>
+
+ ....or from the Javascript
+
+2. In this button call onclick="showModal(iframePath, header)"
+3. iframePath: is the file you want to open inside modal and the query data you want to send like page.php?id=2
+4. header: is the header title of the modal
+5. In the iframe file we get the 'id' from the url
+
+-------------------------------------------------------------------------------------------------------------------------
+
+#iframe file example: stafi_view.php
+
+# example how to call the modal (stafi.php)
+
+// btnStView click
+document.querySelectorAll('.btnStView').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+        const stid = e.currentTarget.getAttribute('data-btnView');
+        const iframePath = "<?php echo APP_URL . '/app/pages/stafi/modals/stafi_view.php' ?>";
+        const fullPath = `${iframePath}?stid=${stid}`;
+        const header = 'Profili Stafit';
+
+        showModal(fullPath, header);
+    });
+});

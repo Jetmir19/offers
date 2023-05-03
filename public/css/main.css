@@ -1,0 +1,118 @@
+body {
+  font-family: Helvetica, arial, sans-serif;
+  /* font-size: 1.1em; */
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+/* Main Spinner */
+#main-spinner {
+  display: block;
+  z-index: 9999 !important;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.3);
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  padding-top: 30%;
+}
+
+/* Modal Spinner */
+#modal-spinner {
+  display: block;
+  z-index: 9999 !important;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.3);
+  margin: 0;
+  padding-top: 1em;
+  width: 100%;
+  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Stop events delegation */
+button>* {
+  pointer-events: none;
+}
+
+/* 
+Important Note: 
+When closing the first modal and open up the second one to make scrolling work 
+*/
+.modal {
+  overflow: auto !important;
+}
+
+/* Tables styles */
+#personTable input {
+  width: 100%;
+  border: none;
+  padding: 5px;
+}
+
+#personTable td {
+  padding: 2px;
+}
+
+.tableRowClick:hover {
+  background-color: #f1f1f1 !important;
+}
+
+/* table responsive max-height */
+.table-responsive {
+  max-height: 525px;
+}
+
+/* Table with no text wrap */
+td,
+th {
+  width: 0.1%;
+  white-space: nowrap;
+}
+
+textarea {
+  white-space: normal;
+  text-align: justify;
+  -moz-text-align-last: left;
+  /* Firefox 12+ */
+  text-align-last: left;
+}
+
+/* Zoom checkboxes */
+.xl-chbox {
+  transform: scale(1.5);
+  margin: 10px;
+}
+
+/* fieldset - Replace bootstrap styles */
+fieldset {
+  padding: 13px 13px 0 13px;
+  border: 2px solid #ddd !important;
+  border-style: inset !important;
+  /* border-radius: 5px; */
+  /* margin-bottom: 0 !important; */
+}
+
+legend {
+  width: auto;
+  padding-left: 3px;
+}
+
+/* Fatura cards */
+.fatura-cards a:hover .card-body {
+  background-color: rgba(0, 0, 0, .03);
+}
+
+.fatura-cards a:hover {
+  text-decoration: none !important;
+}
+
+/* MODAL Iframe */
+#miframe {
+  margin: 15px 0px;
+  height: 100%;
+  width: 100%;
+}

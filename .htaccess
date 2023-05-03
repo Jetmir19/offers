@@ -1,0 +1,17 @@
+<IfModule mod_rewrite.c>
+
+    Options -Multiviews
+
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    
+
+    
+    # Disabled JavaScript: Replace URL
+    RewriteRule ^jsoff app/pages/error/jsoff.php [NC,L]
+
+    # Login: Replace URL
+    RewriteRule ^login app/pages/login/login.php [NC,L]
+
+</IfModule>
