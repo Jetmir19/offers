@@ -9,13 +9,21 @@ require_once DB_PATH . '/connect.php';
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $cartId = $_GET["cartId"];
     $sasia = $_GET["sasia"];
+    $c_vlera_pa_tvsh = $_GET["cvptTotal"];
 
-    // echo json_encode([$cartId, $sasia]);
+    // echo json_encode([
+    //     $cartId,
+    //     $sasia,
+    //     $c_vlera_pa_tvsh
+    // ]);
     // exit;
 
     // Prepare and bind the update statement using prepared statements
-    $stmt = LINK->prepare("UPDATE cart SET c_sasia = ? WHERE cart_ID = ?");
-    $stmt->bind_param("ii", $sasia, $cartId);
+    $stmt = LINK->prepare(
+        "UPDATE cart SET c_sasia = ?, c_vlera_pa_tvsh = ? 
+        WHERE cart_ID = ?"
+    );
+    $stmt->bind_param("iii", $sasia, $c_vlera_pa_tvsh, $cartId);
 
     if ($stmt->execute()) {
         $response = array("status" => "success", "message" => "Cart sasia updated successfully.");

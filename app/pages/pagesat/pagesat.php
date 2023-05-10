@@ -231,7 +231,9 @@ if (isset($_POST['paguaj']))
             unset($_SESSION['res2_k_mbiemri']);
             unset($_SESSION['res2_rruga']);
             unset($_SESSION['pershkrimi_ofertes']);
-            header('Location:' . APP_URL . '/index.php?page=pagesat_print&id=' . $ofertatID);
+            // header('Location:' . APP_URL . '/index.php?page=pagesat_print&id=' . $ofertatID);
+            forceRedirect(APP_URL . '/index.php?page=pagesat_print&id=' . $ofertatID);
+            exit;
         } catch (Exception $e) {
             // Something went wrong. Rollback
             $link->rollback();
@@ -282,7 +284,7 @@ if (isset($_POST['paguaj']))
                                     }
                                     echo "</datalist>";
                                     ?>
-                                    <input list="plist" id="produktetID" name="produktetID" class="form-control" value="<?php echo $produktetID; ?>" autocomplete="off">
+                                    <input list="plist" id="produktetID" name="produktetID" class="form-control" value="<?php echo $produktetID; ?>" autocomplete="off" placeholder="shto produktet">
                                     <button class="btn btn-outline-secondary" name="shtoprodukt" type="submit" value="shtoprodukt" id="button-addon2"><i class="fa fa-shopping-cart"></i> Shto produkt</button>
                                 </div>
                                 <i class="fa-solid fa-cart-shopping"></i>
@@ -321,6 +323,7 @@ if (isset($_POST['paguaj']))
 
                                     $count = 0;
                                     $sasia_total = 0;
+                                    $vlera_pa_tvsh_total = 0;
                                     $vlera_e_tvsh_total = 0;
                                     $vlera_me_tvsh_total = 0;
                                     $c_zbritje_total = 0;
@@ -329,6 +332,7 @@ if (isset($_POST['paguaj']))
                                         foreach ($row as $rowcarte) {
                                             $count++;
                                             $sasia_total += $rowcarte['c_sasia'];
+                                            $vlera_pa_tvsh_total += $rowcarte['c_vlera_pa_tvsh'];
                                             $vlera_e_tvsh_total += $rowcarte['c_vlera_e_tvsh'];
                                             $vlera_me_tvsh_total += $rowcarte['c_vlera_me_tvsh'];
                                             $c_zbritje_total += $rowcarte['c_zbritje'];
@@ -345,7 +349,7 @@ if (isset($_POST['paguaj']))
                                                     <input type="number" step="0.00" data-cartId="<?php echo $rowcarte['cart_ID'] ?>" name="c_sasia" class="c_sasia" value="<?php echo (int) $rowcarte['c_sasia'] ?? ''; ?>">
                                                 </td>
                                                 <!-- <td><?php echo $rowcarte['c_tvsh1'] ?? ''; ?></td> -->
-                                                <td><?php echo $rowcarte['c_cmimi_pa_tvsh'] ?? ''; ?></td>
+                                                <td class="c_cmimi_pa_tvsh"><?php echo $rowcarte['c_cmimi_pa_tvsh'] ?? ''; ?></td>
                                                 <td class="c_vlera_pa_tvsh"><?php echo $rowcarte['c_vlera_pa_tvsh'] ?? ''; ?></td>
                                                 <td><?php echo $rowcarte['c_vlera_e_tvsh'] ?? ''; ?> (<?php echo $rowcarte['c_tvsh1'] ?? ''; ?>%)</td>
                                                 <td><?php echo $rowcarte['c_zbritje'] ?? ''; ?>(<?php echo $rowcarte['c_zbritje'] ?? ''; ?>%)</td>
@@ -449,6 +453,9 @@ if (isset($_POST['paguaj']))
                                 <div class="d-flex justify-content-between py-1"> <small class="text-muted">Zbritje</small>
                                     <p><?php echo  $c_zbritje_total; ?></p>
                                 </div>
+                                <div class="d-flex justify-content-between py-1"> <small class="text-muted">Gjithsej vlera pa TVSH</small>
+                                    <p id="vlera_pa_tvsh_total"><?php echo  $vlera_pa_tvsh_total; ?></p>
+                                </div>
                                 <div class="d-flex justify-content-between py-1"> <small class="text-muted">Gjithsej vlera e TVSH-se</small>
                                     <p id="vlera_e_tvsh_total"><?php echo  $vlera_e_tvsh_total; ?></p>
                                 </div>
@@ -471,6 +478,9 @@ if (isset($_POST['paguaj']))
 <script>
     // Get Sasia total element
     let sTotalElement = document.getElementById('sasia_total');
+    // Get c_vlera_pa_tvsh and vlera_pa_tvsh_total
+    let paTvshElement = document.getElementById('vlera_pa_tvsh_total');
+    let allCvpt = document.querySelectorAll('.c_vlera_pa_tvsh');
 
     // Update sasia with ajax
     let qtyInputs = document.querySelectorAll(".c_sasia");
@@ -479,30 +489,41 @@ if (isset($_POST['paguaj']))
             // Clear the sTotalElement
             sTotalElement.textContent = "";
 
-            // Sasia
+            // td - input Sasia
             let c_sasia = el.value;
             let cartId = el.getAttribute("data-cartId");
 
+            // tr Parent Element
+            const trParentElement = this.parentNode.parentNode;
+
+            // td - c_cmimi_pa_tvsh
+            let ccpt = trParentElement.querySelector('.c_cmimi_pa_tvsh').textContent;
+            // td - c_vlera_pa_tvsh 
+            let cvpt = trParentElement.querySelector('.c_vlera_pa_tvsh');
+            // Total of "td - input Sasia" * td - c_cmimi_pa_tvsh
+            const cvptTotal = parseInt(c_sasia) * parseFloat(ccpt);
+            // Update c_cmimi_pa_tvsh
+            cvpt.textContent = cvptTotal;
+
             // Update in database
-            fetch(`app/pages/pagesat/cart/cart_edit.php?cartId=${cartId}&sasia=${c_sasia}`)
+            fetch(`app/pages/pagesat/cart/cart_edit.php?cartId=${cartId}&sasia=${c_sasia}&cvptTotal=${cvptTotal}`)
                 .then(response => response.json())
                 .then(data => console.log(data))
                 .catch(error => console.error(error));
 
             // Update sasia total
-            let total = 0;
-            let closest = null;
+            let stotal = 0;
             qtyInputs.forEach(function(input) {
-                // td - c_vlera_pa_tvsh
-                // console.log(cvpt);
-                closest = cvpt.closest('td.c_vlera_pa_tvsh');
-
-                total += parseInt(input.value);
+                stotal += parseInt(input.value);
             })
-            console.log(closest);
-            sTotalElement.textContent = total;
+            sTotalElement.textContent = stotal;
 
-
+            // Update vlera_pa_tvsh_total
+            let cPaTvshTotal = 0;
+            allCvpt.forEach(function(el) {
+                cPaTvshTotal += parseFloat(el.textContent);
+            });
+            paTvshElement.textContent = cPaTvshTotal;
         };
     });
 </script>

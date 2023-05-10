@@ -402,3 +402,61 @@ Stack trace:
 [10-May-2023 19:16:46 Europe/Skopje] PHP Warning:  Undefined array key "serialnumer" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 116
 [10-May-2023 19:16:46 Europe/Skopje] PHP Warning:  Undefined array key "vlera_max" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 117
 [10-May-2023 19:16:46 Europe/Skopje] PHP Warning:  Undefined array key "vlera_prez" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 118
+[10-May-2023 20:43:54 Europe/Skopje] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'ewins.matesi' doesn't exist in C:\xampp\htdocs\offers\app\pages\dashboard\home.php:60
+Stack trace:
+#0 C:\xampp\htdocs\offers\app\pages\dashboard\home.php(60): mysqli_query(Object(mysqli), 'SELECT * FROM m...')
+#1 C:\xampp\htdocs\offers\index.php(97): require_once('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\offers\app\pages\dashboard\home.php on line 60
+[10-May-2023 21:25:34 Europe/Skopje] PHP Warning:  Undefined variable $vlera_pa_tvsh_total in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat.php on line 453
+[10-May-2023 21:28:04 Europe/Skopje] PHP Warning:  Undefined variable $vlera_pa_tvsh_total in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat.php on line 453
+[10-May-2023 21:37:09 Europe/Skopje] PHP Warning:  Undefined variable $o_gjithsej_sasia in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat.php on line 195
+[10-May-2023 21:37:09 Europe/Skopje] PHP Warning:  Undefined variable $o_gjithsej_pa_tvsh in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat.php on line 196
+[10-May-2023 21:37:09 Europe/Skopje] PHP Warning:  Undefined array key "brendi" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 115
+[10-May-2023 21:37:09 Europe/Skopje] PHP Warning:  Undefined array key "serialnumer" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 116
+[10-May-2023 21:37:09 Europe/Skopje] PHP Warning:  Undefined array key "vlera_max" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 117
+[10-May-2023 21:37:09 Europe/Skopje] PHP Warning:  Undefined array key "vlera_prez" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 118
+[10-May-2023 21:39:47 Europe/Skopje] PHP Warning:  Undefined variable $o_gjithsej_sasia in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat.php on line 195
+[10-May-2023 21:39:47 Europe/Skopje] PHP Warning:  Undefined variable $o_gjithsej_pa_tvsh in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat.php on line 196
+[10-May-2023 21:39:47 Europe/Skopje] PHP Warning:  Undefined array key "brendi" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 113
+[10-May-2023 21:39:47 Europe/Skopje] PHP Warning:  Undefined array key "serialnumer" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 114
+[10-May-2023 21:39:47 Europe/Skopje] PHP Warning:  Undefined array key "vlera_max" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 115
+[10-May-2023 21:39:47 Europe/Skopje] PHP Warning:  Undefined array key "vlera_prez" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 116
+[10-May-2023 21:40:37 Europe/Skopje] PHP Warning:  Undefined array key "brendi" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 113
+[10-May-2023 21:40:37 Europe/Skopje] PHP Warning:  Undefined array key "serialnumer" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 114
+[10-May-2023 21:40:37 Europe/Skopje] PHP Warning:  Undefined array key "vlera_max" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 115
+[10-May-2023 21:40:37 Europe/Skopje] PHP Warning:  Undefined array key "vlera_prez" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 116
+[10-May-2023 21:42:55 Europe/Skopje] PHP Warning:  Undefined array key "brendi" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 87
+[10-May-2023 21:42:55 Europe/Skopje] PHP Warning:  Undefined array key "serialnumer" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 88
+[10-May-2023 21:42:55 Europe/Skopje] PHP Warning:  Undefined array key "vlera_max" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 89
+[10-May-2023 21:42:55 Europe/Skopje] PHP Warning:  Undefined array key "vlera_prez" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 90
+[10-May-2023 21:43:23 Europe/Skopje] PHP Warning:  Undefined variable $o_gjithsej_sasia in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat.php on line 195
+[10-May-2023 21:43:23 Europe/Skopje] PHP Warning:  Undefined variable $o_gjithsej_pa_tvsh in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat.php on line 196
+[10-May-2023 21:43:23 Europe/Skopje] PHP Warning:  Undefined array key "brendi" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 87
+[10-May-2023 21:43:23 Europe/Skopje] PHP Warning:  Undefined array key "serialnumer" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 88
+[10-May-2023 21:43:23 Europe/Skopje] PHP Warning:  Undefined array key "vlera_max" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 89
+[10-May-2023 21:43:23 Europe/Skopje] PHP Warning:  Undefined array key "vlera_prez" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 90
+[10-May-2023 21:45:48 Europe/Skopje] PHP Warning:  Undefined variable $o_gjithsej_sasia in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat.php on line 195
+[10-May-2023 21:45:48 Europe/Skopje] PHP Warning:  Undefined variable $o_gjithsej_pa_tvsh in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat.php on line 196
+[10-May-2023 21:49:38 Europe/Skopje] PHP Warning:  Undefined variable $o_gjithsej_sasia in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat.php on line 195
+[10-May-2023 21:49:38 Europe/Skopje] PHP Warning:  Undefined variable $o_gjithsej_pa_tvsh in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat.php on line 196
+[10-May-2023 21:53:02 Europe/Skopje] PHP Warning:  Undefined variable $o_gjithsej_sasia in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat.php on line 195
+[10-May-2023 21:53:02 Europe/Skopje] PHP Warning:  Undefined variable $o_gjithsej_pa_tvsh in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat.php on line 196
+[10-May-2023 21:54:05 Europe/Skopje] PHP Warning:  Undefined array key "brendi" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 82
+[10-May-2023 21:54:05 Europe/Skopje] PHP Warning:  Undefined array key "serialnumer" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 83
+[10-May-2023 21:54:05 Europe/Skopje] PHP Warning:  Undefined array key "vlera_max" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 84
+[10-May-2023 21:54:05 Europe/Skopje] PHP Warning:  Undefined array key "vlera_prez" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 85
+[10-May-2023 21:54:20 Europe/Skopje] PHP Warning:  Undefined variable $o_gjithsej_sasia in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat.php on line 195
+[10-May-2023 21:54:20 Europe/Skopje] PHP Warning:  Undefined variable $o_gjithsej_pa_tvsh in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat.php on line 196
+[10-May-2023 21:54:20 Europe/Skopje] PHP Warning:  Undefined array key "brendi" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 82
+[10-May-2023 21:54:20 Europe/Skopje] PHP Warning:  Undefined array key "serialnumer" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 83
+[10-May-2023 21:54:20 Europe/Skopje] PHP Warning:  Undefined array key "vlera_max" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 84
+[10-May-2023 21:54:20 Europe/Skopje] PHP Warning:  Undefined array key "vlera_prez" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 85
+[10-May-2023 21:55:02 Europe/Skopje] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'ewins.matesi' doesn't exist in C:\xampp\htdocs\offers\app\pages\dashboard\home.php:60
+Stack trace:
+#0 C:\xampp\htdocs\offers\app\pages\dashboard\home.php(60): mysqli_query(Object(mysqli), 'SELECT * FROM m...')
+#1 C:\xampp\htdocs\offers\index.php(97): require_once('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\offers\app\pages\dashboard\home.php on line 60
+[10-May-2023 21:55:05 Europe/Skopje] PHP Warning:  Undefined array key "submit" in C:\xampp\htdocs\offers\app\pages\ofertat\ofertat.php on line 11
+[10-May-2023 21:55:12 Europe/Skopje] PHP Warning:  Undefined array key "submit" in C:\xampp\htdocs\offers\app\pages\ofertat\ofertat.php on line 11
