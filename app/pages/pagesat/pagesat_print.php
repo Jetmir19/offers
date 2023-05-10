@@ -47,12 +47,14 @@
         // die;
 
         ?>
-        <?php echo session_message(); ?>
+        <?php
+        // echo session_message(); 
+        ?>
 
         <div class="card">
             <div class="card-header">
-                <span><strong>FATURË: </strong><?= $prow["numri_ofertes_fatures"]; ?></span>
-                <span class="float-right"><strong>Data: </strong><?= $prow["dateUpdated"]; ?></span>
+                <span><strong>FATURË/ФАКТУРА: </strong><?= $prow["numri_ofertes_fatures"]; ?></span>
+                <span class="float-right"><strong>Data/Датум: </strong><?= $prow["dateUpdated"]; ?></span>
             </div>
 
             <div class="card-body">
@@ -65,15 +67,15 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <h6>Prej: OD:</h6>
+                                    <h6>Prej/Од:</h6>
                                     <div><strong><?= $config["fshati"]; ?></strong></div>
-                                    <div>Kontakt person: <?= $config["kontakt_person"]; ?></div>
+                                    <div>Kontakt person/Лице на контакт: <?= $config["kontakt_person"]; ?></div>
                                     <div>1227, <?= $config["fshati"] . ', ' . $config["qyteti"] . ' ' . $config["shteti"]; ?></div>
-                                    <div>Email: <?= $config["email"]; ?></div>
-                                    <div>Mobil: <?= $config["mobil"]; ?></div>
+                                    <div>Email/Емаил: <?= $config["email"]; ?></div>
+                                    <div>Mobil/Мобилен: <?= $config["mobil"]; ?></div>
                                 </td>
                                 <td>
-                                    <h6>Deri te:</h6>
+                                    <h6>Deri te/До:</h6>
                                     <?php
                                     if ($prow['firma'] !== "") {
                                         echo "<div><strong>" . $prow['firma'] . "</strong></div>";
@@ -81,17 +83,17 @@
                                         echo "<div><strong>" . $prow['k_emri'] . " " . $prow['k_mbiemri'] . "</strong></div>";
                                     }
                                     ?>
-                                    <div>Addresa: <?php echo $prow["fshati"]; ?></div>
+                                    <div>Addresa/Адреса: <?php echo $prow["fshati"]; ?></div>
                                     <div><?= $prow["rruga"]; ?>, <?= $prow["qyteti"]; ?></div>
                                     <div><?= $prow["email"]; ?></div>
                                     <div><?= $prow["mobil"]; ?></div>
                                 </td>
                                 <td>
                                     <h6><?= $config['banka'] ?></h6>
-                                    <div>Xhirollogaria: <strong><?= $config['xhirollogaria'] ?></strong></div>
-                                    <div>Adresa: <?= $config['banka_adresa'] ?></div>
-                                    <div>Email: <?= $config['banka_email'] ?></div>
-                                    <div>Mobil: <?= $config['banka_mobil'] ?></div>
+                                    <div>Xhirollogaria/Жиросметка: <strong><?= $config['xhirollogaria'] ?></strong></div>
+                                    <div>Adresa/Адреса: <?= $config['banka_adresa'] ?></div>
+                                    <div>Email/Емаил: <?= $config['banka_email'] ?></div>
+                                    <div>Mobil/Мобилен: <?= $config['banka_mobil'] ?></div>
                                 </td>
                             </tr>
                         </tbody>
@@ -123,16 +125,16 @@
                     <table class="table table-striped table-sm table-hover">
                         <thead>
                             <tr>
-                                <th>nr</th>
-                                <th>Emri produktit</th>
-                                <th>Serial</th>
-                                <th>sasia</th>
-                                <th>Çmimi<br> pa tvsh</th>
-                                <th>Vlera <br>pa tvsh</th>
-                                <th>Vlera<br> e tvsh</th>
-                                <th>Vlera <br>me tvsh</th>
-                                <th>Shuma e<br>zbritjes %</th>
-                                <th>Shuma total</th>
+                                <th>nr/бр</th>
+                                <th>Emri produktit/Име на продукт</th>
+                                <th>Serial/Сериал</th>
+                                <th>Sasia/количина</th>
+                                <th>Çmimi/Цена<br> pa tvsh/без ддв</th>
+                                <th>Vlera/Вредност <br>pa tvsh/без ддв</th>
+                                <th>Vlera/Вредност<br> e tvsh/на ддв</th>
+                                <th>Vlera/Вреддонст <br>me tvsh/со ддв</th>
+                                <th>Shuma e/Вкупно<br>zbritjes %/попуст на %</th>
+                                <th>Shuma total/Вкупно</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -174,7 +176,7 @@
                         <tbody>
                             <tr>
                                 <td style="min-width:450px; max-width:470px; white-space:unset;">
-                                    <strong>Shënim ose koment:</strong>
+                                    <strong>Shënim ose koment/Комент:</strong>
                                     <p class="font-italic bg-light p-2 border mb-2 mt-2"><?php echo $prow['pershkrimi_ofertes']; ?></p>
                                     <p class="text-justify" style="white-space:normal;"><?= $config["tekst"]; ?></p>
                                     <h5><?= $config["tekst2"]; ?></h5>
@@ -182,27 +184,27 @@
                                 <td style="min-width:250px">
                                     <table class="mt-2">
                                         <tr>
-                                            <td><strong>Gjithsej sasia</strong></td>
+                                            <td><strong>Gjithsej sasia/Вкупно количина</strong></td>
                                             <td class="text-right"><?php echo $prow['gjithsej_sasia']; ?></td>
                                         </tr>
                                         <tr>
-                                            <td><strong>Gjithsej pa TVSH</strong></td>
+                                            <td><strong>Gjithsej pa TVSH/Тоал без ДДВ</strong></td>
                                             <td class="text-right"><?= $prow['gjithsej_pa_tvsh'] . ' ' . $config['valuta'] ?></td>
                                         </tr>
                                         <tr>
-                                            <td><strong>Gjithsej vlera e TVSH-se (%)</strong></td>
+                                            <td><strong>Gjithsej vlera e TVSH-se (%)/Вкупно вредност на ДДВ (%)</strong></td>
                                             <td class="text-right"><?= $prow['gjithsej_e_tvsh'] . ' ' . $config['valuta'] ?></td>
                                         </tr>
                                         <tr>
-                                            <td><strong>Gjithsej me TVSH</strong></td>
+                                            <td><strong>Gjithsej me TVSH/Вкупно со ДДВ</strong></td>
                                             <td class="text-right"><?= $prow['gjithsej_me_tvsh'] . ' ' . $config['valuta'] ?></td>
                                         </tr>
                                         <tr>
-                                            <td><strong>Gjithsej zbritje</strong></td>
+                                            <td><strong>Gjithsej zbritje/Вкупно попуст</strong></td>
                                             <td class="text-right"><?= $prow['gjithsej_zbritje'] . ' ' . $config['valuta'] ?></td>
                                         </tr>
                                         <tr>
-                                            <td><strong>Gjithsej</strong></td>
+                                            <td><strong>Gjithsej/Вкупно</strong></td>
                                             <td class="text-right"><?= $prow['gjithsej_total'] . ' ' . $config['valuta'] ?></td>
                                         </tr>
                                     </table>
@@ -222,17 +224,17 @@
                                 <td>
                                     <div class="d-flex justify-content-between">
                                         <div>
-                                            <h6 class="mb-4">Kasier: <span class="text-muted"><?= $prow["emri"] . ' ' . $prow["mbiemri"] ?></span></h6>
+                                            <h6 class="mb-4">Kasier/Предал: <span class="text-muted"><?= $prow["emri"] . ' ' . $prow["mbiemri"] ?></span></h6>
                                             <div>___________________________</div>
                                         </div>
 
                                         <div>
-                                            <h6 class="mb-4">Kryetari: </h6>
+                                            <h6 class="mb-4">Kryetari/Преседател: </h6>
                                             <div>___________________________</div>
                                         </div>
 
                                         <div>
-                                            <h6 class="mb-4">Konsumatori: </h6>
+                                            <h6 class="mb-4">Konsumatori/Потрошувач: </h6>
                                             <div>___________________________</div>
                                         </div>
                                     </div>

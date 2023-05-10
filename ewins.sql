@@ -3,12 +3,13 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 03, 2023 at 02:09 PM
+-- Generation Time: May 03, 2023 at 05:19 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -49,6 +50,14 @@ CREATE TABLE `artikujt_per_oferte_fature` (
   `dateUpdated` date NOT NULL,
   `date_created` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Dumping data for table `artikujt_per_oferte_fature`
+--
+
+INSERT INTO `artikujt_per_oferte_fature` (`artikujt_perofert_fature_ID`, `a_ofertatID`, `konsumatorID`, `a_stafiID`, `a_produktetID`, `a_njesiID`, `a_nr_rendor`, `a_nr_barkod`, `a_emri_produktit`, `a_nr_serial`, `a_sasia`, `a_tvsh1`, `a_cmimi_pa_tvsh`, `a_vlera_pa_tvsh`, `a_vlera_e_tvsh`, `a_vlera_me_tvsh`, `a_zbritje`, `a_shuma_total`, `isDeleted`, `dateUpdated`, `date_created`) VALUES
+(1114, 526, 1, 4, 21, 4, 1, '', 'col 20', 0, '1.00', '18.00', '3443.00', '3443.00', '619.74', '4062.74', '0.00', 0, 0, '0000-00-00', '0000-00-00'),
+(1115, 526, 1, 4, 20, 1, 2, '', 'elementi', 0, '1.00', '10.00', '67676.00', '67676.00', '6767.60', '74443.60', '0.00', 0, 0, '0000-00-00', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -144,60 +153,60 @@ CREATE TABLE `historia` (
 --
 
 INSERT INTO `historia` (`historiaID`, `stafiID`, `action`, `module`, `message`, `hstatusi`, `dateCreated`, `dateUpdated`, `isDeleted`) VALUES
-(45, 1, 'create', 'Produkti', 'Regjistruar me sukses.', 'success', '2022-08-17 04:16:17', '2022-08-17 04:16:17', 0),
-(46, 1, 'create', 'Produkti', 'Regjistruar me sukses.', 'success', '2022-08-17 04:17:13', '2022-08-17 04:17:13', 0),
-(47, 1, 'create', 'Produkti', 'Regjistruar me sukses.', 'success', '2022-08-17 04:34:30', '2022-08-17 04:34:30', 0),
-(48, 1, 'delete', 'produktet', 'U fshij me sukses.', 'success', '2022-08-20 13:15:50', '2022-08-20 13:15:50', 0),
-(49, 1, 'delete', 'produktet', 'U fshij me sukses.', 'success', '2022-08-21 01:17:13', '2022-08-21 01:17:13', 0),
-(50, 1, 'delete', 'produktet', 'U fshij me sukses.', 'success', '2022-08-21 01:39:38', '2022-08-21 01:39:38', 0),
-(51, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-08-22 02:05:57', '2022-08-22 02:05:57', 0),
-(52, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-08-22 02:07:36', '2022-08-22 02:07:36', 0),
-(53, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-08-22 02:44:58', '2022-08-22 02:44:58', 0),
-(54, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-08-22 02:46:09', '2022-08-22 02:46:09', 0),
-(55, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-08-22 03:31:30', '2022-08-22 03:31:30', 0),
-(56, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-08-22 03:33:03', '2022-08-22 03:33:03', 0),
-(57, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-08-22 03:34:51', '2022-08-22 03:34:51', 0),
-(58, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-08-22 03:36:16', '2022-08-22 03:36:16', 0),
-(59, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-08-22 03:43:21', '2022-08-22 03:43:21', 0),
-(60, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-08-22 03:48:23', '2022-08-22 03:48:23', 0),
-(61, 1, 'edit', 'konsumatori', 'Regjistruar me sukses.', 'success', '2022-08-22 04:55:21', '2022-08-22 04:55:21', 0),
-(62, 2, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-08-23 02:20:18', '2022-08-23 02:20:18', 0),
-(63, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-09-01 20:25:09', '2022-09-01 20:25:09', 0),
-(64, 1, 'delete', 'stafi', 'U fshij me sukses.', 'success', '2022-09-03 02:12:34', '2022-09-03 02:12:34', 0),
-(65, 1, 'delete', 'stafi', 'U fshij me sukses.', 'success', '2022-09-03 02:12:43', '2022-09-03 02:12:43', 0),
-(66, 1, 'delete', 'stafi', 'U fshij me sukses.', 'success', '2022-09-03 02:13:15', '2022-09-03 02:13:15', 0),
-(67, 1, 'delete', 'stafi', 'U fshij me sukses.', 'success', '2022-09-03 02:16:10', '2022-09-03 02:16:10', 0),
-(68, 1, 'delete', 'stafi', 'U fshij me sukses.', 'success', '2022-09-03 02:16:16', '2022-09-03 02:16:16', 0),
-(69, 1, 'delete', 'stafi', 'U fshij me sukses.', 'success', '2022-09-03 02:16:18', '2022-09-03 02:16:18', 0),
-(70, 1, 'delete', 'stafi', 'U fshij me sukses.', 'success', '2022-09-03 02:16:22', '2022-09-03 02:16:22', 0),
-(71, 1, 'delete', 'stafi', 'U fshij me sukses.', 'success', '2022-09-03 02:17:09', '2022-09-03 02:17:09', 0),
-(72, 1, 'delete', 'stafi', 'U fshij me sukses.', 'success', '2022-09-03 02:18:47', '2022-09-03 02:18:47', 0),
-(73, 1, 'delete', 'stafi', 'U fshij me sukses.', 'success', '2022-09-03 02:21:50', '2022-09-03 02:21:50', 0),
-(74, 1, 'delete', 'njesit', 'U fshij me sukses.', 'success', '2022-09-03 02:24:33', '2022-09-03 02:24:33', 0),
-(75, 1, 'delete', 'njesit', 'U fshij me sukses.', 'success', '2022-09-03 02:26:43', '2022-09-03 02:26:43', 0),
-(76, 1, 'delete', 'njesit', 'U fshij me sukses.', 'success', '2022-09-03 02:29:14', '2022-09-03 02:29:14', 0),
-(77, 1, 'delete', 'njesit', 'U fshij me sukses.', 'success', '2022-09-03 02:29:18', '2022-09-03 02:29:18', 0),
-(78, 1, 'delete', 'njesit', 'U fshij me sukses.', 'success', '2022-09-03 02:30:22', '2022-09-03 02:30:22', 0),
-(79, 1, 'delete', 'njesit', 'U fshij me sukses.', 'success', '2022-09-03 02:35:47', '2022-09-03 02:35:47', 0),
-(80, 1, 'delete', 'njesit', 'U fshij me sukses.', 'success', '2022-09-03 02:40:22', '2022-09-03 02:40:22', 0),
-(81, 1, 'delete', 'njesit', 'U fshij me sukses.', 'success', '2022-09-03 02:41:22', '2022-09-03 02:41:22', 0),
-(82, 1, 'delete', 'njesit', 'U fshij me sukses.', 'success', '2022-09-03 02:43:02', '2022-09-03 02:43:02', 0),
-(83, 1, 'delete', 'njesit', 'U fshij me sukses.', 'success', '2022-09-03 02:56:59', '2022-09-03 02:56:59', 0),
-(84, 1, 'delete', 'stafi', 'U fshij me sukses.', 'success', '2022-09-03 03:07:28', '2022-09-03 03:07:28', 0),
-(85, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-09-05 03:07:30', '2022-09-05 03:07:30', 0),
-(86, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-09-05 03:10:11', '2022-09-05 03:10:11', 0),
-(87, 1, 'delete', 'njesit', 'U fshij me sukses.', 'success', '2022-09-11 04:37:38', '2022-09-11 04:37:38', 0),
-(88, 1, 'delete', 'njesit', 'U fshij me sukses.', 'success', '2022-09-11 04:37:41', '2022-09-11 04:37:41', 0),
-(89, 1, 'delete', 'produktet', 'U fshij me sukses.', 'success', '2022-09-11 04:38:12', '2022-09-11 04:38:12', 0),
-(90, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-11-09 02:19:52', '2022-11-09 02:19:52', 0),
-(91, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-11-09 02:24:23', '2022-11-09 02:24:23', 0),
-(92, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-11-20 05:36:33', '2022-11-20 05:36:33', 0),
-(93, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-11-20 05:37:23', '2022-11-20 05:37:23', 0),
-(94, 1, 'edit', 'konsumatori', 'Regjistruar me sukses.', 'success', '2022-11-24 01:58:42', '2022-11-24 01:58:42', 0),
-(95, 1, 'edit', 'konfigurime', 'Regjistruar me sukses.', 'success', '2022-12-04 01:39:44', '2022-12-04 01:39:44', 0),
-(96, 1, 'edit', 'konfigurime', 'Regjistruar me sukses.', 'success', '2022-12-12 17:12:31', '2022-12-12 17:12:31', 0),
-(97, 1, 'edit', 'konfigurime', 'Regjistruar me sukses.', 'success', '2022-12-12 17:12:58', '2022-12-12 17:12:58', 0),
-(98, 1, 'delete', 'produktet', 'U fshij me sukses.', 'success', '2023-05-01 01:52:38', '2023-05-01 01:52:38', 0);
+(45, 1, 'create', 'Produkti', 'Regjistruar me sukses.', 'success', '2022-08-17 04:16:17', '2022-08-17 02:16:17', 0),
+(46, 1, 'create', 'Produkti', 'Regjistruar me sukses.', 'success', '2022-08-17 04:17:13', '2022-08-17 02:17:13', 0),
+(47, 1, 'create', 'Produkti', 'Regjistruar me sukses.', 'success', '2022-08-17 04:34:30', '2022-08-17 02:34:30', 0),
+(48, 1, 'delete', 'produktet', 'U fshij me sukses.', 'success', '2022-08-20 13:15:50', '2022-08-20 11:15:50', 0),
+(49, 1, 'delete', 'produktet', 'U fshij me sukses.', 'success', '2022-08-21 01:17:13', '2022-08-20 23:17:13', 0),
+(50, 1, 'delete', 'produktet', 'U fshij me sukses.', 'success', '2022-08-21 01:39:38', '2022-08-20 23:39:38', 0),
+(51, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-08-22 02:05:57', '2022-08-22 00:05:57', 0),
+(52, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-08-22 02:07:36', '2022-08-22 00:07:36', 0),
+(53, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-08-22 02:44:58', '2022-08-22 00:44:58', 0),
+(54, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-08-22 02:46:09', '2022-08-22 00:46:09', 0),
+(55, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-08-22 03:31:30', '2022-08-22 01:31:30', 0),
+(56, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-08-22 03:33:03', '2022-08-22 01:33:03', 0),
+(57, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-08-22 03:34:51', '2022-08-22 01:34:51', 0),
+(58, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-08-22 03:36:16', '2022-08-22 01:36:16', 0),
+(59, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-08-22 03:43:21', '2022-08-22 01:43:21', 0),
+(60, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-08-22 03:48:23', '2022-08-22 01:48:23', 0),
+(61, 1, 'edit', 'konsumatori', 'Regjistruar me sukses.', 'success', '2022-08-22 04:55:21', '2022-08-22 02:55:21', 0),
+(62, 2, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-08-23 02:20:18', '2022-08-23 00:20:18', 0),
+(63, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-09-01 20:25:09', '2022-09-01 18:25:09', 0),
+(64, 1, 'delete', 'stafi', 'U fshij me sukses.', 'success', '2022-09-03 02:12:34', '2022-09-03 00:12:34', 0),
+(65, 1, 'delete', 'stafi', 'U fshij me sukses.', 'success', '2022-09-03 02:12:43', '2022-09-03 00:12:43', 0),
+(66, 1, 'delete', 'stafi', 'U fshij me sukses.', 'success', '2022-09-03 02:13:15', '2022-09-03 00:13:15', 0),
+(67, 1, 'delete', 'stafi', 'U fshij me sukses.', 'success', '2022-09-03 02:16:10', '2022-09-03 00:16:10', 0),
+(68, 1, 'delete', 'stafi', 'U fshij me sukses.', 'success', '2022-09-03 02:16:16', '2022-09-03 00:16:16', 0),
+(69, 1, 'delete', 'stafi', 'U fshij me sukses.', 'success', '2022-09-03 02:16:18', '2022-09-03 00:16:18', 0),
+(70, 1, 'delete', 'stafi', 'U fshij me sukses.', 'success', '2022-09-03 02:16:22', '2022-09-03 00:16:22', 0),
+(71, 1, 'delete', 'stafi', 'U fshij me sukses.', 'success', '2022-09-03 02:17:09', '2022-09-03 00:17:09', 0),
+(72, 1, 'delete', 'stafi', 'U fshij me sukses.', 'success', '2022-09-03 02:18:47', '2022-09-03 00:18:47', 0),
+(73, 1, 'delete', 'stafi', 'U fshij me sukses.', 'success', '2022-09-03 02:21:50', '2022-09-03 00:21:50', 0),
+(74, 1, 'delete', 'njesit', 'U fshij me sukses.', 'success', '2022-09-03 02:24:33', '2022-09-03 00:24:33', 0),
+(75, 1, 'delete', 'njesit', 'U fshij me sukses.', 'success', '2022-09-03 02:26:43', '2022-09-03 00:26:43', 0),
+(76, 1, 'delete', 'njesit', 'U fshij me sukses.', 'success', '2022-09-03 02:29:14', '2022-09-03 00:29:14', 0),
+(77, 1, 'delete', 'njesit', 'U fshij me sukses.', 'success', '2022-09-03 02:29:18', '2022-09-03 00:29:18', 0),
+(78, 1, 'delete', 'njesit', 'U fshij me sukses.', 'success', '2022-09-03 02:30:22', '2022-09-03 00:30:22', 0),
+(79, 1, 'delete', 'njesit', 'U fshij me sukses.', 'success', '2022-09-03 02:35:47', '2022-09-03 00:35:47', 0),
+(80, 1, 'delete', 'njesit', 'U fshij me sukses.', 'success', '2022-09-03 02:40:22', '2022-09-03 00:40:22', 0),
+(81, 1, 'delete', 'njesit', 'U fshij me sukses.', 'success', '2022-09-03 02:41:22', '2022-09-03 00:41:22', 0),
+(82, 1, 'delete', 'njesit', 'U fshij me sukses.', 'success', '2022-09-03 02:43:02', '2022-09-03 00:43:02', 0),
+(83, 1, 'delete', 'njesit', 'U fshij me sukses.', 'success', '2022-09-03 02:56:59', '2022-09-03 00:56:59', 0),
+(84, 1, 'delete', 'stafi', 'U fshij me sukses.', 'success', '2022-09-03 03:07:28', '2022-09-03 01:07:28', 0),
+(85, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-09-05 03:07:30', '2022-09-05 01:07:30', 0),
+(86, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-09-05 03:10:11', '2022-09-05 01:10:11', 0),
+(87, 1, 'delete', 'njesit', 'U fshij me sukses.', 'success', '2022-09-11 04:37:38', '2022-09-11 02:37:38', 0),
+(88, 1, 'delete', 'njesit', 'U fshij me sukses.', 'success', '2022-09-11 04:37:41', '2022-09-11 02:37:41', 0),
+(89, 1, 'delete', 'produktet', 'U fshij me sukses.', 'success', '2022-09-11 04:38:12', '2022-09-11 02:38:12', 0),
+(90, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-11-09 02:19:52', '2022-11-09 01:19:52', 0),
+(91, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-11-09 02:24:23', '2022-11-09 01:24:23', 0),
+(92, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-11-20 05:36:33', '2022-11-20 04:36:33', 0),
+(93, 1, 'create', 'produktet', 'Regjistruar me sukses.', 'success', '2022-11-20 05:37:23', '2022-11-20 04:37:23', 0),
+(94, 1, 'edit', 'konsumatori', 'Regjistruar me sukses.', 'success', '2022-11-24 01:58:42', '2022-11-24 00:58:42', 0),
+(95, 1, 'edit', 'konfigurime', 'Regjistruar me sukses.', 'success', '2022-12-04 01:39:44', '2022-12-04 00:39:44', 0),
+(96, 1, 'edit', 'konfigurime', 'Regjistruar me sukses.', 'success', '2022-12-12 17:12:31', '2022-12-12 16:12:31', 0),
+(97, 1, 'edit', 'konfigurime', 'Regjistruar me sukses.', 'success', '2022-12-12 17:12:58', '2022-12-12 16:12:58', 0),
+(98, 1, 'delete', 'produktet', 'U fshij me sukses.', 'success', '2023-05-01 01:52:38', '2023-04-30 23:52:38', 0);
 
 -- --------------------------------------------------------
 
@@ -241,7 +250,7 @@ CREATE TABLE `konfigurime` (
 --
 
 INSERT INTO `konfigurime` (`konfigurimeID`, `fshati`, `komuna`, `qyteti`, `shteti`, `kontakt_person`, `mobil`, `email`, `web`, `cmimi_kubik`, `cmimi_kycjes`, `njesia`, `valuta`, `tvsh`, `tvsh2`, `banka`, `banka_adresa`, `banka_mobil`, `banka_email`, `xhirollogaria`, `tekst`, `tekst2`, `logo1`, `logo2`, `komment`, `kstatusi`, `dateCreated`, `dateUpdated`) VALUES
-(1, 'Chelopek i Ri', 'Brvenica', 'Tetovo', 'NMK', 'Seo i ndermarrjes', '0706', '', '', 12.00, 200.00, 'mᶟ', 'den', 0.00, 0.00, 'Stopanska Banka', '', '', '', 234234, 'Emri i ndermarrjes', 'Me respekt ndermarrja', '638bec509db7d.png', '', '', '', '2022-03-06 00:48:11', '2022-12-12 17:12:58');
+(1, 'Chelopek i Ri', 'Brvenica', 'Tetovo', 'NMK', 'Seo i ndermarrjes', '0706', '', '', 12.00, 200.00, 'mᶟ', 'den', 0.00, 0.00, 'Stopanska Banka', '', '', '', 234234, 'Emri i ndermarrjes', 'Me respekt ndermarrja', '638bec509db7d.png', '', '', '', '2022-03-06 00:48:11', '2022-12-12 16:12:58');
 
 -- --------------------------------------------------------
 
@@ -278,9 +287,9 @@ CREATE TABLE `konsumatoret` (
 --
 
 INSERT INTO `konsumatoret` (`konsumatorID`, `konsumator_code`, `stafiID`, `k_emri`, `k_mbiemri`, `firma`, `nr_amez`, `tip_konsumator`, `rruga`, `fshati`, `komuna`, `qyteti`, `shteti`, `adresa_perkohshme`, `mobil`, `email`, `komment`, `kostatusi`, `dateCreated`, `dateUpdated`, `isDeleted`) VALUES
-(1, 49373677, 1, 'Belul', 'Qazimi', '7 marsi', '2309980470022', 'Person juridik', '101 pn', 'Chelopek', 'Bervenice', 'Tetove', 'NMK', 'Zvicer', '070564452', '', '', 'aktiv', '2022-03-06 00:49:37', '2022-12-04 02:40:27', 0),
-(2, 128518224, 1, 'Emine', 'Qazimi', '', '2309980470022', 'Person fizik', '10', 'Ch', 'B', 'Tetovo', 'NMK', 'Zvicer', '12121211', '', '', 'aktiv', '2022-03-06 01:28:51', '2022-03-06 00:28:51', 0),
-(3, 131143038, 1, 'liridon', 'Qazimi', '', '1234567891234', 'Person fizik', '101 pn', 'Chelopek', 'Br', 'Tetovo', 'NMK', '', '', '', '', 'aktiv', '2022-03-06 01:31:14', '2022-03-06 23:43:34', 0);
+(1, 49373677, 1, 'Belul', 'Qazimi', '7 marsi', '2309980470022', 'Person juridik', '101 pn', 'Chelopek', 'Bervenice', 'Tetove', 'NMK', 'Zvicer', '070564452', '', '', 'aktiv', '2022-03-06 00:49:37', '2022-12-04 01:40:27', 0),
+(2, 128518224, 1, 'Emine', 'Qazimi', '', '2309980470022', 'Person fizik', '10', 'Ch', 'B', 'Tetovo', 'NMK', 'Zvicer', '12121211', '', '', 'aktiv', '2022-03-06 01:28:51', '2022-03-05 23:28:51', 0),
+(3, 131143038, 1, 'liridon', 'Qazimi', '', '1234567891234', 'Person fizik', '101 pn', 'Chelopek', 'Br', 'Tetovo', 'NMK', '', '', '', '', 'aktiv', '2022-03-06 01:31:14', '2022-03-06 22:43:34', 0);
 
 -- --------------------------------------------------------
 
@@ -329,6 +338,13 @@ CREATE TABLE `oferte_fature` (
   `isDeleted` int(11) NOT NULL DEFAULT 0,
   `dateUpdated` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+--
+-- Dumping data for table `oferte_fature`
+--
+
+INSERT INTO `oferte_fature` (`ofertatID`, `konsumatorID`, `stafiID`, `numri_ofertes_fatures`, `pershkrimi_ofertes`, `gjithsej_sasia`, `gjithsej_zbritje`, `gjithsej_pa_tvsh`, `gjithsej_e_tvsh`, `gjithsej_me_tvsh`, `gjithsej_total`, `valuta`, `statusi`, `isDeleted`, `dateUpdated`) VALUES
+(526, 1, 4, '030520236413', 'test', 0, 0, 0, 0, 0, 0, '', 'pa paguar', 0, '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -413,10 +429,10 @@ CREATE TABLE `stafi` (
 --
 
 INSERT INTO `stafi` (`stafiID`, `emri`, `mbiemri`, `titulli`, `emriperdorues`, `fjalekalimi`, `email`, `data_punesimit`, `image`, `isAdmin`, `komment`, `ststatusi`, `dateCreated`, `dateUpdated`, `isDeleted`) VALUES
-(1, 'jetmir', 'qazimi', 'admin', 'jetmir1', '$2y$10$tRPk/jA/xXpEwSkaYU/gHOZ2/XojgJFuCzC4z3UhQpd8YRaslYN2i', NULL, '2021-08-02', 'jetmir.jpg', 1, '', 'aktiv', '2021-08-02 00:00:00', '2021-12-17 22:34:32', 0),
-(2, 'shqipe', 'qazimi', 'shef', 'shqipe', '$2y$10$u1I1jSH.xK/onoLkLjFZ4.QVJ5xEGX5YIhmBHThO1jM8vMU2k9isS', NULL, '2021-12-31', 'katze.jpg', 0, '', 'aktiv', '2021-08-02 00:00:00', '2021-12-17 22:34:32', 0),
-(3, 'test', 'test', 'mr', 'test', '$2y$10$pFZBWv.l5OEN8tnWAeshsOL2mBcHa24/uu0g3QuFfgAybOWHGYjHe', NULL, '2021-08-11', 'meer.jpg', 0, '', 'jo aktiv', '2021-08-28 00:00:00', '2022-11-16 02:33:22', 1),
-(4, 'Neshat', 'Ademi', 'BSc.', 'nesho', '$2y$10$RFTjftS.WkMsuBgUHGjfE.3ut.R1V6YoBrJzXlaXpBRsCyk20V2zO', NULL, '2021-08-29', '612bf1c78500e.jpg', 1, '', 'aktiv', '2021-08-29 00:00:00', '2022-11-16 02:33:19', 0);
+(1, 'jetmir', 'qazimi', 'admin', 'jetmir1', '$2y$10$tRPk/jA/xXpEwSkaYU/gHOZ2/XojgJFuCzC4z3UhQpd8YRaslYN2i', NULL, '2021-08-02', 'jetmir.jpg', 1, '', 'aktiv', '2021-08-02 00:00:00', '2021-12-17 21:34:32', 0),
+(2, 'shqipe', 'qazimi', 'shef', 'shqipe', '$2y$10$u1I1jSH.xK/onoLkLjFZ4.QVJ5xEGX5YIhmBHThO1jM8vMU2k9isS', NULL, '2021-12-31', 'katze.jpg', 0, '', 'aktiv', '2021-08-02 00:00:00', '2021-12-17 21:34:32', 0),
+(3, 'test', 'test', 'mr', 'test', '$2y$10$pFZBWv.l5OEN8tnWAeshsOL2mBcHa24/uu0g3QuFfgAybOWHGYjHe', NULL, '2021-08-11', 'meer.jpg', 0, '', 'jo aktiv', '2021-08-28 00:00:00', '2022-11-16 01:33:22', 1),
+(4, 'Neshat', 'Ademi', 'BSc.', 'nesho', '$2y$10$RFTjftS.WkMsuBgUHGjfE.3ut.R1V6YoBrJzXlaXpBRsCyk20V2zO', NULL, '2021-08-29', '612bf1c78500e.jpg', 1, '', 'aktiv', '2021-08-29 00:00:00', '2022-11-16 01:33:19', 0);
 
 --
 -- Indexes for dumped tables
@@ -503,13 +519,13 @@ ALTER TABLE `stafi`
 -- AUTO_INCREMENT for table `artikujt_per_oferte_fature`
 --
 ALTER TABLE `artikujt_per_oferte_fature`
-  MODIFY `artikujt_perofert_fature_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1096;
+  MODIFY `artikujt_perofert_fature_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1116;
 
 --
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1935;
+  MODIFY `cart_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1947;
 
 --
 -- AUTO_INCREMENT for table `cat_produktet`
@@ -545,7 +561,7 @@ ALTER TABLE `njesit`
 -- AUTO_INCREMENT for table `oferte_fature`
 --
 ALTER TABLE `oferte_fature`
-  MODIFY `ofertatID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=518;
+  MODIFY `ofertatID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=527;
 
 --
 -- AUTO_INCREMENT for table `produktet`

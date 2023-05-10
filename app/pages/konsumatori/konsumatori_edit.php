@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['saveKonsumatori']))
 
   if ($validated === true) {
     // Attempt update query execution
-    $sql = "UPDATE konsumatoret SET emri='$k_emri', mbiemri='$k_mbiemri', firma='$firma', nr_amez='$nr_amez', tip_konsumator='$tip_konsumator', rruga='$rruga', fshati='$fshati', komuna='$komuna', qyteti='$qyteti', shteti='$shteti', adresa_perkohshme='$adresa_perkohshme', mobil='$mobil', email='$email' WHERE konsumatorID=$konsumatorID";
+    $sql = "UPDATE konsumatoret SET k_emri='$k_emri', k_mbiemri='$k_mbiemri', firma='$firma', nr_amez='$nr_amez', tip_konsumator='$tip_konsumator', rruga='$rruga', fshati='$fshati', komuna='$komuna', qyteti='$qyteti', shteti='$shteti', adresa_perkohshme='$adresa_perkohshme', mobil='$mobil', email='$email' WHERE konsumatorID=$konsumatorID";
 
     if ($link->query($sql)) {
       // Save in Historia

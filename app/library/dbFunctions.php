@@ -120,7 +120,7 @@ function getCat()
 {
   $sql = "SELECT * FROM cat_produktet
           WHERE isDeleted = 0";
-  $result = $GLOBALS['link']->query($sql);
+  $result = LINK->query($sql);
 
   if ($result) {
     $row = $result->fetch_all(MYSQLI_ASSOC);

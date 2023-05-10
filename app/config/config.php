@@ -14,9 +14,6 @@ ini_set('error_log', dirname(__DIR__) . '/error.log'); // Logging file path
 // Set the new timezone
 date_default_timezone_set('Europe/Skopje');
 
-
-
-
 //-------------------------------------------------------
 // Database Connection
 //-------------------------------------------------------

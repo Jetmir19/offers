@@ -1,13 +1,6 @@
 <?php
-$count = '';
+$konsumatorID = $emriProduktit = $c_konsumatorID = $c_produktetID = $produktetID = $c_njesiID = $c_emri_produktit = $c_emri_njesis = $c_njesia = $c_tvsh1 = $c_sasia = $c_cmimi_pa_tvsh = $c_vlera_pa_tvsh = $c_vlera_e_tvsh = $c_vlera_me_tvsh = $c_zbritje = $searchProdukt = $pershkrimi_ofertes = "";
 
-$konsumatorID = $emriProduktit = "";
-$c_konsumatorID =  $c_produktetID = $produktetID = $c_njesiID = $c_emri_produktit = $c_emri_njesis = $c_njesia = $c_tvsh1 = $c_sasia = $c_cmimi_pa_tvsh = $c_vlera_pa_tvsh = $c_vlera_e_tvsh = $c_vlera_me_tvsh = $c_zbritje = $searchProdukt = $pershkrimi_ofertes = "";
-?>
-
-
-<?php
-// Save START
 //------------------------------------------------------------
 if (isset($_POST['shtoprodukt']))
 //------------------------------------------------------------
@@ -16,28 +9,32 @@ if (isset($_POST['shtoprodukt']))
     disableFormResubmission();
 
     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $searchProdukt = $_POST['produktetID'];
-    // $searchProdukt2 = $_POST['produktetID'];
-    // $emri_produktit = $_POST['emriProduktit'];
-    // $sasia = $_POST['sasia'];
-    // $c_emri_produktit = mysqli_real_escape_string($link, $_POST['emriProduktit']);
-    // $c_produktetID = mysqli_real_escape_string($link, $_POST['produktetID']);
+
+    $searchProdukt = (int)$_POST['produktetID'];
 
     $validated = true;
     $error = "";
 
-    $sql = "SELECT * FROM produktet
-            LEFT JOIN njesit ON produktet.njesiID=njesit.njesiID
-         -- right join cart ON cart.cart_ID = cart.cart_ID
-            WHERE produktet.produktetID ='$searchProdukt'
-        ";
-
+    // Validate serch input
     if (empty($searchProdukt)) {
         $validated = false;
-        $_SESSION['error'] = "lista per oferta eshte e shprazet";
+        $error .= "Lista per oferta eshte e shprazet";
+    }
+
+    // Check for cart product duplicates
+    $existingCarts = getCart();
+    foreach ($existingCarts as $c) {
+        if ($c['c_produktetID'] == $searchProdukt) {
+            $validated = false;
+            $error .= "Produkti existon ne liste";
+        }
     }
 
     if ($validated === true) {
+        $sql = "SELECT * FROM produktet
+        LEFT JOIN njesit ON produktet.njesiID=njesit.njesiID
+        WHERE produktet.produktetID='$searchProdukt'
+        ";
         $result = mysqli_query($link, $sql);
         if (mysqli_num_rows($result) > 0) {
             while ($res = mysqli_fetch_assoc($result)) {
@@ -45,7 +42,6 @@ if (isset($_POST['shtoprodukt']))
                 $c_produktetID = $res['produktetID'];
                 $c_emri_produktit = $res['emriProduktit'];
                 $c_njesiID = $res['njesiID'];
-
                 $c_tvsh1 = $res['tvsh1'];
                 $c_sasia = $res['sasia'];
                 $c_cmimi_pa_tvsh = $res['cmimiShites'];
@@ -54,41 +50,54 @@ if (isset($_POST['shtoprodukt']))
                 $c_vlera_me_tvsh =  $c_vlera_e_tvsh + $c_vlera_pa_tvsh;
                 $c_zbritje = ($res['zbritje'] / 100) * $c_vlera_pa_tvsh;
 
-                // Check for product duplication
-                $existingCarts = getCart();
-                foreach ($existingCarts as $c) {
-                    if ($c['c_produktetID'] == $c_produktetID) {
-                        $validated = false;
-                        $error .= "Produkti existon ne liste";
-                    }
-                }
-
-                if ($validated === true) {
-                    // Insert into Cart table
-                    $sql2 = "INSERT INTO cart (c_stafiID, c_produktetID, c_njesiID, c_emri_produktit,  c_tvsh1, c_sasia, c_cmimi_pa_tvsh, c_vlera_pa_tvsh, c_vlera_e_tvsh, c_vlera_me_tvsh, c_zbritje) VALUES ('$c_stafiID ', '$c_produktetID', '$c_njesiID', '$c_emri_produktit', '$c_tvsh1','$c_sasia','$c_cmimi_pa_tvsh','$c_vlera_pa_tvsh','$c_vlera_e_tvsh','$c_vlera_me_tvsh','$c_zbritje')";
-                    mysqli_query($link, $sql2);
-                    $_SESSION['success'] = "Produkti me sukses u regjistrua te lista per oferte";
-                } else {
-                    $_SESSION['error'] = $error;
-                }
-
-                // echo "<pre>";
-                // print_r($existingCarts);
-                // die;
+                // Insert into Cart table
+                $sqlInsertCart = "INSERT INTO cart (c_stafiID, c_produktetID, c_njesiID, c_emri_produktit,  c_tvsh1, c_sasia, c_cmimi_pa_tvsh, c_vlera_pa_tvsh, c_vlera_e_tvsh, c_vlera_me_tvsh, c_zbritje) VALUES ('$c_stafiID ', '$c_produktetID', '$c_njesiID', '$c_emri_produktit', '$c_tvsh1','$c_sasia','$c_cmimi_pa_tvsh','$c_vlera_pa_tvsh','$c_vlera_e_tvsh','$c_vlera_me_tvsh','$c_zbritje')";
+                mysqli_query($link, $sqlInsertCart);
+                $_SESSION['success'] = "Produkti me sukses u regjistrua te lista per oferte";
             }
         }
+    } else {
+        $_SESSION['error'] = $error;
     }
 }
 
-if (isset($_POST['submit_komenti'])) {
+//------------------------------------------------------------
+if (isset($_POST['produktDelete']))
+//------------------------------------------------------------
+{
+    // Disable form resubmission on refresh
+    disableFormResubmission();
+
+    $id = htmlspecialchars($_POST['produktDelete']);
+    // Soft delete klient
+    $sql = "DELETE FROM cart WHERE cart_ID = '$id'";
+    if (mysqli_query($link, $sql)) {
+        // Success
+        $_SESSION['error'] = "U fshij me sukses.";
+    } else {
+        // Delete Error
+        $_SESSION['error'] = $link->error;
+        die("Error:" . mysqli_error($link));
+    }
+}
+
+//------------------------------------------------------------
+if (isset($_POST['submit_komenti']))
+//------------------------------------------------------------
+{
     // Disable form resubmission on refresh
     disableFormResubmission();
     submitComment($_POST);
 }
 
-if (isset($_POST['submit_konsumatori'])) {
+//------------------------------------------------------------
+if (isset($_POST['submit_konsumatori']))
+//------------------------------------------------------------
+{
     // Disable form resubmission on refresh
     disableFormResubmission();
+
+    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
     $searchKonsumatori = $_POST['konsumatorID'];
 
@@ -108,10 +117,7 @@ if (isset($_POST['submit_konsumatori'])) {
     }
 
     if ($validated === true) {
-        $sql = "SELECT * FROM konsumatoret  
-        WHERE  konsumatorID='$searchKonsumatori'
-        ";
-        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $sql = "SELECT * FROM konsumatoret WHERE konsumatorID='$searchKonsumatori' ";
         $result = mysqli_query($link, $sql);
 
         if (mysqli_num_rows($result) > 0) {
@@ -128,16 +134,14 @@ if (isset($_POST['submit_konsumatori'])) {
     }
 }
 
-if (isset($_POST['paguaj'])) {
+//------------------------------------------------------------
+if (isset($_POST['paguaj']))
+//------------------------------------------------------------
+{
     // Disable form resubmission on refresh
     disableFormResubmission();
 
     $oferta = $_POST['paguaj'];
-    // $searchProdukt2 = $_POST['produktetID'];
-    // $emri_produktit = $_POST['emriProduktit'];
-    // $sasia = $_POST['sasia'];
-    // $c_emri_produktit = mysqli_real_escape_string($link, $_POST['emriProduktit']);
-    // $c_produktetID = mysqli_real_escape_string($link, $_POST['produktetID']);
 
     // Random unique ID
     $numri_ofertes_fatures = date('dmY') . rand(0000, 9000);
@@ -145,15 +149,36 @@ if (isset($_POST['paguaj'])) {
     $validated = true;
     $error = "";
 
+    // Require at least one product in a cart
+    $requireCart = getCart();
+    if (is_array($requireCart) && count($requireCart) == 0) {
+        $validated = false;
+        $error .= "Nuk ka asnje produkt per oferte!<br>";
+    }
+    // Require konsumatoriID session
+    if (!isset($_SESSION['res2_konsumatorID'])) {
+        $validated = false;
+        $error .= "konsumatorID i detyrueshëm<br>";
+    }
+    // Require pershkrimi_ofertes session
+    if (!isset($_SESSION['pershkrimi_ofertes'])) {
+        $validated = false;
+        $error .= "pershkrimi_ofertes i detyrueshëm<br>";
+    }
+
     if ($validated === true) {
-        $sql = "SELECT * FROM cart";
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $result = mysqli_query($link, $sql);
-        if (mysqli_num_rows($result) > 0) {
-            $countter = 0;
-            while ($resofer = mysqli_fetch_assoc($result)) {
+
+        $countter = 0;
+
+        // Use try catch to catch erors (because of many queries)
+        try {
+            // Start transaction
+            $link->begin_transaction();
+
+            $cart = getCart();
+            foreach ($cart as $resofer) {
                 $countter++;
-                // $a_ofertatID = $_POST['$a_ofertatID'];
                 $a_stafiID = $resofer["c_stafiID"];
                 $a_produktetID = $resofer['c_produktetID'];
                 $a_emri_produktit = $resofer['c_emri_produktit'];
@@ -166,75 +191,60 @@ if (isset($_POST['paguaj'])) {
                 $a_vlera_e_tvsh = ($resofer['c_tvsh1'] / 100) * $a_vlera_pa_tvsh;
                 $a_vlera_me_tvsh =  $a_vlera_e_tvsh + $a_vlera_pa_tvsh;
                 $a_zbritje = ($resofer['c_zbritje'] / 100) * $a_vlera_pa_tvsh;
+                // insert varibales to table oferte_fature
+                $o_gjithsej_sasia += $resofer['c_sasia'];
+                $o_gjithsej_pa_tvsh += $resofer['c_cmimi_pa_tvsh'];
 
-
-                $sql2 = "INSERT INTO artikujt_per_oferte_fature (a_produktetID, konsumatorID, a_stafiID, a_njesiID, a_nr_rendor, a_emri_produktit,  a_tvsh1, a_sasia, a_cmimi_pa_tvsh, a_vlera_pa_tvsh, a_vlera_e_tvsh, a_vlera_me_tvsh, a_zbritje) VALUES ('$a_produktetID','{$_SESSION['res2_konsumatorID']}', '$a_stafiID','$a_njesiID', '$a_nr_rendor', '$a_emri_produktit', '$a_tvsh1','$a_sasia','$a_cmimi_pa_tvsh','$a_vlera_pa_tvsh','$a_vlera_e_tvsh','$a_vlera_me_tvsh','$a_zbritje')";
-                mysqli_query($link, $sql2);
-
-                // $ofertatID = $_POST['$ofertatID'];
-                $stafiID = $_SESSION["stafiID"];
-                $_SESSION['res2_konsumatorID'];
-                $_SESSION['pershkrimi_ofertes'];
-
-                $sql4 = "INSERT INTO oferte_fature (stafiID, konsumatorID, numri_ofertes_fatures, pershkrimi_ofertes) VALUES ('$stafiID','{$_SESSION['res2_konsumatorID']}','$numri_ofertes_fatures','{$_SESSION['pershkrimi_ofertes']}')";
-                mysqli_query($link, $sql4);
-
-                // $sql4 = "INSERT INTO oferte_fature (ofertatID, stafiID, konsumatorID, numri_ofertes_fatures,  pershkrimi_ofertes, statusi, isDeleted) VALUES ('$ofertatID','$konsumatorID','$stafiID','$numri_ofertes_fatures','$pershkrimi_ofertes','$statusi','$isDeleted')";
+                // Insert each cart product into artikujt_per_oferte_fature
+                $link->query("INSERT INTO artikujt_per_oferte_fature (a_produktetID, konsumatorID, a_stafiID, a_njesiID, a_nr_rendor, a_emri_produktit,  a_tvsh1, a_sasia, a_cmimi_pa_tvsh, a_vlera_pa_tvsh, a_vlera_e_tvsh, a_vlera_me_tvsh, a_zbritje) VALUES ('$a_produktetID','{$_SESSION['res2_konsumatorID']}', '$a_stafiID','$a_njesiID', '$a_nr_rendor', '$a_emri_produktit', '$a_tvsh1','$a_sasia','$a_cmimi_pa_tvsh','$a_vlera_pa_tvsh','$a_vlera_e_tvsh','$a_vlera_me_tvsh','$a_zbritje')");
             }
 
-            $sql9 = "SELECT * FROM oferte_fature 
+            // Insert into oferte_fature table
+            $link->query("INSERT INTO oferte_fature (stafiID, konsumatorID, numri_ofertes_fatures, pershkrimi_ofertes, gjithsej_sasia, gjithsej_pa_tvsh) 
+            VALUES ('{$_SESSION['stafiID']}','{$_SESSION['res2_konsumatorID']}','$numri_ofertes_fatures','{$_SESSION['pershkrimi_ofertes']}', '$o_gjithsej_sasia', '$o_gjithsej_pa_tvsh')");
+
+            // Get oferte_fature 'ofertatID' to Update 'artikujt_per_oferte_fature' table
+            $sqlof = "SELECT * FROM oferte_fature 
             LEFT JOIN artikujt_per_oferte_fature ON oferte_fature.ofertatID=artikujt_per_oferte_fature.artikujt_perofert_fature_ID 
             RIGHT JOIN konfigurime ON konfigurime.konfigurimeID=konfigurime.konfigurimeID
             WHERE oferte_fature.isDeleted='0' ORDER BY oferte_fature.ofertatID DESC LIMIT 1";
-            $result = mysqli_query($link, $sql9);
+            $result = mysqli_query($link, $sqlof);
             if (mysqli_num_rows($result) > 0) {
                 while ($resup = mysqli_fetch_assoc($result)) {
                     $ofertatID = $resup['ofertatID'];
 
-                    $sqlup = "UPDATE artikujt_per_oferte_fature SET a_ofertatID='$ofertatID' WHERE  a_ofertatID='0'";
-                    if (mysqli_query($link, $sqlup)) {
-                        $sql5 = "DELETE FROM cart";
+                    // Update 'artikujt_per_oferte_fature' table
+                    $link->query("UPDATE artikujt_per_oferte_fature SET a_ofertatID='$ofertatID' WHERE a_ofertatID='0'");
 
-                        if (mysqli_query($link, $sql5)) {
-                            $_SESSION['success'] = "Oferta me sukses u mbyll";
-                        } else {
-                            $_SESSION['error'] = "Oferta nuk u mbyll";
-                        }
-
-                        unset($_SESSION['res2_konsumatorID']);
-                        unset($_SESSION['res2_k_emri']);
-                        unset($_SESSION['res2_k_mbiemri']);
-                        unset($_SESSION['res2_rruga']);
-                        unset($_SESSION['pershkrimi_ofertes']);
-                        // forceRedirect(APP_URL . "/index.php?page=pagesat_print&id=" . $ofertatID);
-                        header('Location:' . APP_URL . '/index.php?page=pagesat_print&id=' . $ofertatID);
-                        exit;
-                    }
+                    // Delete all from cart table
+                    $link->query("DELETE FROM cart");
                 }
             }
-        } else {
-            $_SESSION['error'] = "Nuk ka asnje produkt per oferte!";
+
+            // Commit changes
+            $link->commit();
+
+            // Everything great
+            $_SESSION['success'] = "Oferta me sukses u mbyll";
+            unset($_SESSION['res2_konsumatorID']);
+            unset($_SESSION['res2_k_emri']);
+            unset($_SESSION['res2_k_mbiemri']);
+            unset($_SESSION['res2_rruga']);
+            unset($_SESSION['pershkrimi_ofertes']);
+            header('Location:' . APP_URL . '/index.php?page=pagesat_print&id=' . $ofertatID);
+        } catch (Exception $e) {
+            // Something went wrong. Rollback
+            $link->rollback();
+            // Save errors in a session
+            $error .= "Oferta nuk u mbyll!<br><br>";
+            $error .= $e->getMessage();
+            $_SESSION['error'] = $error;
         }
+    } else {
+        // Display validation errors
+        $_SESSION['error'] = $error;
     }
 }
-?>
-
-<?php
-// Delete START 
-if (isset($_POST['produktDelete'])) {
-    $id = htmlspecialchars($_POST['produktDelete']);
-    // Soft delete klient
-    $sql = "DELETE FROM cart WHERE cart_ID = '$id'";
-    if (mysqli_query($link, $sql)) {
-        // Soft delete all matesit with konsumatorID
-        // Success
-        $_SESSION['error'] = "U fshij me sukses.";
-    } else {
-        // Update Error
-        $_SESSION['error'] = $link->error;
-        die("Dicka shkoi keq in query $sql and the error is:" . mysqli_error($link));
-    }
-} // Delete END 
 ?>
 
 <div class="container-fluid">
@@ -259,30 +269,24 @@ if (isset($_POST['produktDelete'])) {
                     <div class="card">
                         <h4 class="text-center my-3 pb-3">To Do App</h4>
 
+                        <!-- Shto produkt form -->
                         <form class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2" action="" method="POST">
                             <div class="col-8">
                                 <div class="input-group mb-3">
                                     <!-- <label for="dlist" class="control-label"><?php echo $lang['produktet_list'] ?? "produktet *"; ?></label> -->
-                                    <input list="plist" id="produktetID" name="produktetID" class="form-control" value="<?php echo $produktetID; ?>" autocomplete="off">
-                                    <input type="hidden" id="produktetID" name="$produktetID" class="form-control" value="<?php echo $produktetID; ?>" $produktetID="off">
                                     <?php
                                     echo '<datalist id="plist">';
                                     $produktet = getProduktet();
                                     foreach ($produktet as $produkt) {
-                                        echo "<option value='$produkt[produktetID] $produkt[emriProduktit]'></option>";
+                                        echo "<option value='$produkt[produktetID]'>$produkt[emriProduktit]</option>";
                                     }
                                     echo "</datalist>";
                                     ?>
-                                    <button class="btn btn-outline-secondary" name="shtoprodukt" type="submit" value="shtoprodukt" id="button-addon2"><i class="fa fa-shopping-cart"> Shto produkt</i></button>
+                                    <input list="plist" id="produktetID" name="produktetID" class="form-control" value="<?php echo $produktetID; ?>" autocomplete="off">
+                                    <button class="btn btn-outline-secondary" name="shtoprodukt" type="submit" value="shtoprodukt" id="button-addon2"><i class="fa fa-shopping-cart"></i> Shto produkt</button>
                                 </div>
                                 <i class="fa-solid fa-cart-shopping"></i>
                             </div>
-                            <!-- <div class="col-1">
-                                <button type="submit" name="submit" value="submit" class="btn btn-primary">Save</button>
-                            </div> -->
-                            <!-- <div class="col-1">
-                                <button type="submit" class="btn btn-warning">save</button>
-                            </div> -->
                         </form>
 
                         <div class="table-responsive">
@@ -307,10 +311,9 @@ if (isset($_POST['produktDelete'])) {
 
                                     <?php
                                     $cc_stafiID = $_SESSION["stafiID"];
-                                    // $sql2 = "SELECT * FROM cart WHERE isDeleted = 0";
-                                    $sql2 = " SELECT * FROM cart 
+                                    $sql2 = "SELECT * FROM cart 
                                     INNER JOIN njesit ON cart.c_njesiID=njesit.njesiID 
-                                    WHERE  c_stafiID='$cc_stafiID' AND cart.isDeleted=njesit.isDeleted";
+                                    WHERE c_stafiID='$cc_stafiID' AND cart.isDeleted=njesit.isDeleted";
 
                                     $result2 = $link->query($sql2);
 
@@ -330,8 +333,6 @@ if (isset($_POST['produktDelete'])) {
                                             $vlera_me_tvsh_total += $rowcarte['c_vlera_me_tvsh'];
                                             $c_zbritje_total += $rowcarte['c_zbritje'];
                                     ?>
-
-
                                             <tr>
                                                 <td><?php echo $count ?? ''; ?>
                                                     <!-- <td><?php echo $rowcarte['c_nr_rendor'] ?? ''; ?> -->
@@ -345,19 +346,17 @@ if (isset($_POST['produktDelete'])) {
                                                 </td>
                                                 <!-- <td><?php echo $rowcarte['c_tvsh1'] ?? ''; ?></td> -->
                                                 <td><?php echo $rowcarte['c_cmimi_pa_tvsh'] ?? ''; ?></td>
-                                                <td><?php echo $rowcarte['c_vlera_pa_tvsh'] ?? ''; ?></td>
+                                                <td class="c_vlera_pa_tvsh"><?php echo $rowcarte['c_vlera_pa_tvsh'] ?? ''; ?></td>
                                                 <td><?php echo $rowcarte['c_vlera_e_tvsh'] ?? ''; ?> (<?php echo $rowcarte['c_tvsh1'] ?? ''; ?>%)</td>
                                                 <td><?php echo $rowcarte['c_zbritje'] ?? ''; ?>(<?php echo $rowcarte['c_zbritje'] ?? ''; ?>%)</td>
                                                 <td><?php echo $rowcarte['c_vlera_me_tvsh'] ?? ''; ?></td>
                                                 <!-- <td>In progress</td> -->
-
                                                 <td>
                                                     <form class="frmDelete" action="?page=pagesat&id=<?php echo $rowcarte['cart_ID']; ?>" method="POST">
                                                         <input type="hidden" name="produktDelete" value="<?php echo $rowcarte['cart_ID']; ?>">
                                                         <button class="btn" type="submit"><i class="far fa-trash-alt fa-lg text-danger"></i></button>
                                                     </form>
                                                 </td>
-
                                             </tr>
 
                                     <?php
@@ -372,7 +371,6 @@ if (isset($_POST['produktDelete'])) {
 
                                     ?>
 
-
                                 </tbody>
                                 <!-- <tfoot>
                                     <tr class="mt-3">
@@ -386,18 +384,14 @@ if (isset($_POST['produktDelete'])) {
                                     </tr>
                                 </tfoot> -->
                             </table>
-
-
                         </div>
-
                     </div>
                 </div><!-- card-body END -->
-
-
 
                 <div class="col-sm-4 mt-4">
                     <p class="fw-bold pt-lg-0 pt-4 pb-2">Payment Summary</p>
 
+                    <!-- Shto komment form -->
                     <form action="" method="post">
                         <div class="mb-3">
                             <label for="pershkrimi_ofertes" class="form-label">Pershkrimi ofertes</label>
@@ -406,6 +400,7 @@ if (isset($_POST['produktDelete'])) {
                         </div>
                     </form>
 
+                    <!-- Shto konsumator form -->
                     <form action="" method="post">
                         <div class="input-group mb-3">
                             <!-- <label for="dlist" class="control-label"><?php echo $lang['produktet_list'] ?? "produktet *"; ?></label> -->
@@ -422,6 +417,7 @@ if (isset($_POST['produktDelete'])) {
                         </div>
                     </form>
 
+                    <!-- Paguaj form -->
                     <form action="" method="post">
                         <div class="card px-md-3 px-2 pt-4">
                             <div class="unregistered mb-4"> <span class="py-1">Te dhenat e klientit </span> </div>
@@ -454,7 +450,7 @@ if (isset($_POST['produktDelete'])) {
                                     <p><?php echo  $c_zbritje_total; ?></p>
                                 </div>
                                 <div class="d-flex justify-content-between py-1"> <small class="text-muted">Gjithsej vlera e TVSH-se</small>
-                                    <p><?php echo  $vlera_e_tvsh_total; ?></p>
+                                    <p id="vlera_e_tvsh_total"><?php echo  $vlera_e_tvsh_total; ?></p>
                                 </div>
                                 <div class="d-flex justify-content-between pb-3"> <small class="text-muted">Gjithsej vlera me TVSH</small>
                                     <p><?php echo  $vlera_me_tvsh_total; ?></p>
@@ -464,20 +460,13 @@ if (isset($_POST['produktDelete'])) {
                                 </div>
                             </div>
                             <div class="sale my-3"> <span>sale<span class="px-1">expiring</span><span>in</span>:</span><span class="red">21<span class="ps-1">hours</span>,31<span class="ps-1 ">minutes</span></span> </div>
-                            <button class="btn btn-outline-secondary" name="paguaj" type="submit" value="paguaj" id="button-addon2"><i class="fa fa-shopping-cart"> Mbyll oferten</i></button>
+                            <button class="btn btn-outline-secondary" name="paguaj" type="submit" value="paguaj" id="button-addon2"><i class="fa fa-shopping-cart"></i> Mbyll oferten</button>
                         </div>
                     </form>
-
-
                 </div>
-
             </div>
         </div>
-</div>
-
-</div>
-
-</div> <!-- container END -->
+</div><!-- container END -->
 
 <script>
     // Get Sasia total element
@@ -490,8 +479,11 @@ if (isset($_POST['produktDelete'])) {
             // Clear the sTotalElement
             sTotalElement.textContent = "";
 
+            // Sasia
             let c_sasia = el.value;
             let cartId = el.getAttribute("data-cartId");
+
+            // Update in database
             fetch(`app/pages/pagesat/cart/cart_edit.php?cartId=${cartId}&sasia=${c_sasia}`)
                 .then(response => response.json())
                 .then(data => console.log(data))
@@ -499,10 +491,18 @@ if (isset($_POST['produktDelete'])) {
 
             // Update sasia total
             let total = 0;
+            let closest = null;
             qtyInputs.forEach(function(input) {
+                // td - c_vlera_pa_tvsh
+                // console.log(cvpt);
+                closest = cvpt.closest('td.c_vlera_pa_tvsh');
+
                 total += parseInt(input.value);
             })
+            console.log(closest);
             sTotalElement.textContent = total;
+
+
         };
     });
 </script>

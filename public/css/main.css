@@ -70,7 +70,7 @@ When closing the first modal and open up the second one to make scrolling work
 td,
 th {
   width: 0.1%;
-  white-space: nowrap;
+  white-space: nowrap !important;
 }
 
 textarea {
