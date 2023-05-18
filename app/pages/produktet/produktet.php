@@ -53,7 +53,7 @@ if ($result && $result->num_rows < 1) {
 
     <!-- Header Title START -->
     <div class="pt-3 pb-2 mb-3 d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom">
-        <h2><i class="fas fa-faucet fa-fw"></i> Produktet</h2>
+        <h2><i class="fab fa-product-hunt fa-fw"></i> Produktet</h2>
         <a href="<?php echo APP_URL; ?>/index.php?page=produktet_new" class="btn btn-success">
             <i class="fas fa-plus"></i> Krijo
         </a>

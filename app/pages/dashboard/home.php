@@ -57,34 +57,33 @@
                     <p class="text-uppercase text-secondary mb-0">Matësit</p>
                     <h3 class="font-weight-bold mb-0">
                         <?php
-                        $sql = mysqli_query($link, "SELECT * FROM matesi WHERE isDeleted = 0");
-                        $num_rows = mysqli_num_rows($sql);
-                        echo "$num_rows \n";
+                        // $sql = mysqli_query($link, "SELECT * FROM matesi WHERE isDeleted = 0");
+                        // $num_rows = mysqli_num_rows($sql);
+                        // echo "$num_rows \n";
                         ?>
                     </h3>
                 </div>
                 <div class="bg-white p-3">
                     <p class="font-weight-bold mb-0">Aktiv -
                         <?php
-                        $sql = mysqli_query($link, "SELECT * FROM matesi WHERE mastatusi = 'aktiv' AND isDeleted = 0 ");
-                        $num_rows = mysqli_num_rows($sql);
-                        echo "$num_rows";
+                        // $sql = mysqli_query($link, "SELECT * FROM matesi WHERE mastatusi = 'aktiv' AND isDeleted = 0 ");
+                        // $num_rows = mysqli_num_rows($sql);
+                        // echo "$num_rows";
                         ?>
                     </p>
 
                     <p class="font-weight-bold mb-0">Inaktiv -
                         <?php
-                        $sql = mysqli_query($link, "SELECT * FROM matesi WHERE mastatusi = 'inaktiv' AND isDeleted = 0 ");
-                        $num_rows = mysqli_num_rows($sql);
-                        echo "$num_rows";
+                        // $sql = mysqli_query($link, "SELECT * FROM matesi WHERE mastatusi = 'inaktiv' AND isDeleted = 0 ");
+                        // $num_rows = mysqli_num_rows($sql);
+                        // echo "$num_rows";
                         ?>
                     </p>
-
                 </div>
             </div>
         </div> <!-- ************** Matësi END ************** -->
 
-        <!-- ************** Leximi START ************** -->
+        <!-- ************** Produktet ************** -->
         <div class="col-md-6 mb-3">
             <div class="d-flex flex-wrap border">
                 <div class="bg-secondary text-light p-3">
@@ -93,37 +92,37 @@
                     </div>
                 </div>
                 <div class="bg-white p-3">
-                    <p class="text-uppercase text-secondary mb-0">Leximi</p>
+                    <p class="text-uppercase text-secondary mb-0">Produktet</p>
                     <h3 class="font-weight-bold mb-0">
                         <?php
-                        $sql = mysqli_query($link, "SELECT * FROM leximi WHERE isDeleted = 0");
+                        $sql = mysqli_query($link, "SELECT * FROM produktet WHERE isDeleted = 0");
                         $num_rows = mysqli_num_rows($sql);
                         echo "$num_rows \n";
                         ?>
                     </h3>
                 </div>
                 <div class="bg-white p-3">
-                    <p class="font-weight-bold mb-0">Të paguara -
-                        <?php
-                        $sql = mysqli_query($link, "SELECT * FROM leximi WHERE lestatusi = 'paguar' AND isDeleted = 0 ");
-                        $num_rows = mysqli_num_rows($sql);
-                        echo "$num_rows";
-                        ?>
+                    <!-- <p class="font-weight-bold mb-0">Të paguara - -->
+                    <?php
+                    // $sql = mysqli_query($link, "SELECT * FROM leximi WHERE lestatusi = 'paguar' AND isDeleted = 0 ");
+                    // $num_rows = mysqli_num_rows($sql);
+                    // echo "$num_rows";
+                    ?>
                     </p>
 
-                    <p class="font-weight-bold mb-0">Pa paguara -
-                        <?php
-                        $sql = mysqli_query($link, "SELECT * FROM leximi WHERE lestatusi = 'pa paguar' AND isDeleted = 0 ");
-                        $num_rows = mysqli_num_rows($sql);
-                        echo "$num_rows";
-                        ?>
+                    <!-- <p class="font-weight-bold mb-0">Pa paguara - -->
+                    <?php
+                    // $sql = mysqli_query($link, "SELECT * FROM leximi WHERE lestatusi = 'pa paguar' AND isDeleted = 0 ");
+                    // $num_rows = mysqli_num_rows($sql);
+                    // echo "$num_rows";
+                    ?>
                     </p>
 
                 </div>
             </div>
         </div> <!-- ************** Leximi END ************** -->
 
-        <!-- ************** Faturat e Leximit START ************** -->
+        <!-- ************** Faturat ************** -->
         <div class="col-md-6 mb-3">
             <div class="d-flex flex-wrap border">
                 <div class="bg-danger text-light p-3">
@@ -135,7 +134,7 @@
                     <p class="text-uppercase text-secondary mb-0">Faturat</p>
                     <h3 class="font-weight-bold mb-0">
                         <?php
-                        $sql = mysqli_query($link, "SELECT * FROM fatura_leximi WHERE isDeleted = 0");
+                        $sql = mysqli_query($link, "SELECT * FROM oferte_fature WHERE isDeleted = 0");
                         $num_rows = mysqli_num_rows($sql);
                         echo "$num_rows \n";
                         ?>
@@ -195,10 +194,10 @@
                 <hr>
                 <p class="text-muted">
                     <?php
-                    $sql = "SELECT SUM(gjithsej_kubik) AS gjithsej_kubik FROM fatura_leximi WHERE isDeleted = 0";
-                    $result = $link->query($sql);
-                    $row = $result->fetch_assoc();
-                    echo "\n" . $row['gjithsej_kubik'];
+                    // $sql = "SELECT SUM(gjithsej_kubik) AS gjithsej_kubik FROM fatura_leximi WHERE isDeleted = 0";
+                    // $result = $link->query($sql);
+                    // $row = $result->fetch_assoc();
+                    // echo "\n" . $row['gjithsej_kubik'];
                     ?>
                 </p>
             </div>
@@ -211,10 +210,10 @@
                 <hr>
                 <p class="text-muted">
                     <?php
-                    $sql = "SELECT SUM(gjithsej_pa_tvsh) AS gjithsej_pa_tvsh FROM fatura_leximi WHERE isDeleted = 0";
-                    $result = $link->query($sql);
-                    $row = $result->fetch_assoc();
-                    echo "\n" . $row['gjithsej_pa_tvsh'];
+                    // $sql = "SELECT SUM(gjithsej_pa_tvsh) AS gjithsej_pa_tvsh FROM fatura_leximi WHERE isDeleted = 0";
+                    // $result = $link->query($sql);
+                    // $row = $result->fetch_assoc();
+                    // echo "\n" . $row['gjithsej_pa_tvsh'];
                     ?>
                 </p>
             </div>
@@ -227,10 +226,10 @@
                 <hr>
                 <p class="text-muted">
                     <?php
-                    $sql = "SELECT SUM(gjithsej_e_tvsh) AS gjithsej_e_tvsh FROM fatura_leximi WHERE isDeleted = 0";
-                    $result = $link->query($sql);
-                    $row = $result->fetch_assoc();
-                    echo "\n" . $row['gjithsej_e_tvsh'];
+                    // $sql = "SELECT SUM(gjithsej_e_tvsh) AS gjithsej_e_tvsh FROM fatura_leximi WHERE isDeleted = 0";
+                    // $result = $link->query($sql);
+                    // $row = $result->fetch_assoc();
+                    // echo "\n" . $row['gjithsej_e_tvsh'];
                     ?>
                 </p>
             </div>
@@ -243,10 +242,10 @@
                 <hr>
                 <p class="text-muted">
                     <?php
-                    $sql = "SELECT SUM(gjithsej_me_tvsh) AS gjithsej_me_tvsh FROM fatura_leximi WHERE isDeleted = 0";
-                    $result = $link->query($sql);
-                    $row = $result->fetch_assoc();
-                    echo "\n" . $row['gjithsej_me_tvsh'];
+                    // $sql = "SELECT SUM(gjithsej_me_tvsh) AS gjithsej_me_tvsh FROM fatura_leximi WHERE isDeleted = 0";
+                    // $result = $link->query($sql);
+                    // $row = $result->fetch_assoc();
+                    // echo "\n" . $row['gjithsej_me_tvsh'];
                     ?>
                 </p>
             </div>
@@ -259,10 +258,10 @@
                 <hr>
                 <p class="text-muted">
                     <?php
-                    $sql = "SELECT SUM(gjithsej_amnesti) AS gjithsej_amnesti FROM fatura_leximi WHERE isDeleted = 0";
-                    $result = $link->query($sql);
-                    $row = $result->fetch_assoc();
-                    echo "\n" . $row['gjithsej_amnesti'];
+                    // $sql = "SELECT SUM(gjithsej_amnesti) AS gjithsej_amnesti FROM fatura_leximi WHERE isDeleted = 0";
+                    // $result = $link->query($sql);
+                    // $row = $result->fetch_assoc();
+                    // echo "\n" . $row['gjithsej_amnesti'];
                     ?>
                 </p>
             </div>
@@ -275,10 +274,10 @@
                 <hr>
                 <p class="text-muted">
                     <?php
-                    $sql = "SELECT SUM(gjithsej_total) AS gjithsej_total FROM fatura_leximi WHERE isDeleted = 0";
-                    $result = $link->query($sql);
-                    $row = $result->fetch_assoc();
-                    echo "\n" . $row['gjithsej_total'];
+                    // $sql = "SELECT SUM(gjithsej_total) AS gjithsej_total FROM fatura_leximi WHERE isDeleted = 0";
+                    // $result = $link->query($sql);
+                    // $row = $result->fetch_assoc();
+                    // echo "\n" . $row['gjithsej_total'];
                     ?>
                 </p>
             </div>

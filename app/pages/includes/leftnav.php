@@ -66,7 +66,7 @@ $require_configurime = $_SESSION["require_konfigurime_style"] ?? '';
             <!-- Produktet -->
             <li class="nav-item <?php activeButton(['produktet', 'produktet_new', 'produktet_edit']); ?>">
                 <button class="dropdown-btn" <?= $require_configurime ?>>
-                    <i class="fab fa-product-hunt"></i>Produktet<i class="fa fa-caret-down fa-fw"></i>
+                    <i class="fa fa-cart-plus fa-fw"></i>Produktet<i class="fa fa-caret-down fa-fw"></i>
                 </button>
                 <div class="dropdown-container">
                     <a href="index.php?page=produktet" class="<?php activeLink('produktet'); ?>">
@@ -102,7 +102,8 @@ $require_configurime = $_SESSION["require_konfigurime_style"] ?? '';
             <!-- Pagesa -->
             <li class="nav-item <?php activeButton('pagesat'); ?>">
                 <a href="index.php?page=pagesat" class="one-link" <?= $require_configurime ?>>
-                    <i class="fas fa-inventory"></i>pagesat
+                    <i class="fas fa-cash-register fa-fw"></i>pagesat
+
                 </a>
             </li>
 

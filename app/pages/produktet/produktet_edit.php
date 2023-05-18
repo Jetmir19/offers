@@ -94,7 +94,7 @@ if (isset($_GET['id']))
 
             <!-- Header Title START -->
             <div class="pt-3 pb-2 d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom">
-                <h2><i class="fas fa-faucet fa-fw"></i> Ndrysho Matësin</h2>
+                <h2><i class="fab fa-product-hunt fa-fw"></i> Ndrysho Matësin</h2>
             </div>
             <!-- Header Title END -->
 

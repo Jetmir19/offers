@@ -1,22 +1,20 @@
-<div class="container-fluid">
+<div id="#print_area" class="container-fluid">
 
     <!-- Display Session Messages-->
-    <?php echo session_message(); ?>
-
     <?php
+    echo session_message();
 
     $fatura_printID = filter_input(INPUT_GET, "id", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
     $prow = getofertatPrint($fatura_printID);
     $konsID = $prow["konsumatorID"];
 
-    // $konsID = $prow["konsumatorID"];
-    // $konsID = $prow["konsumatorID"];
-
     // Get a single stafi
     $stafi = getStafiById($_SESSION["stafiID"]);
     $config = getKonfigurime(1);
     ?>
+
+    <button type="button" class="btn btn-success px-4" id="action-btn" name="action-btn">Print</button>
 
     <div class="card">
         <div class="card-header">
@@ -93,15 +91,16 @@
                     <thead>
                         <tr>
                             <th>nr/бр</th>
-                            <th>Emri produktit/Име на продукт</th>
-                            <th>Serial/Сериал</th>
-                            <th>Sasia/количина</th>
-                            <th>Çmimi/Цена<br> pa tvsh/без ддв</th>
-                            <th>Vlera/Вредност <br>pa tvsh/без ддв</th>
-                            <th>Vlera/Вредност<br> e tvsh/на ддв</th>
-                            <th>Vlera/Вреддонст <br>me tvsh/со ддв</th>
-                            <th>Shuma e/Вкупно<br>zbritjes %/попуст на %</th>
-                            <th>Shuma total/Вкупно</th>
+                            <th>Emri produktit <br>
+                                Име на продукт</th>
+                            <!-- <th>Serial/Сериал</th> -->
+                            <th>Sasia<br>количина</th>
+                            <th>Çmimi pa tvsh<br>Цена без ддв</th>
+                            <th>Vlera pa tvsh<br>Износ без ддв</th>
+                            <th>Vlera e tvsh<br> Износ на ддв</th>
+                            <th>Vlera me tvsh<br>Износ со ддв</th>
+                            <th>Shuma e zbritjes %<br>Вкупно попуст %</th>
+                            <th>Shuma total<br>Вкупно</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -114,7 +113,7 @@
                                 <tr>
                                     <td><i><?= $arow['a_nr_rendor'] ?></i></td>
                                     <td><i><?= $arow['a_emri_produktit'] ?></i></td>
-                                    <td><i><?= $arow['a_nr_serial'] ?></i></td>
+                                    <!-- <td><i><?= $arow['a_nr_serial'] ?></i></td> -->
                                     <td><b><i><?= $arow['a_sasia'] ?></i></b></td>
                                     <td><b><i><?= $arow['a_cmimi_pa_tvsh'] ?></i></b> </td>
                                     <td><b><i><?= $arow['a_vlera_pa_tvsh'] ?></i></b></td>
@@ -159,7 +158,7 @@
                                         <td class="text-right"><?= $prow['gjithsej_pa_tvsh'] . ' ' . $config['valuta'] ?></td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Gjithsej vlera e TVSH-se (%)/Вкупно вредност на ДДВ (%)</strong></td>
+                                        <td><strong>Gjithsej vlera e TVSH-se (%)/Вкупно вредност со ДДВ (%)</strong></td>
                                         <td class="text-right"><?= $prow['gjithsej_e_tvsh'] . ' ' . $config['valuta'] ?></td>
                                     </tr>
                                     <tr>
@@ -171,7 +170,7 @@
                                         <td class="text-right"><?= $prow['gjithsej_zbritje'] . ' ' . $config['valuta'] ?></td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Gjithsej/Вкупно</strong></td>
+                                        <td><strong>Shuma Total/Вкупно</strong></td>
                                         <td class="text-right"><?= $prow['gjithsej_total'] . ' ' . $config['valuta'] ?></td>
                                     </tr>
                                 </table>
@@ -189,7 +188,7 @@
                     <tbody>
                         <tr>
                             <td>
-                                <div class="d-flex justify-content-between">
+                                <div class="d-flex flex-wrap justify-content-between">
                                     <div>
                                         <h6 class="mb-4">Kasier/Предал: <span class="text-muted"><?= $prow["emri"] . ' ' . $prow["mbiemri"] ?></span></h6>
                                         <div>___________________________</div>
@@ -216,3 +215,13 @@
     </div> <!-- card end -->
 
 </div> <!-- container END -->
+
+<script>
+    // Modal action button (Print button)
+    let btnActionModal = document.querySelector("#action-btn");
+    let lef_nav = document.querySelector("#left-nav");
+    if (btnActionModal != null) {
+        // Click print button from the modal
+        btnActionModal.onclick = () => print();
+    }
+</script>

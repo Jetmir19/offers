@@ -8,9 +8,8 @@ if (isset($_POST['konsumatorDelete'])) {
     // Soft delete klient
     $sql = "UPDATE konsumatoret SET isDeleted = '1' WHERE konsumatorID = '$id'";
     if (mysqli_query($link, $sql)) {
-        // Soft delete all matesit with konsumatorID
-        $sqlMat = "UPDATE matesi SET isDeleted = '1' WHERE konsumatorID = '$id'";
-        if (mysqli_query($link, $sqlMat)) {
+
+        if (mysqli_query($link, $sql)) {
             // Save in Historia
             saveHistoria('delete', 'konsumatori', 'U fshij me sukses.', 'success');
             // Success

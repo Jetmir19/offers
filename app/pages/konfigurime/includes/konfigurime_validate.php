@@ -8,8 +8,6 @@ $kontakt_person = mysqli_real_escape_string($link, $_POST['kontakt_person']);
 $mobil = mysqli_real_escape_string($link, $_POST['mobil']);
 $email = mysqli_real_escape_string($link, $_POST['email']);
 $web = mysqli_real_escape_string($link, $_POST['web']);
-$cmimi_kubik = mysqli_real_escape_string($link, $_POST['cmimi_kubik']);
-$cmimi_kycjes = mysqli_real_escape_string($link, $_POST['cmimi_kycjes']);
 $njesia = mysqli_real_escape_string($link, $_POST['njesia']);
 $valuta = mysqli_real_escape_string($link, $_POST['valuta']);
 $tvsh = mysqli_real_escape_string($link, $_POST['tvsh']);
@@ -116,36 +114,9 @@ if (empty($_POST["web"])) {
     }
 }
 
-if (empty($_POST["cmimi_kubik"])) {
-    $validated = false;
-    $cmimi_kubikErr = "Çmimi për kubik i detyrueshëm";
-} else {
-    // $cmimi_kubik = clean_input($_POST["cmimi_kubik"]);
-    // check if name only contains letters and whitespace
 
-    //old
-    // if (!preg_match('/^[0-9]+$/', $cmimi_kubik)) {
-    //     $validated = false;
-    //     $cmimi_kubikErr = "Lejohen vetëm numra pa hapësirë";
-    // }
-    //new
-    if (!preg_match('/^[\-+]?[0-9]*\.*\,?[0-9]+$/', $cmimi_kubik)) {
-        $validated = false;
-        $cmimi_kubikErr = "Lejohen vetëm numra pa hapësirë";
-    }
-}
 
-if (empty($_POST["cmimi_kycjes"])) {
-    $validated = false;
-    $cmimi_kycjesErr = "Çmimi i kyçjes i detyrueshëm";
-} else {
-    $cmimi_kycjes = clean_input($_POST["cmimi_kycjes"]);
-    // check if name only contains letters and whitespace
-    if (!preg_match('/^[\-+]?[0-9]*\.*\,?[0-9]+$/', $cmimi_kycjes)) {
-        $validated = false;
-        $cmimi_kycjesErr = "Lejohen vetëm numra pa hapësirë";
-    }
-}
+
 
 if (empty($_POST["njesia"])) {
     $njesiaErr = "";

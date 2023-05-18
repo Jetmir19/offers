@@ -1,8 +1,8 @@
 <?php
 // define variables and set to empty values
-$fshati = $komuna = $qyteti = $shteti = $kontakt_person = $mobil = $email = $web = $cmimi_kubik = $cmimi_kycjes = $njesia = $valuta = $tvsh = $tvsh2 = $banka = $xhirollogaria = $tekst = $tekst2 = $logo1 = $logo2 = "";
+$fshati = $komuna = $qyteti = $shteti = $kontakt_person = $mobil = $email = $web  = $njesia = $valuta = $tvsh = $tvsh2 = $banka = $xhirollogaria = $tekst = $tekst2 = $logo1 = $logo2 = "";
 
-$fshatiErr = $komunaErr = $qytetiErr = $shtetiErr = $kontakt_personErr = $mobilErr = $emailErr = $webErr = $cmimi_kubikErr = $cmimi_kycjesErr = $njesiaErr = $valutaErr = $tvshErr = $tvsh2Err = $bankaErr = $xhirollogariaErr = $tekstErr = $tekst2Err = $logo1Err = $logo2Err = "";
+$fshatiErr = $komunaErr = $qytetiErr = $shtetiErr = $kontakt_personErr = $mobilErr = $emailErr = $webErr  =  $njesiaErr = $valutaErr = $tvshErr = $tvsh2Err = $bankaErr = $xhirollogariaErr = $tekstErr = $tekst2Err = $logo1Err = $logo2Err = "";
 
 // Save START
 //------------------------------------------------------------
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['saveKonfigurime']))
             }
 
             // Attempt Update query
-            $sql = "UPDATE konfigurime SET fshati='$fshati', komuna='$komuna', qyteti='$qyteti', shteti='$shteti', kontakt_person='$kontakt_person', mobil='$mobil', email='$email', web='$web', cmimi_kubik='$cmimi_kubik', cmimi_kycjes='$cmimi_kycjes',  njesia='$njesia', valuta='$valuta', tvsh='$tvsh', tvsh2='$tvsh2', banka='$banka', xhirollogaria='$xhirollogaria', tekst='$tekst', tekst2='$tekst2', logo1='$logo1', logo2='$logo2' WHERE konfigurimeID=1";
+            $sql = "UPDATE konfigurime SET fshati='$fshati', komuna='$komuna', qyteti='$qyteti', shteti='$shteti', kontakt_person='$kontakt_person', mobil='$mobil', email='$email', web='$web',    njesia='$njesia', valuta='$valuta', tvsh='$tvsh', tvsh2='$tvsh2', banka='$banka', xhirollogaria='$xhirollogaria', tekst='$tekst', tekst2='$tekst2', logo1='$logo1', logo2='$logo2' WHERE konfigurimeID=1";
 
             if ($link->query($sql)) {
                 // Save in Historia
@@ -165,24 +165,7 @@ if ($row) {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group row">
-                                <div class="col">
-                                    <label for="cmimi_kubik" class="control-label">Çmimi për kubik</label>
-                                    <input class="form-control error <?php echo $cmimi_kubikErr ? 'is-invalid' : ''; ?>" id="cmimi_kubik" name="cmimi_kubik" value="<?php echo $row['cmimi_kubik'] ?>">
-                                    <span class="invalid-feedback" id="invalid-feedback"><?php echo $cmimi_kubikErr; ?></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group row">
-                                <div class="col">
-                                    <label for="cmimi_kycjes" class="control-label">Çmimi i Kyçjes</label>
-                                    <input class="form-control error <?php echo $cmimi_kycjesErr ? 'is-invalid' : ''; ?>" id="cmimi_kycjes" name="cmimi_kycjes" value="<?php echo $row['cmimi_kycjes'] ?>">
-                                    <span class="invalid-feedback" id="invalid-feedback"><?php echo $cmimi_kycjesErr; ?></span>
-                                </div>
-                            </div>
-                        </div>
+
                         <div class="col-md-4">
                             <div class="form-group row">
                                 <div class="col">
@@ -258,7 +241,7 @@ if ($row) {
                         <div class="col-md-6">
                             <div class="form-group row">
                                 <div class="col">
-                                    <label for="logo1" class="control-label">Logo1 e ujësjellesit</label>
+                                    <label for="logo1" class="control-label">Logo1</label>
                                     <input type="file" class="form-control error" id="logo1" name="logo1" style="padding-bottom: 35px;">
                                     <span class="help-block text-danger"><?php echo $logo1Err; ?></span>
                                     <div id="preview_logo1">
@@ -270,7 +253,7 @@ if ($row) {
                         <div class="col-md-6">
                             <div class="form-group row">
                                 <div class="col">
-                                    <label for="logo2" class="control-label">Logo2 e ujësjellesit</label>
+                                    <label for="logo2" class="control-label">Logo2</label>
                                     <input type="file" class="form-control error" id="logo2" name="logo2" style="padding-bottom: 35px;">
                                     <span class="help-block text-danger"><?php echo $logo2Err; ?></span>
                                     <div id="preview_logo2">

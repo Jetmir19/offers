@@ -193,15 +193,18 @@ if (isset($_POST['paguaj']))
                 $a_zbritje = ($resofer['c_zbritje'] / 100) * $a_vlera_pa_tvsh;
                 // insert varibales to table oferte_fature
                 $o_gjithsej_sasia += $resofer['c_sasia'];
-                $o_gjithsej_pa_tvsh += $resofer['c_cmimi_pa_tvsh'];
+                $o_gjithsej_pa_tvsh += $resofer['c_vlera_pa_tvsh'];
+                $o_gjithsej_e_tvsh += $resofer['c_vlera_e_tvsh'];
+                $o_gjithsej_me_tvsh += $resofer['c_vlera_me_tvsh'];
+
 
                 // Insert each cart product into artikujt_per_oferte_fature
                 $link->query("INSERT INTO artikujt_per_oferte_fature (a_produktetID, konsumatorID, a_stafiID, a_njesiID, a_nr_rendor, a_emri_produktit,  a_tvsh1, a_sasia, a_cmimi_pa_tvsh, a_vlera_pa_tvsh, a_vlera_e_tvsh, a_vlera_me_tvsh, a_zbritje) VALUES ('$a_produktetID','{$_SESSION['res2_konsumatorID']}', '$a_stafiID','$a_njesiID', '$a_nr_rendor', '$a_emri_produktit', '$a_tvsh1','$a_sasia','$a_cmimi_pa_tvsh','$a_vlera_pa_tvsh','$a_vlera_e_tvsh','$a_vlera_me_tvsh','$a_zbritje')");
             }
 
             // Insert into oferte_fature table
-            $link->query("INSERT INTO oferte_fature (stafiID, konsumatorID, numri_ofertes_fatures, pershkrimi_ofertes, gjithsej_sasia, gjithsej_pa_tvsh) 
-            VALUES ('{$_SESSION['stafiID']}','{$_SESSION['res2_konsumatorID']}','$numri_ofertes_fatures','{$_SESSION['pershkrimi_ofertes']}', '$o_gjithsej_sasia', '$o_gjithsej_pa_tvsh')");
+            $link->query("INSERT INTO oferte_fature (stafiID, konsumatorID, numri_ofertes_fatures, pershkrimi_ofertes, gjithsej_sasia, gjithsej_pa_tvsh, gjithsej_e_tvsh, gjithsej_me_tvsh) 
+            VALUES ('{$_SESSION['stafiID']}','{$_SESSION['res2_konsumatorID']}','$numri_ofertes_fatures','{$_SESSION['pershkrimi_ofertes']}', '$o_gjithsej_sasia', '$o_gjithsej_pa_tvsh', '$o_gjithsej_e_tvsh', '$o_gjithsej_me_tvsh')");
 
             // Get oferte_fature 'ofertatID' to Update 'artikujt_per_oferte_fature' table
             $sqlof = "SELECT * FROM oferte_fature 
@@ -252,7 +255,7 @@ if (isset($_POST['paguaj']))
 <div class="container-fluid">
     <!-- Header Title START -->
     <div class="pt-3 pb-2 d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom">
-        <h2><i class="fas fa-faucet fa-fw"></i>
+        <h2><i class="fas fa-money-check-alt fa-fw"></i>
             <?php echo $replaceTitle ?? 'Krijo Pagese' ?>
         </h2>
     </div> <!-- Header Title END -->
@@ -297,15 +300,16 @@ if (isset($_POST['paguaj']))
                                     <tr>
                                         <th scope="col">No.</th>
                                         <th scope="col">Emri produktit</th>
-                                        <th scope="col">Emri<br>njesis</th>
+                                        <!-- <th scope="col">Emri<br>njesis</th> -->
                                         <th scope="col">Njesia</th>
                                         <th scope="col">sasia</th>
                                         <!-- <th  scope="col">tvsh</th> -->
                                         <th scope="col">cmimi<br>pa tvsh</th>
                                         <th scope="col">Vlera<br>pa tvsh</th>
-                                        <th scope="col">vlerae tvsh</th>
+                                        <th scope="col">vlera e tvsh</th>
+                                        <th scope="col">Vlera<br>me tvsh</th>
                                         <th scope="col">Zbritje</th>
-                                        <th scope="col">cmimi<br>me tvsh</th>
+                                        <th scope="col">Vlera Total</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -327,6 +331,8 @@ if (isset($_POST['paguaj']))
                                     $vlera_e_tvsh_total = 0;
                                     $vlera_me_tvsh_total = 0;
                                     $c_zbritje_total = 0;
+                                    $c_vlera_total = 0;
+
 
                                     if ($row) {
                                         foreach ($row as $rowcarte) {
@@ -336,6 +342,12 @@ if (isset($_POST['paguaj']))
                                             $vlera_e_tvsh_total += $rowcarte['c_vlera_e_tvsh'];
                                             $vlera_me_tvsh_total += $rowcarte['c_vlera_me_tvsh'];
                                             $c_zbritje_total += $rowcarte['c_zbritje'];
+                                            $c_vlera_total = $vlera_me_tvsh_total - $c_zbritje_total;
+
+
+                                            //uji2021
+                                            // $shuma_total = $shuma_me_tvsh - $shuma_amnesti;
+                                            // $shuma_amnesti = ($amnesti / 100) * $shuma_pa_tvsh;
                                     ?>
                                             <tr>
                                                 <td><?php echo $count ?? ''; ?>
@@ -343,17 +355,25 @@ if (isset($_POST['paguaj']))
                                                     <!-- <?php echo $rowcarte['cart_ID'] ?? ''; ?> -->
                                                 </td>
                                                 <td><?php echo $rowcarte['c_emri_produktit'] ?? ''; ?></td>
-                                                <td><?php echo $rowcarte['emri_njesis'] ?? ''; ?></td>
+                                                <!-- <td><?php echo $rowcarte['emri_njesis'] ?? ''; ?></td> -->
                                                 <td><?php echo $rowcarte['njesia'] ?? ''; ?></td>
                                                 <td>
-                                                    <input type="number" step="0.00" data-cartId="<?php echo $rowcarte['cart_ID'] ?>" name="c_sasia" class="c_sasia" value="<?php echo (int) $rowcarte['c_sasia'] ?? ''; ?>">
+                                                    <input type="number" step="0.00" minlength="0" data-cartId="<?php echo $rowcarte['cart_ID'] ?>" name="c_sasia" class="c_sasia" value="<?php echo (int) $rowcarte['c_sasia'] ?? ''; ?>">
                                                 </td>
                                                 <!-- <td><?php echo $rowcarte['c_tvsh1'] ?? ''; ?></td> -->
                                                 <td class="c_cmimi_pa_tvsh"><?php echo $rowcarte['c_cmimi_pa_tvsh'] ?? ''; ?></td>
                                                 <td class="c_vlera_pa_tvsh"><?php echo $rowcarte['c_vlera_pa_tvsh'] ?? ''; ?></td>
-                                                <td><?php echo $rowcarte['c_vlera_e_tvsh'] ?? ''; ?> (<?php echo $rowcarte['c_tvsh1'] ?? ''; ?>%)</td>
-                                                <td><?php echo $rowcarte['c_zbritje'] ?? ''; ?>(<?php echo $rowcarte['c_zbritje'] ?? ''; ?>%)</td>
-                                                <td><?php echo $rowcarte['c_vlera_me_tvsh'] ?? ''; ?></td>
+                                                <td>
+                                                    <span class="c_vlera_e_tvsh"><?php echo $rowcarte['c_vlera_e_tvsh'] ?? ''; ?></span>
+                                                    (<span class="c_tvsh1"><?php echo $rowcarte['c_tvsh1'] ?? ''; ?></span>%)
+                                                </td>
+                                                <td><span class="c_vlera_me_tvsh"><?php echo $rowcarte['c_vlera_me_tvsh'] ?? ''; ?><span></span></td>
+
+                                                <td>
+                                                    <input type="number" step="0.00" maxlength="100" minlength="0" data-cartId="<?php echo $rowcarte['c_zbritje'] ?>" name="c_zbritje" class="c_zbritje" value="<?php echo (int) $rowcarte['c_zbritje'] ?? ''; ?>">
+                                                </td>
+
+                                                <td><?php echo $rowcarte['c_vlera_total'] ?? ''; ?></td>
                                                 <!-- <td>In progress</td> -->
                                                 <td>
                                                     <form class="frmDelete" action="?page=pagesat&id=<?php echo $rowcarte['cart_ID']; ?>" method="POST">
@@ -372,7 +392,6 @@ if (isset($_POST['paguaj']))
                                         echo '</td>';
                                         echo '</tr>';
                                     }
-
                                     ?>
 
                                 </tbody>
@@ -448,22 +467,23 @@ if (isset($_POST['paguaj']))
                         </div> -->
                             <div class="d-flex flex-column b-bottom">
                                 <div class="d-flex justify-content-between py-1"> <small class="text-muted">Sasia total</small>
-                                    <p id="sasia_total"><?php echo  $sasia_total; ?></p>
+                                    <p id="sasia_total"><?php echo number_format($sasia_total); ?></p>
                                 </div>
-                                <div class="d-flex justify-content-between py-1"> <small class="text-muted">Zbritje</small>
-                                    <p><?php echo  $c_zbritje_total; ?></p>
-                                </div>
+
                                 <div class="d-flex justify-content-between py-1"> <small class="text-muted">Gjithsej vlera pa TVSH</small>
-                                    <p id="vlera_pa_tvsh_total"><?php echo  $vlera_pa_tvsh_total; ?></p>
+                                    <p id="vlera_pa_tvsh_total"><?php echo number_format($vlera_pa_tvsh_total, 2); ?></p>
                                 </div>
                                 <div class="d-flex justify-content-between py-1"> <small class="text-muted">Gjithsej vlera e TVSH-se</small>
-                                    <p id="vlera_e_tvsh_total"><?php echo  $vlera_e_tvsh_total; ?></p>
+                                    <p id="vlera_e_tvsh_total"><?php echo number_format($vlera_e_tvsh_total, 2); ?></p>
                                 </div>
-                                <div class="d-flex justify-content-between pb-3"> <small class="text-muted">Gjithsej vlera me TVSH</small>
-                                    <p><?php echo  $vlera_me_tvsh_total; ?></p>
+                                <div class="d-flex justify-content-between pb-1"> <small class="text-muted">Gjithsej vlera me TVSH</small>
+                                    <p id="vlera_me_tvsh_total"><?php echo number_format($vlera_me_tvsh_total, 2); ?></p>
+                                </div>
+                                <div class="d-flex justify-content-between py-1"> <small class="text-muted">Zbritje</small>
+                                    <p><?php echo number_format($c_zbritje_total, 2); ?></p>
                                 </div>
                                 <div class="d-flex justify-content-between"> <small class="text-muted">Shuma gjithsej</small>
-                                    <p><?php echo  $c_zbritje_total; ?></p>
+                                    <p><?php echo number_format($c_vlera_total, 2); ?></p>
                                 </div>
                             </div>
                             <div class="sale my-3"> <span>sale<span class="px-1">expiring</span><span>in</span>:</span><span class="red">21<span class="ps-1">hours</span>,31<span class="ps-1 ">minutes</span></span> </div>
@@ -481,8 +501,24 @@ if (isset($_POST['paguaj']))
     // Get c_vlera_pa_tvsh and vlera_pa_tvsh_total
     let paTvshElement = document.getElementById('vlera_pa_tvsh_total');
     let allCvpt = document.querySelectorAll('.c_vlera_pa_tvsh');
+    // Get all  c_vlera_e_tvsh
+    let cVleraETvShElement = document.getElementById('vlera_e_tvsh_total');
+    let allCvеt = document.querySelectorAll('.c_vlera_e_tvsh');
 
-    // Update sasia with ajax
+    // Get all  c_vlera_me_tvsh
+    let cVleraMETvShElement = document.getElementById('vlera_me_tvsh_total');
+    let allCvmеt = document.querySelectorAll('.c_vlera_me_tvsh');
+
+    // On Update zbritje with ajax
+    let zbrInputs = document.querySelectorAll(".c_zbritje");
+    zbrInputs.forEach(function(el) {
+        el.onchange = function() {
+            // Code to make calculations for the "zbritja"
+            console.log('zbritje change');
+        }
+    });
+
+    // On Update sasia with ajax
     let qtyInputs = document.querySelectorAll(".c_sasia");
     qtyInputs.forEach(function(el) {
         el.onchange = function() {
@@ -503,10 +539,21 @@ if (isset($_POST['paguaj']))
             // Total of "td - input Sasia" * td - c_cmimi_pa_tvsh
             const cvptTotal = parseInt(c_sasia) * parseFloat(ccpt);
             // Update c_cmimi_pa_tvsh
-            cvpt.textContent = cvptTotal;
+            cvpt.textContent = cvptTotal.toFixed(2);
+
+            // td - c_vlera_e_tvsh and c_tvsh1
+            let ctvsh1 = trParentElement.querySelector('.c_tvsh1').textContent;
+            let cvet = trParentElement.querySelector('.c_vlera_e_tvsh');
+            const cvetTotal = (parseFloat(ctvsh1) / 100) * cvptTotal;
+            cvet.textContent = cvetTotal.toFixed(2);
+
+            // td - c_vlera_me_tvsh and c_vlera_pa_tvsh + c_vlera_e_tvsh
+            let cvmet = trParentElement.querySelector('.c_vlera_me_tvsh');
+            const cvmetTotal = cvetTotal + cvptTotal;
+            cvmet.textContent = cvmetTotal.toFixed(2);
 
             // Update in database
-            fetch(`app/pages/pagesat/cart/cart_edit.php?cartId=${cartId}&sasia=${c_sasia}&cvptTotal=${cvptTotal}`)
+            fetch(`app/pages/pagesat/cart/cart_edit.php?cartId=${cartId}&sasia=${c_sasia}&cvptTotal=${cvptTotal}&cvetTotal=${cvetTotal}&cvmetTotal=${cvmetTotal}`)
                 .then(response => response.json())
                 .then(data => console.log(data))
                 .catch(error => console.error(error));
@@ -516,14 +563,28 @@ if (isset($_POST['paguaj']))
             qtyInputs.forEach(function(input) {
                 stotal += parseInt(input.value);
             })
-            sTotalElement.textContent = stotal;
+            sTotalElement.textContent = stotal.toFixed(2);
 
             // Update vlera_pa_tvsh_total
             let cPaTvshTotal = 0;
             allCvpt.forEach(function(el) {
                 cPaTvshTotal += parseFloat(el.textContent);
             });
-            paTvshElement.textContent = cPaTvshTotal;
+            paTvshElement.textContent = cPaTvshTotal.toFixed(2);
+
+            // Update vlera_e_tvsh_total
+            let cETvshTotal = 0;
+            allCvеt.forEach(function(el) {
+                cETvshTotal += parseFloat(el.textContent);
+            });
+            cVleraETvShElement.textContent = cETvshTotal.toFixed(2);
+
+            // Update vlera_me_tvsh_total
+            let cMeTvshTotal = 0;
+            allCvmеt.forEach(function(el) {
+                cMeTvshTotal += parseFloat(el.textContent);
+            });
+            cVleraMETvShElement.textContent = cMeTvshTotal.toFixed(2);
         };
     });
 </script>

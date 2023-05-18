@@ -10,6 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $cartId = $_GET["cartId"];
     $sasia = $_GET["sasia"];
     $c_vlera_pa_tvsh = $_GET["cvptTotal"];
+    $c_vlera_e_tvsh = $_GET["cvetTotal"];
+    $c_vlera_me_tvsh = $_GET["cvmetTotal"];
 
     // echo json_encode([
     //     $cartId,
@@ -20,10 +22,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     // Prepare and bind the update statement using prepared statements
     $stmt = LINK->prepare(
-        "UPDATE cart SET c_sasia = ?, c_vlera_pa_tvsh = ? 
+        "UPDATE cart SET c_sasia = ?, c_vlera_pa_tvsh = ?, c_vlera_e_tvsh = ?, c_vlera_me_tvsh = ? 
         WHERE cart_ID = ?"
     );
-    $stmt->bind_param("iii", $sasia, $c_vlera_pa_tvsh, $cartId);
+    $stmt->bind_param(
+        "iiiii",
+        $sasia,
+        $c_vlera_pa_tvsh,
+        $c_vlera_e_tvsh,
+        $c_vlera_me_tvsh,
+        $cartId,
+    );
 
     if ($stmt->execute()) {
         $response = array("status" => "success", "message" => "Cart sasia updated successfully.");

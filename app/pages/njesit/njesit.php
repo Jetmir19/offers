@@ -39,9 +39,6 @@ if (isset($_POST['search'])) {
     }
 }
 
-// Order by dateCreated as default
-
-
 // Results
 $result = $link->query($sql);
 

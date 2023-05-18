@@ -1,3 +1,18 @@
+# Disable directory listing for all directories
+Options -Indexes
+
+# Deny directory listing and access to files inside the directory
+<FilesMatch "(^\.|\/\.|config\.php|public\/|app\/)">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Deny access to specific file types
+<FilesMatch "(^\.|\/\.|\.(htaccess|htpasswd|gitignore|ini|log|sql|bak|sh|phps)$)">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
 <IfModule mod_rewrite.c>
 
     Options -Multiviews

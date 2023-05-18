@@ -28,9 +28,25 @@
 }
 
 @media print {
-  aside, .procceed, .sidenav, .ad, .main-footer, #modal-buttons {
-    display: none !important;
+
+  aside,
+  .procceed,
+  .sidenav,
+  #left-nav,
+  .ad,
+  #action-btn,
+  .main-footer,
+  #modal-buttons {
+    visibility: hidden !important;
   }
+
+  #print_area {
+    visibility: visible;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
   .table-responsive {
     overflow: hidden;
   }

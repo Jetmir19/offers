@@ -96,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['saveProduktet']))
 
     <!-- Header Title START -->
     <div class="pt-3 pb-2 d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom">
-        <h2><i class="fas fa-faucet fa-fw"></i>
+        <h2><i class="fab fa-product-hunt fa-fw"></i>
             <?php echo $replaceTitle ?? 'Krijo Produktet' ?>
         </h2>
     </div> <!-- Header Title END -->
