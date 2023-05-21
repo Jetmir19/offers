@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     // exit;
 
     // Prepare and bind the update statement using prepared statements
-    $stmt = LINK->prepare(
+    $stmt = DBLINK->prepare(
         "UPDATE cart SET c_sasia = ?, c_vlera_pa_tvsh = ?, c_vlera_e_tvsh = ?, c_vlera_me_tvsh = ? 
         WHERE cart_ID = ?"
     );
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $response = array("status" => "success", "message" => "Cart sasia updated successfully.");
         echo json_encode($response);
     } else {
-        $response = array("status" => "error", "message" => "Error updating Cart Sasia: " . LINK->error);
+        $response = array("status" => "error", "message" => "Error updating Cart Sasia: " . DBLINK->error);
         echo json_encode($response);
     }
 }

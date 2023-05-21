@@ -1,4 +1,5 @@
 <?php
+
 // Delete START 
 if (isset($_POST['stafiDelete'])) {
     // Disable form resubmission on refresh
@@ -16,7 +17,7 @@ if (isset($_POST['stafiDelete'])) {
         // Save in Historia
         saveHistoria('delete', 'stafi', 'U fshij me sukses.', 'success');
         // Success
-        $_SESSION['success'] = "U fshij me sukses.";
+        setSessionAlert('success', 'U fshij me sukses.');
     } else {
         // Delete Error
         msgModal("error", mysqli_error($link));
@@ -29,8 +30,8 @@ $sql = "SELECT * FROM stafi WHERE isDeleted = 0";
 if (isset($_POST['search'])) {
     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-    $emri = mysqli_real_escape_string($link, $_POST['emri']);
-    $mbiemri = mysqli_real_escape_string($link, $_POST['mbiemri']);
+    $emri = htmlspecialchars($_POST['emri']);
+    $mbiemri = htmlspecialchars($_POST['mbiemri']);
 
     // Search by emri and mbiemri
     if ($emri != "" && $mbiemri != "") {
@@ -40,7 +41,6 @@ if (isset($_POST['search'])) {
 
 // Order by dateCreated as default
 $sql .= " ORDER BY dateCreated DESC";
-
 // Results
 $result = $link->query($sql);
 
@@ -51,7 +51,6 @@ if ($result && $result->num_rows < 1) {
 ?>
 
 <div class="container-fluid">
-
     <!-- Header Title START -->
     <div class="pt-3 pb-2 d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom">
         <h2><i class="fa fa-user fa-fw"></i> Stafi</h2>
@@ -61,7 +60,7 @@ if ($result && $result->num_rows < 1) {
     </div> <!-- Header Title END -->
 
     <!-- Display Session Messages-->
-    <?php echo session_message(); ?>
+    <?php echo showSessionAlert(); ?>
 
     <form class="form-group" name="formSearch" id="formSearch" method="POST" action="">
         <fieldset class="form-group">
@@ -136,14 +135,10 @@ if ($result && $result->num_rows < 1) {
                                 </td>
                                 <td class="align-middle">
                                     <?php
-                                    if ($row['image']) {
-                                    ?>
-                                        <img src="<?php echo APP_URL . "/public/uploads/stafi/" . $row['image']; ?>" alt="image" width="70px" height="70px">
-                                    <?php
+                                    if ($row['image'] && file_exists(APPROOT . "/public/uploads/stafi/" . $row['image'])) {
+                                        echo '<img src="' . APP_URL . "/public/uploads/stafi/" . $row['image'] . '" alt="image" width="60px" height="60px">';
                                     } else {
-                                    ?>
-                                        <img src="<?php echo APP_URL . "/public/uploads/stafi/no-profile.png"; ?>" alt=" image" width="70px" height="70px">
-                                    <?php
+                                        echo '<img src="' . APP_URL . '/public/uploads/stafi/no-profile.png" alt="image" width="60px" height="60px">';
                                     }
                                     ?>
                                 </td>
@@ -159,8 +154,8 @@ if ($result && $result->num_rows < 1) {
                     }
                 } else {
                     echo '<tr><td colspan="100%">
-                                <div class="border text-center p-2"><span class="text-muted">Nuk u gjet asnjë regjistrim.</span></div>
-                                </td></tr>';
+                            <div class="border text-center p-2"><span class="text-muted">Nuk u gjet asnjë regjistrim.</span></div>
+                        </td></tr>';
                 }
                 ?>
             </tbody>
@@ -195,13 +190,13 @@ if ($result && $result->num_rows < 1) {
         el.addEventListener('click', function(e) {
             const stid = e.currentTarget.getAttribute('data-btnView');
             const iframePath = "<?php echo APP_URL . '/app/pages/stafi/modals/stafi_view.php' ?>";
-            const data = {
-                fullPath: `${iframePath}?stid=${stid}`,
-                header: 'Profili Stafit',
+            const options = {
+                iframePath: `${iframePath}?stid=${stid}`,
+                headerText: 'Profili Stafit',
                 btnActionShow: false
             };
             // Show modal without action button
-            showModal(data);
+            showIframeModal(options);
         });
     });
 

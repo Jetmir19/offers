@@ -6,18 +6,13 @@ if (isset($_POST['njesitDelete'])) {
 
     $njesiID = htmlspecialchars($_POST['njesitDelete']);
 
-    // Soft delete klient
+    // Soft delete njësia
     $sql = "UPDATE njesit SET isDeleted = '1' WHERE njesiID = '$njesiID'";
     if (mysqli_query($link, $sql)) {
-        // // Remove the existing Image
-        // if (file_exists(UPLOADS_PATH. "/stafi/" . $img)) {
-        //     @unlink(UPLOADS_PATH. "/stafi/" . $img);
-        // }
-
         // Save in Historia
         saveHistoria('delete', 'njesit', 'U fshij me sukses.', 'success');
         // Success
-        $_SESSION['success'] = "U fshij me sukses.";
+        setSessionAlert('success', 'U fshij me sukses.');
     } else {
         // Delete Error
         msgModal("error", mysqli_error($link));
@@ -33,7 +28,7 @@ if (isset($_POST['search'])) {
     $emri_njesis = mysqli_real_escape_string($link, $_POST['emri_njesis']);
     $njesia = mysqli_real_escape_string($link, $_POST['njesia']);
 
-    // Search by emri_njesis and njesia
+    // Search by emri_njesis and njësia
     if ($emri_njesis != "" && $njesia != "") {
         $sql .= " AND emri_njesis = '$emri_njesis' AND njesia = '$njesia'";
     }
@@ -49,7 +44,6 @@ if ($result && $result->num_rows < 1) {
 ?>
 
 <div class="container-fluid">
-
     <!-- Header Title START -->
     <div class="pt-3 pb-2 d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom">
         <h2><i class="fa fa-user fa-fw"></i> Njesit</h2>
@@ -59,7 +53,7 @@ if ($result && $result->num_rows < 1) {
     </div> <!-- Header Title END -->
 
     <!-- Display Session Messages-->
-    <?php echo session_message(); ?>
+    <?php echo showSessionAlert(); ?>
 
     <form class="form-group" name="formSearch" id="formSearch" method="POST" action="">
         <fieldset class="form-group">
@@ -68,7 +62,7 @@ if ($result && $result->num_rows < 1) {
                 <div class="col-sm">
                     <div class="form-group row">
                         <div class="col">
-                            <label for="emri_njesis" class="control-label">emri_njesis</label>
+                            <label for="emri_njesis" class="control-label">Emri i Njësisë</label>
                             <input type="text" class="form-control" id="emri_njesis" name="emri_njesis" value="<?= $emri_njesis ?? ""; ?>" placeholder="emri_njesis">
                             <span id="emri_njesisErr" class="invalid-feedback">Emri njesi i detyrueshëm.</span>
                         </div>
@@ -77,9 +71,9 @@ if ($result && $result->num_rows < 1) {
                 <div class="col-sm">
                     <div class="form-group row">
                         <div class="col">
-                            <label for="njesia" class="control-label">njesia</label>
+                            <label for="njesia" class="control-label">Njësia</label>
                             <input type="text" class="form-control" id="njesia" name="njesia" value="<?= $njesia ?? ""; ?>" placeholder="njesia">
-                            <span id="njesiaErr" class="invalid-feedback">njesia i detyrueshëm.</span>
+                            <span id="njesiaErr" class="invalid-feedback">Njësia e detyrueshme.</span>
                         </div>
                     </div>
                 </div>
@@ -96,18 +90,16 @@ if ($result && $result->num_rows < 1) {
             <thead class="bg-dark text-light">
                 <tr>
                     <th>Action</th>
-                    <th>Emri njesis</th>
-                    <th>Njesia</th>
+                    <th>Emri i Njësisë</th>
+                    <th>Njësia</th>
 
                 </tr>
             </thead>
             <tbody>
                 <?php
-
                 if ($result && $result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         $njeID = $row['njesiID'];
-
                 ?>
                         <tr>
                             <td>
@@ -123,22 +115,21 @@ if ($result && $result->num_rows < 1) {
                                     <!-- Delete -->
                                     <form class="frmDelete" method="POST">
                                         <input type="hidden" name="njesitDelete" value="<?php echo $njeID; ?>">
-
                                         <button class="btn" type="submit"><i class="far fa-trash-alt fa-lg text-danger"></i></button>
                                     </form>
                                 </div>
                             </td>
-
                             <td><?php echo $row['emri_njesis']; ?></td>
                             <td><?php echo $row['njesia']; ?></td>
-
                         </tr>
                 <?php
                     }
                 } else {
-                    echo '<tr><td colspan="100%">
+                    echo '<tr>
+                            <td colspan="100%">
                                 <div class="border text-center p-2"><span class="text-muted">Nuk u gjet asnjë regjistrim.</span></div>
-                                </td></tr>';
+                            </td>
+                        </tr>';
                 }
                 ?>
             </tbody>
@@ -173,13 +164,13 @@ if ($result && $result->num_rows < 1) {
         el.addEventListener('click', function(e) {
             const njeID = e.currentTarget.getAttribute('data-btnView');
             const iframePath = "<?php echo APP_URL . '/app/pages/njesit/modals/njesit_view.php' ?>";
-            const data = {
-                fullPath: `${iframePath}?njeID=${njeID}`,
-                header: 'Njesi View',
+            const options = {
+                iframePath: `${iframePath}?njeID=${njeID}`,
+                headerText: 'Njesi View',
                 btnActionShow: false
             };
             // Show modal without action button
-            showModal(data);
+            showIframeModal(options);
         });
     });
 

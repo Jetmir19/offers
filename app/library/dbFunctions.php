@@ -1,15 +1,16 @@
 <?php
+
 // Get a Global config
-#------------------------------------------------------------
+//------------------------------------------------------------
 function getKonfigurime($id)
-#------------------------------------------------------------
+//------------------------------------------------------------
 {
   $sql = "SELECT * FROM konfigurime
           WHERE konfigurimeID = $id";
 
   // @TODO: add row in database is deleted.
 
-  $result = $GLOBALS['link']->query($sql);
+  $result = DBLINK->query($sql);
 
   if ($result) {
     $row = $result->fetch_assoc();
@@ -21,13 +22,13 @@ function getKonfigurime($id)
 }
 
 // Get all Produktet
-#------------------------------------------------------------
+//------------------------------------------------------------
 function getProduktet()
-#------------------------------------------------------------
+//------------------------------------------------------------
 {
   $sql = "SELECT * FROM produktet
           WHERE isDeleted = 0";
-  $result = $GLOBALS['link']->query($sql);
+  $result = DBLINK->query($sql);
 
   if ($result) {
     $row = $result->fetch_all(MYSQLI_ASSOC);
@@ -37,39 +38,14 @@ function getProduktet()
   return false;
 }
 
-function submitComment($post)
-{
-  $validated = true;
-  $error = "";
-
-  if (empty($post["pershkrimi_ofertes"])) {
-    $validated = false;
-    $error .= "pershkrimi_ofertes i detyrueshëm";
-  } else {
-    $pershkrimi_ofertes = clean_input($post["pershkrimi_ofertes"]);
-    // check if name only contains letters and whitespace
-    if (!preg_match("/^[a-zA-Z\p{Cyrillic}0-9' \s\-]+$/u", $pershkrimi_ofertes)) {
-      $validated = false;
-      $error .= "Lejohen vetëm shkronja dhe numra";
-    }
-  }
-
-  if ($validated === true) {
-    $_SESSION['pershkrimi_ofertes'] = $post['pershkrimi_ofertes'];
-    $_SESSION['success'] = "Komenti u shtua me sukses";
-  } else {
-    $_SESSION['error'] = $error;
-  }
-}
-
 // Get all Produktet
-#------------------------------------------------------------
-function getCart()
-#------------------------------------------------------------
+//------------------------------------------------------------
+function getCartItems()
+//------------------------------------------------------------
 {
   $sql = "SELECT * FROM cart
           WHERE isDeleted = 0";
-  $result = $GLOBALS['link']->query($sql);
+  $result = DBLINK->query($sql);
 
   if ($result) {
     $row = $result->fetch_all(MYSQLI_ASSOC);
@@ -80,13 +56,13 @@ function getCart()
 }
 
 // Get all Furnitoret
-#------------------------------------------------------------
+//------------------------------------------------------------
 function getFurnitoret()
-#------------------------------------------------------------
+//------------------------------------------------------------
 {
   $sql = "SELECT * FROM furnitoret
           WHERE isDeleted = 0";
-  $result = $GLOBALS['link']->query($sql);
+  $result = DBLINK->query($sql);
 
   if ($result) {
     $row = $result->fetch_all(MYSQLI_ASSOC);
@@ -96,14 +72,15 @@ function getFurnitoret()
 
   return false;
 }
+
 // Get all Njesit
-#------------------------------------------------------------
+//------------------------------------------------------------
 function getNjesit()
-#------------------------------------------------------------
+//------------------------------------------------------------
 {
   $sql = "SELECT * FROM njesit
           WHERE isDeleted = 0";
-  $result = LINK->query($sql);
+  $result = DBLINK->query($sql);
 
   if ($result) {
     $row = $result->fetch_all(MYSQLI_ASSOC);
@@ -113,14 +90,15 @@ function getNjesit()
 
   return false;
 }
+
 // Get all Brends
-#------------------------------------------------------------
-function getCat()
-#------------------------------------------------------------
+//------------------------------------------------------------
+function getCatProduktet()
+//------------------------------------------------------------
 {
   $sql = "SELECT * FROM cat_produktet
           WHERE isDeleted = 0";
-  $result = LINK->query($sql);
+  $result = DBLINK->query($sql);
 
   if ($result) {
     $row = $result->fetch_all(MYSQLI_ASSOC);
@@ -132,13 +110,13 @@ function getCat()
 }
 
 // Get Konsumatori  
-#------------------------------------------------------------
-function getKonsumatori()
-#------------------------------------------------------------
+//------------------------------------------------------------
+function getKonsumatoret()
+//------------------------------------------------------------
 {
   $sql = "SELECT * FROM konsumatoret 
           WHERE isDeleted = 0";
-  $result = $GLOBALS['link']->query($sql);
+  $result = DBLINK->query($sql);
 
   if ($result) {
     $row = $result->fetch_all(MYSQLI_ASSOC);
@@ -148,15 +126,16 @@ function getKonsumatori()
 
   return false;
 }
+
 // Get Konsumatori by ID
-#------------------------------------------------------------
+//------------------------------------------------------------
 function getKonsumatoriById($id)
-#------------------------------------------------------------
+//------------------------------------------------------------
 {
   $sql = "SELECT * FROM konsumatoret 
           WHERE konsumatorID = '{$id}'
           AND isDeleted = 0";
-  $result = $GLOBALS['link']->query($sql);
+  $result = DBLINK->query($sql);
 
   if ($result) {
     $row = $result->fetch_assoc();
@@ -168,14 +147,14 @@ function getKonsumatoriById($id)
 }
 
 // Get a Konsumator full Name 
-#------------------------------------------------------------
+//------------------------------------------------------------
 function getKonsumatorFullName($id)
-#------------------------------------------------------------
+//------------------------------------------------------------
 {
   $sql = "SELECT konsumatorID, k_emri, k_mbiemri, isDeleted FROM konsumatoret 
           WHERE konsumatorID = '$id'
           AND isDeleted = 0";
-  $result = $GLOBALS['link']->query($sql);
+  $result = DBLINK->query($sql);
 
   if ($result) {
     $row = $result->fetch_assoc();
@@ -187,14 +166,14 @@ function getKonsumatorFullName($id)
 }
 
 // Get all stafi
-#------------------------------------------------------------
+//------------------------------------------------------------
 function getStafi()
-#------------------------------------------------------------
+//------------------------------------------------------------
 {
   $sql = "SELECT * FROM stafi
           WHERE isDeleted = 0
           ORDER BY dateCreated DESC";
-  $result = $GLOBALS['link']->query($sql);
+  $result = DBLINK->query($sql);
 
   if ($result) {
     $row = $result->fetch_all(MYSQLI_ASSOC);
@@ -206,14 +185,14 @@ function getStafi()
 }
 
 // Get a single stafi
-#------------------------------------------------------------
+//------------------------------------------------------------
 function getStafiById($id)
-#------------------------------------------------------------
+//------------------------------------------------------------
 {
   $sql = "SELECT * FROM stafi 
           WHERE stafiID = '$id'
           AND isDeleted = 0";
-  $result = $GLOBALS['link']->query($sql);
+  $result = DBLINK->query($sql);
 
   if ($result) {
     $row = $result->fetch_assoc();
@@ -223,15 +202,16 @@ function getStafiById($id)
 
   return false;
 }
+
 // Get a single njesi
-#------------------------------------------------------------
+//------------------------------------------------------------
 function getNjesiById($id)
-#------------------------------------------------------------
+//------------------------------------------------------------
 {
   $sql = "SELECT * FROM njesit 
           WHERE njesiID = '$id'
           AND isDeleted = 0";
-  $result = $GLOBALS['link']->query($sql);
+  $result = DBLINK->query($sql);
 
   if ($result) {
     $row = $result->fetch_assoc();
@@ -242,17 +222,18 @@ function getNjesiById($id)
   return false;
 }
 
-// Get all Leximet by fatura_leximiID
-#------------------------------------------------------------
-function getofertatPrint($fatura_printID)
-#------------------------------------------------------------
+// Get all Ofertat by fatura_printID
+//------------------------------------------------------------
+function getOfertatPrint($fatura_printID)
+//------------------------------------------------------------
 {
   $sql = "SELECT * FROM oferte_fature 
   LEFT JOIN konsumatoret ON oferte_fature.konsumatorID = konsumatoret.konsumatorID
   RIGHT JOIN stafi ON oferte_fature.stafiID = stafi.stafiID
    WHERE oferte_fature.ofertatID='$fatura_printID' 
    AND oferte_fature.isDeleted = '0'";
-  $result = $GLOBALS['link']->query($sql);
+  $result = DBLINK->query($sql);
+
   if ($result) {
     $row = $result->fetch_assoc();
 
@@ -262,16 +243,17 @@ function getofertatPrint($fatura_printID)
   return false;
 }
 
-//last id
-function getartikujtPrint($fatura_printID)
+// Get all Artikujt for the Print
+//------------------------------------------------------------
+function getArtikujtPrint($fatura_printID)
+//------------------------------------------------------------
 {
   $sql = "SELECT * FROM artikujt_per_oferte_fature
-  INNER JOIN konsumatoret ON artikujt_per_oferte_fature.konsumatorID = konsumatoret.konsumatorID
-  LEFT JOIN oferte_fature ON artikujt_per_oferte_fature.a_ofertatID = oferte_fature.ofertatID
- WHERE  artikujt_per_oferte_fature.a_ofertatID ='$fatura_printID'
- AND artikujt_per_oferte_fature.isDeleted='0'";
-
-  $result = $GLOBALS['link']->query($sql);
+          INNER JOIN konsumatoret ON artikujt_per_oferte_fature.konsumatorID = konsumatoret.konsumatorID
+          LEFT JOIN oferte_fature ON artikujt_per_oferte_fature.a_ofertatID = oferte_fature.ofertatID
+          WHERE  artikujt_per_oferte_fature.a_ofertatID ='$fatura_printID'
+          AND artikujt_per_oferte_fature.isDeleted='0'";
+  $result = DBLINK->query($sql);
 
   if ($result) {
     $row = $result->fetch_all(MYSQLI_ASSOC);
@@ -281,15 +263,16 @@ function getartikujtPrint($fatura_printID)
 
   return false;
 }
+
 // Get all Historia
-#------------------------------------------------------------
+//------------------------------------------------------------
 function getHistoria()
-#------------------------------------------------------------
+//------------------------------------------------------------
 {
   $sql = "SELECT * FROM historia
           WHERE isDeleted = 0
           ORDER BY dateCreated DESC";
-  $result = $GLOBALS['link']->query($sql);
+  $result = DBLINK->query($sql);
 
   if ($result) {
     $row = $result->fetch_all(MYSQLI_ASSOC);
@@ -301,14 +284,14 @@ function getHistoria()
 }
 
 // Get a single Historia
-#------------------------------------------------------------
+//------------------------------------------------------------
 function getHistoriaById($id)
-#------------------------------------------------------------
+//------------------------------------------------------------
 {
   $sql = "SELECT * FROM historia 
           WHERE historiaID = '$id'
           AND isDeleted = 0";
-  $result = $GLOBALS['link']->query($sql);
+  $result = DBLINK->query($sql);
 
   if ($result) {
     $row = $result->fetch_assoc();
@@ -320,14 +303,14 @@ function getHistoriaById($id)
 }
 
 // Insert Historia
-#------------------------------------------------------------
+//------------------------------------------------------------
 function saveHistoria($action, $module, $message, $hstatusi)
-#------------------------------------------------------------
+//------------------------------------------------------------
 {
   // Prepare an insert statement
   $sql = "INSERT INTO historia (stafiID, action, module, message, hstatusi) 
           VALUES ('{$_SESSION['stafiID']}', '{$action}', '{$module}', '{$message}', '{$hstatusi}')";
-  $result = $GLOBALS['link']->query($sql);
+  $result = DBLINK->query($sql);
 
   if ($result) {
     return true;
@@ -337,9 +320,9 @@ function saveHistoria($action, $module, $message, $hstatusi)
 }
 
 // Upload Logo function for Konfigurime
-#------------------------------------------------------------
+//------------------------------------------------------------
 function uploadKonfigurimeLogo($files, $inputId, $folder)
-#------------------------------------------------------------
+//------------------------------------------------------------
 {
   $output = "";
 
@@ -400,9 +383,9 @@ function uploadKonfigurimeLogo($files, $inputId, $folder)
 }
 
 // Upload Image function for Stafi
-#------------------------------------------------------------
+//------------------------------------------------------------
 function uploadStafiImage($files, $folder, $stafiID = null)
-#------------------------------------------------------------
+//------------------------------------------------------------
 {
   $output = "";
 

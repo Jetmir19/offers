@@ -2,11 +2,11 @@
 
     <!-- Display Session Messages-->
     <?php
-    echo session_message();
+    echo showSessionAlert();
 
     $fatura_printID = filter_input(INPUT_GET, "id", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-    $prow = getofertatPrint($fatura_printID);
+    $prow = getOfertatPrint($fatura_printID);
     $konsID = $prow["konsumatorID"];
 
     // Get a single stafi
@@ -106,7 +106,7 @@
                     <tbody>
                         <?php
                         // Get all leximet with this fatura_leximiID
-                        $getartikujt = getartikujtPrint($fatura_printID);
+                        $getartikujt = getArtikujtPrint($fatura_printID);
                         if ($getartikujt) {
                             foreach ($getartikujt as $arow) {
                         ?>

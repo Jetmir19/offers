@@ -14,11 +14,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['savestafi']))
     // Disable form resubmission on refresh
     disableFormResubmission();
 
-    // echo "<pre>";
-    // print_r($_POST);
-    // echo "</pre>";
-    // die;
-
     $validated = true;
 
     $emri = mysqli_real_escape_string($link, $_POST["emri"]);
@@ -31,16 +26,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['savestafi']))
     // checkbox isAdmin
     $isAdmin = isset($_POST['isAdmin']) ? 1 : 0;
 
-    // //@TODO
-    // $email = mysqli_real_escape_string($link, $_POST["email"]);
-    // $komment = mysqli_real_escape_string($link, $_POST["komment"]);
-
     // Include Validation
     require_once PAGES_PATH . '/stafi/includes/stafi_validate.php';
 
     // Check input errors before inserting in database
     if ($validated === true) {
-
         // *** Upload Image function ***
         [$output, $filename] = uploadStafiImage($_FILES, "stafi");
 
@@ -75,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['savestafi']))
             }
         } else {
             $image_err = $output;
-            $_SESSION['error'] = $image_err;
+            setSessionAlert('error', $image_err);
         }
     }
 } // Save END
@@ -89,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['savestafi']))
     </div> <!-- Header Title END -->
 
     <!-- Display Session Messages-->
-    <?php echo session_message(); ?>
+    <?php echo showSessionAlert(); ?>
 
     <section class="card bg-light my-3">
         <header class="card-header">

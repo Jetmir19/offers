@@ -88,7 +88,7 @@
             <div class="d-flex flex-wrap border">
                 <div class="bg-secondary text-light p-3">
                     <div class="d-flex align-items-center justify-content-center h-100" style="min-width: 100px;">
-                        <i class="fas fa-calendar-check fa-4x"></i>
+                        <i class="fa fa-cart-plus fa-4x"></i>
                     </div>
                 </div>
                 <div class="bg-white p-3">

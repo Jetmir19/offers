@@ -1,14 +1,4 @@
 <?php
-// if (empty($_POST["brendi"])) {
-//     $validated = false;
-//     $brendiErr = "Brendi i detyrueshëm";
-// } else {
-//     $brendi = clean_input($_POST["brendi"]);
-//     if (!preg_match('/^[a-zA-Z\p{Cyrillic}, {L}]+$/ui', $brendi)) {
-//         $validated = false;
-//         $brendiErr = "Lejohen vetëm shkronja dhe hapësirë";
-//     }
-// }
 
 if (empty($_POST["barkodi"])) {
     $validated = false;
@@ -72,54 +62,6 @@ if (!empty($_POST["sasiakritike"])) {
         $sasiakritikeErr = "Lejohen vetëm numra";
     }
 }
-// if (empty($_POST["vlera_start"])) {
-//     $validated = false;
-//     $vlera_startErr = "Vlera fillestare e matësit i detyrueshëm";
-// } else {
-//     $vlera_start = clean_input($_POST["vlera_start"]);
-//     // check if name only contains letters and whitespace
-//     if (!preg_match('/^[0-9]+$/', $vlera_start)) {
-//         $validated = false;
-//         $vlera_startErr = "Lejohen vetëm numra (pa hapësirë)";
-//     }
-//     if (strlen($vlera_start) <> 4) {
-//         $validated = false;
-//         $vlera_startErr = "Lejohet vetëm gjatësia e numrit deri në 4 shifror (pa hapësirë)";
-//     }
-// }
-
-// if (empty($_POST["vlera_prez"])) {
-//     $validated = false;
-//     $vlera_prezErr = "Vlera prezente e matësit i detyrueshëm";
-// } else {
-//     $vlera_prez = clean_input($_POST["vlera_prez"]);
-//     // check if name only contains letters and whitespace
-//     if (!preg_match('/^[0-9]+$/', $vlera_prez)) {
-//         $validated = false;
-//         $vlera_prezErr = "Lejohen vetëm numra (pa hapësirë)";
-//     }
-//     if (strlen($vlera_prez) <> 4) {
-//         $validated = false;
-//         $vlera_prezErr = "Lejohet vetëm gjatësia e numrit deri në 4 shifror (pa hapësirë)";
-//     }
-// }
-
-
-// if (empty($_POST["vlera_max"])) {
-//     $validated = false;
-//     $vlera_maxErr = "Vlera maksimale e matësit i detyrueshëm";
-// } else {
-//     $vlera_max = clean_input($_POST["vlera_max"]);
-//     if (!preg_match('/^[\-+]?[0-9]*\.*\,?[0-9]+$/', $vlera_max)) {
-//         $validated = false;
-//         $vlera_maxErr = "Lejohen vetëm numra";
-//     }
-//     if (strlen($vlera_max) <> 4) {
-//         $validated = false;
-//         $vlera_maxErr = "Lejohet vetëm gjatësia e numrit deri në 4 shifror (pa hapësirë)";
-//     }
-// }
-
 
 if (empty($_POST["inputFurnitori"])) {
     $validated = false;
@@ -174,13 +116,13 @@ if (empty($_POST["inputcat_produktet"])) {
         $validated = false;
         $cat_produktetIDErr = "Lejohen vetëm numra (pa hapësirë)";
     }
-    // Check is categori exists
+    // Check is category exists
     $sqlBrend = "SELECT * FROM cat_produktet WHERE cat_produktetID = '{$cat_produktetID}'";
     $result = $link->query($sqlBrend);
     if ($result) {
         if (mysqli_num_rows($result) == 0) {
             $validated = false;
-            $cat_produktetIDErr = "Kategoria  nuk egzistojne";
+            $cat_produktetIDErr = "Kategoria nuk egziston";
         }
     } else {
         return false;

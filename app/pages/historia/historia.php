@@ -9,9 +9,9 @@ if (isset($_POST['historiaDelete'])) {
     $sql = "UPDATE historia SET isDeleted = '1' WHERE historiaID = '$id'";
     if (mysqli_query($link, $sql)) {
         // Success
-        $_SESSION['success'] = "U fshij me sukses.";
+        setSessionAlert('success', 'U fshij me sukses.');
     } else {
-        die("Dicka shkoi keq in query $sql and the error is:" . mysqli_error($link));
+        die("Error:" . mysqli_error($link));
     }
 } // Delete END
 
@@ -56,7 +56,7 @@ if ($result && $result->num_rows < 1) {
     </div> <!-- Header Title END -->
 
     <!-- Display Session Messages-->
-    <?php echo session_message(); ?>
+    <?php echo showSessionAlert(); ?>
 
     <form class="form-group" name="formSearch" id="formSearch" action="" method="POST">
         <fieldset class="form-group">
@@ -139,13 +139,13 @@ if ($result && $result->num_rows < 1) {
             const hid = e.currentTarget.getAttribute('data-btnView');
             const sid = e.currentTarget.getAttribute('data-stafiID');
             const iframePath = "<?php echo APP_URL . '/app/pages/historia/modals/historia_view.php' ?>";
-            const data = {
-                fullPath: `${iframePath}?hid=${hid}&sid=${sid}`,
-                header: 'Historia View',
+            const options = {
+                iframePath: `${iframePath}?hid=${hid}&sid=${sid}`,
+                headerText: 'Historia View',
                 btnActionShow: false
             };
             // Show modal without action button
-            showModal(data);
+            showIframeModal(options);
         });
     });
 

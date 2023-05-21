@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['saveKonfigurime']))
             }
 
             // Attempt Update query
-            $sql = "UPDATE konfigurime SET fshati='$fshati', komuna='$komuna', qyteti='$qyteti', shteti='$shteti', kontakt_person='$kontakt_person', mobil='$mobil', email='$email', web='$web',    njesia='$njesia', valuta='$valuta', tvsh='$tvsh', tvsh2='$tvsh2', banka='$banka', xhirollogaria='$xhirollogaria', tekst='$tekst', tekst2='$tekst2', logo1='$logo1', logo2='$logo2' WHERE konfigurimeID=1";
+            $sql = "UPDATE konfigurime SET fshati='$fshati', komuna='$komuna', qyteti='$qyteti', shteti='$shteti', kontakt_person='$kontakt_person', mobil='$mobil', email='$email', web='$web', njesia='$njesia', valuta='$valuta', tvsh='$tvsh', tvsh2='$tvsh2', banka='$banka', xhirollogaria='$xhirollogaria', tekst='$tekst', tekst2='$tekst2', logo1='$logo1', logo2='$logo2' WHERE konfigurimeID=1";
 
             if ($link->query($sql)) {
                 // Save in Historia
@@ -64,8 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['saveKonfigurime']))
             // Upload errors
             $logo1Err = $output1;
             $logo2Err = $output2;
-            $_SESSION['error'] = $logo1Err;
-            $_SESSION['error'] = $logo2Err;
+            setSessionAlert('error', $logo1Err);
+            setSessionAlert('error', $logo2Err);
         }
     }
 } // Save END
@@ -83,7 +83,7 @@ if ($row) {
         <!-- Header Title END -->
 
         <!-- Display Session Messages-->
-        <?php echo session_message(); ?>
+        <?php echo showSessionAlert(); ?>
 
         <section class="card bg-light my-3">
             <header class="card-header">
@@ -241,11 +241,17 @@ if ($row) {
                         <div class="col-md-6">
                             <div class="form-group row">
                                 <div class="col">
-                                    <label for="logo1" class="control-label">Logo1</label>
+                                    <label for="logo1" class="control-label">Logo 1</label>
                                     <input type="file" class="form-control error" id="logo1" name="logo1" style="padding-bottom: 35px;">
                                     <span class="help-block text-danger"><?php echo $logo1Err; ?></span>
                                     <div id="preview_logo1">
-                                        <img class="mt-2" src="<?php echo APP_URL . "/public/uploads/konfigurime/" . $row['logo1']; ?>" alt="logo1" width="120px" height="80px">
+                                        <?php
+                                        if ($row['logo1'] && file_exists(APPROOT . "/public/uploads/konfigurime/" . $row['logo1'])) {
+                                            echo '<img class="mt-2" src="' . APP_URL . "/public/uploads/konfigurime/" . $row['logo1'] . '" alt="logo1" width="120px" height="80px">';
+                                        } else {
+                                            echo '<img class="mt-2" src="' . APP_URL . '/public/img/no_img.png" alt="logo1" width="80px" height="80px">';
+                                        }
+                                        ?>
                                     </div>
                                 </div>
                             </div>
@@ -253,11 +259,17 @@ if ($row) {
                         <div class="col-md-6">
                             <div class="form-group row">
                                 <div class="col">
-                                    <label for="logo2" class="control-label">Logo2</label>
+                                    <label for="logo2" class="control-label">Logo 2</label>
                                     <input type="file" class="form-control error" id="logo2" name="logo2" style="padding-bottom: 35px;">
                                     <span class="help-block text-danger"><?php echo $logo2Err; ?></span>
                                     <div id="preview_logo2">
-                                        <img class="mt-2" src="<?php echo APP_URL . "/public/uploads/konfigurime/" . $row['logo2']; ?>" alt="logo2" width="120px" height="80px">
+                                        <?php
+                                        if ($row['logo2'] && file_exists(APPROOT . "/public/uploads/konfigurime/" . $row['logo2'])) {
+                                            echo '<img class="mt-2" src="' . APP_URL . "/public/uploads/konfigurime/" . $row['logo2'] . '" alt="logo2" width="120px" height="80px">';
+                                        } else {
+                                            echo '<img class="mt-2" src="' . APP_URL . '/public/img/no_img.png" alt="logo2" width="80px" height="80px">';
+                                        }
+                                        ?>
                                     </div>
                                 </div>
                             </div>
@@ -268,7 +280,7 @@ if ($row) {
                     <div class="row mt-5">
                         <div class="col text-right">
                             <hr class="mb-2">
-                            <button class=" btn btn-success mr-1 px-4" type="submit" name="saveKonfigurime" value="submit">Ruaj</button>
+                            <button class=" btn btn-success mr-1 px-4" type="submit" name="saveKonfigurime">Ruaj</button>
                             <a href="<?= APP_URL . '/'; ?>" class="btn btn-secondary">Anulo</a>
                         </div>
                     </div> <!-- Buttons END -->

@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['saveKonfigurime']))
             $logo2 = $filename2;
 
             // Attempt Update query
-            $sql = "INSERT INTO konfigurime (konfigurimeID, fshati, komuna, qyteti, shteti, kontakt_person, mobil, email, web, cmimi_kubik, cmimi_kycjes,  njesia, valuta, tvsh, tvsh2, banka, xhirollogaria, tekst, tekst2, logo1, logo2) VALUES (1, '{$fshati}', '{$komuna}', '{$qyteti}', '{$shteti}', '{$kontakt_person}', '{$mobil}', '{$email}', '{$web}', '{$cmimi_kubik}', '{$cmimi_kycjes}',  '{$njesia}', '{$valuta}', '{$tvsh}', '{$tvsh2}', '{$banka}', '{$xhirollogaria}', '{$tekst}', '{$tekst2}', '{$logo1}', '{$logo2}')";
+            $sql = "INSERT INTO konfigurime (konfigurimeID, fshati, komuna, qyteti, shteti, kontakt_person, mobil, email, web, cmimi_kubik, cmimi_kycjes,  njesia, valuta, tvsh, tvsh2, banka, xhirollogaria, tekst, tekst2, logo1, logo2) VALUES (1, '{$fshati}', '{$komuna}', '{$qyteti}', '{$shteti}', '{$kontakt_person}', '{$mobil}', '{$email}', '{$web}', '{$cmimi_kubik}', '{$cmimi_kycjes}', '{$njesia}', '{$valuta}', '{$tvsh}', '{$tvsh2}', '{$banka}', '{$xhirollogaria}', '{$tekst}', '{$tekst2}', '{$logo1}', '{$logo2}')";
 
             if ($link->query($sql)) {
                 // Save in Historia
@@ -51,8 +51,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['saveKonfigurime']))
             // Upload errors
             $logo1Err = $output1;
             $logo2Err = $output2;
-            $_SESSION['error'] = $logo1Err;
-            $_SESSION['error'] = $logo2Err;
+            setSessionAlert('error', $logo1Err);
+            setSessionAlert('error', $logo2Err);
         }
     }
 } // Save END
@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['saveKonfigurime']))
     <!-- Header Title END -->
 
     <!-- Display Session Messages-->
-    <?php echo session_message(); ?>
+    <?php echo showSessionAlert(); ?>
 
     <section class="card bg-light my-3">
         <header class="card-header">
@@ -265,7 +265,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['saveKonfigurime']))
                 <div class="row mt-5">
                     <div class="col text-right">
                         <hr class="mb-2">
-                        <button class=" btn btn-success mr-1 px-4" type="submit" name="saveKonfigurime" value="submit">Ruaj</button>
+                        <button class=" btn btn-success mr-1 px-4" type="submit" name="saveKonfigurime">Ruaj</button>
                         <a href="<?= APP_URL . '/'; ?>" class="btn btn-secondary">Anulo</a>
                     </div>
                 </div> <!-- Buttons END -->

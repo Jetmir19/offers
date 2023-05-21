@@ -1,4 +1,5 @@
 <?php
+
 // define variables and set to empty values
 $emri = $mbiemri = $titulli = $data_punesimit = $image = $data_punesimit = $isAdmin =  $update_emriperdorues = $update_fjalekalimi = $update_confirm_fjalekalimi = "";
 $emri_err = $mbiemri_err  = $titulli_err = $data_punesimit_err = $image_err = $data_punesimit_err = $isAdmin_err = $update_emriperdorues_err = $update_fjalekalimi_err = $update_confirm_fjalekalimi_err = "";
@@ -10,11 +11,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['savestafi']))
 {
     // Disable form resubmission on refresh
     disableFormResubmission();
-
-    // echo "<pre>";
-    // print_r($_POST);
-    // echo "</pre>";
-    // die;
 
     $validated = true;
 
@@ -28,10 +24,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['savestafi']))
     $data_punesimit = mysqli_real_escape_string($link, $_POST["data_punesimit"]);
     // checkbox isAdmin
     $isAdmin = isset($_POST['isAdmin']) ? 1 : 0;
-
-    // //@TODO
-    // $email = mysqli_real_escape_string($link, $_POST["email"]);
-    // $komment = mysqli_real_escape_string($link, $_POST["komment"]);
 
     // Include Validation
     require_once PAGES_PATH . '/stafi/includes/stafi_validate.php';
@@ -89,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['savestafi']))
             }
         } else {
             $image_err = $output;
-            $_SESSION['error'] = $image_err;
+            setSessionAlert('error', $image_err);
         }
     }
 } // Save END
@@ -117,7 +109,7 @@ if (isset($_GET['id']))
             <!-- Header Title END -->
 
             <!-- Display Session Messages-->
-            <?php echo session_message(); ?>
+            <?php echo showSessionAlert(); ?>
 
             <section class="card bg-light my-3">
                 <header class="card-header">
@@ -198,14 +190,10 @@ if (isset($_GET['id']))
                                         <span id="invalid-feedback" class="invalid-feedback"><?php echo $image_err; ?></span>
                                         <div id="preview_image" class="mt-2">
                                             <?php
-                                            if ($row['image']) {
-                                            ?>
-                                                <img src="<?php echo APP_URL . "/public/uploads/stafi/" . $row['image']; ?>" alt="image" width="70px" height="70px">
-                                            <?php
+                                            if ($row['image'] && file_exists(APPROOT . "/public/uploads/stafi/" . $row['image'])) {
+                                                echo '<img src="' . APP_URL . "/public/uploads/stafi/" . $row['image'] . '" alt="image" width="60px" height="60px">';
                                             } else {
-                                            ?>
-                                                <img src="<?php echo APP_URL . "/public/uploads/stafi/no-profile.png"; ?>" alt=" image" width="70px" height="70px">
-                                            <?php
+                                                echo '<img src="' . APP_URL . '/public/uploads/stafi/no-profile.png" alt="image" width="60px" height="60px">';
                                             }
                                             ?>
                                         </div>

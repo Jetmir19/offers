@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['saveKonsumatori']))
         if ($nr_amez == $amez) {
           $validated = false;
           $nr_amezErr = "Ekziston konsumator me numër amëz të njejtë";
-          $_SESSION['error'] = $nr_amezErr;
+          setSessionAlert('error', $nr_amezErr);
         }
       }
     }
@@ -90,7 +90,7 @@ if (isset($_GET['id']))
       <!-- Header Title END -->
 
       <!-- Display Session Messages-->
-      <?php echo session_message(); ?>
+      <?php echo showSessionAlert(); ?>
 
       <section class="card my-3">
         <header class="card-header">
@@ -239,7 +239,7 @@ if (isset($_GET['id']))
             <div class="row mt-5">
               <div class="col text-right">
                 <hr class="mb-2">
-                <button class="btn btn-success mr-1 px-4" type="submit" name="saveKonsumatori" value="submit">Ruaj</button>
+                <button class="btn btn-success mr-1 px-4" type="submit" name="saveKonsumatori">Ruaj</button>
                 <a href="<?= APP_URL . '/index.php?page=konsumatori'; ?>" class="btn btn-secondary">Anulo</a>
               </div>
             </div> <!-- Buttons END -->
