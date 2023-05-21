@@ -1,4 +1,5 @@
 <?php
+
 $konsumatorID = $emriProduktit = $c_konsumatorID = $c_produktetID = $produktetID = $c_njesiID = $c_emri_produktit = $c_emri_njesis = $c_njesia = $c_tvsh1 = $c_sasia = $c_cmimi_pa_tvsh = $c_vlera_pa_tvsh = $c_vlera_e_tvsh = $c_vlera_me_tvsh = $c_zbritje = $searchProdukt = $pershkrimi_ofertes = "";
 
 //------------------------------------------------------------
@@ -171,7 +172,7 @@ if (isset($_POST['paguaj']))
     // Require at least one product in a cart
     if (is_array($cartItems) && count($cartItems) == 0) {
         $validated = false;
-        $error .= "Nuk ka asnje produkt per oferte<br>";
+        $error .= "Nuk ka asnjë produkt për ofertë<br>";
     }
     // Require konsumatoriID session
     if (!isset($_SESSION['res2_konsumatorID'])) {

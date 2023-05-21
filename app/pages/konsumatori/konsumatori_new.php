@@ -1,4 +1,5 @@
 <?php
+
 // define variables and set to empty values
 $k_emri = $k_mbiemri = $firma = $nr_amez = $tip_konsumator = $rruga = $fshati =  $komuna = $qyteti =  $shteti = $adresa_perkohshme = $mobil = $email = "";
 $konsumator_codeErr = $k_emriErr = $firmaErr = $mbiemriErr = $nr_amez = $tip_konsumatorErr = $rrugaErr =  $fshatiErr = $qytetiErr = $shtetiErr = $adresa_perkohshmeErr = $mobilErr =  $emailErr = "";

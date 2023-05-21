@@ -1,4 +1,5 @@
 <?php
+
 // Delete START 
 if (isset($_POST['konsumatorDelete'])) {
     // Disable form resubmission on refresh

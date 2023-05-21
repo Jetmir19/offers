@@ -22,11 +22,11 @@ function showIframeModal(options = [])
   let btnShow = `<button type="button" class="btn btn-success px-4" id="action-btn" name="action-btn" ${options.btnActionDisabled ? 'disabled' : ''}> ${options.btnActionText} </button>`;
 
   let modalHTML = `
-  <div class="modal fade" id="dataModal" tabindex="-1" aria-labelledby="dataModalLabel" aria-hidden="true">
+  <div class="modal fade" id="iframeModal" tabindex="-1" aria-labelledby="iframeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title text-danger" id="dataModalLabel">${options.headerText}</h5>
+          <h5 class="modal-title text-danger" id="iframeModalLabel">${options.headerText}</h5>
           <button type="button" id="closeModalX" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -67,12 +67,12 @@ function showIframeModal(options = [])
 
   // Remove modal from the DOM - x button on top
   document.getElementById("closeModalX").onclick = function () {
-    // $("#dataModal").modal('hide');
-    document.getElementById("dataModal").remove();
+    // $("#iframeModal").modal('hide');
+    document.getElementById("iframeModal").remove();
   };
   // Remove Modal from the DOM - button footer
   document.getElementById("closeModal").onclick = function () {
-    document.getElementById("dataModal").remove();
+    document.getElementById("iframeModal").remove();
   };
   // Handle dinamic action Button
   if (action_btn != null) {
@@ -127,7 +127,7 @@ function confirmModal(headerText = "", html = "", callback = null)
     // Hide modal
     $('#confirmModal').modal('hide');
     // Remove Modal from the DOM
-    document.getElementById("confirmModal").remove();
+    $('#confirmModal').remove();
   };
 
   // Button (Anulo) clicked
@@ -137,7 +137,7 @@ function confirmModal(headerText = "", html = "", callback = null)
     // Hide modal
     $('#confirmModal').modal('hide');
     // Remove Modal from the DOM
-    document.getElementById("confirmModal").remove();
+    $('#confirmModal').remove();
   };
 
 }

@@ -118,7 +118,7 @@ if ($result && $result->num_rows < 1) {
                                 <td>
                                     <div class="d-flex justify-content-center">
                                         <!-- view -->
-                                        <button type="button" class="btn btnStView" data-toggle="modal" data-target="#dataModal" data-btnView="<?= $stID ?>" data-backdrop="static" data-keyboard="false">
+                                        <button type="button" class="btn btnStView" data-toggle="modal" data-target="#iframeModal" data-btnView="<?= $stID ?>" data-backdrop="static" data-keyboard="false">
                                             <i class="far fa-list-alt fa-lg text-info"></i>
                                         </button>
                                         <!-- edit -->

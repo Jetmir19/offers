@@ -1,4 +1,5 @@
 <?php
+
 // Delete START 
 if (isset($_POST['produktetDelete'])) {
     // Disable form resubmission on refresh
@@ -97,9 +98,9 @@ if ($result && $result->num_rows < 1) {
                     <th class="text-center">Action</th>
                     <!-- <th>Barkodi</th> -->
                     <th>Emri i prod.</th>
-                    <th>Pershrkimi i prod.</th>
-                    <th>Cmimi bleres</th>
-                    <th>Cmimi shites</th>
+                    <th>Pershrkimi</th>
+                    <th>Çmimi blerës</th>
+                    <th>Çmimi shitës</th>
                     <th>Sasia kritike</th>
                     <th class="text-center">Statusi</th>
                     <th>Data e krijimit</th>
@@ -109,10 +110,9 @@ if ($result && $result->num_rows < 1) {
                 <?php
                 if ($result && $result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
+                        $poID = $row['produktetID'];
                         $pstatusi = $row['pstatusi'];
-                        $replace_icon = false;
-                        if ($row['pstatusi'] == 'inaktiv') {
-                            $replace_icon = true;
+                        if ($pstatusi == 'aktiv') {
                             $pstatusi = '<i class="fas fa-circle fa-lg text-success align-middle"></i> ';
                         } else {
                             $pstatusi = '<i class="fas fa-circle fa-lg text-danger align-middle"></i> ';
@@ -121,21 +121,10 @@ if ($result && $result->num_rows < 1) {
                         <tr>
                             <td>
                                 <div class="d-flex justify-content-center">
-                                    <!-- replace -->
-                                    <?php
-                                    if ($replace_icon) {
-                                        echo '<a class="btn" href="?page=produktet_replace&id=' . $row['produktetID'] . '">
-                                                <i class="fas fa-exchange-alt fa-lg text-danger"></i>
-                                            </a>';
-                                        // <!-- edit -->
-                                        echo '<a class="btn" href="?page=produktet_primary"></i>
-                                            </a>';
-                                    } else {
-                                        echo '<i class="fas fa-exchange-alt fa-lg text-info btn"></i>';
-                                        echo '<i class="far fa-edit fa-lg text-info btn"></i>';
-                                    }
-                                    ?>
-
+                                    <!-- edit -->
+                                    <a class="btn" href='?page=produktet_edit&id=<?php echo $poID; ?>'>
+                                        <i class="far fa-edit fa-lg text-primary"></i>
+                                    </a>
                                     <!-- Delete -->
                                     <form class="frmDelete" action="?page=produktet" method="POST">
                                         <input type="hidden" name="produktetDelete" value="<?php echo $row['produktetID']; ?>">
@@ -149,16 +138,18 @@ if ($result && $result->num_rows < 1) {
                             <td><?php echo $row['cmimiBleres']; ?></td>
                             <td><?php echo $row['cmimiShites']; ?></td>
                             <td><?php echo $row['sasiakritike']; ?></td>
-                            <td><?php echo $row['pstatusi']; ?></td>
+                            <td class="text-center"><?php echo $pstatusi; ?></td>
                             <td><?php echo $row['dateCreated']; ?></td>
 
                         </tr>
                 <?php
                     }
                 } else {
-                    echo '<tr><td colspan="100%">
-                    <div class="border text-center p-2"><span class="text-muted">Nuk u gjet asnjë regjistrim.</span></div>
-                    </td></tr>';
+                    echo '<tr>
+                            <td colspan="100%">
+                                <div class="border text-center p-2"><span class="text-muted">Nuk u gjet asnjë regjistrim.</span></div>
+                            </td>
+                        </tr>';
                 }
                 ?>
             </tbody>

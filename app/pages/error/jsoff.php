@@ -17,7 +17,7 @@ require_once "../../config/config.php";
         window.location.replace("<?php echo APP_URL; ?>/");
     </script>
 
-    <title>uji2021</title>
+    <title>Offers</title>
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="<?php echo APP_URL; ?>/public/css/bootstrap.min.css">
 </head>
@@ -45,4 +45,5 @@ require_once "../../config/config.php";
     </div> <!-- container END -->
 
 </body>
-<html>
+
+</html>

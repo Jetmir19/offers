@@ -1,5 +1,6 @@
 <?php
-require_once dirname(dirname(__DIR__)) . "/config/config.php";
+
+require_once "../../config/config.php";
 
 require_once DB_PATH . '/connect.php';
 
@@ -125,6 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 </head>
 
 <body>
+
     <div class="container">
         <div class="row">
             <div class="col-lg-10 col-xl-9 mx-auto">
@@ -142,7 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                                 <span class="help-block"><?php echo $emriperdorues_err; ?></span>
                             </div>
                             <div class="form-group mb-3" <?php echo (!empty($fjalekalimi_err)) ? 'has-error' : ''; ?>>
-                                <input type="password" name="fjalekalimi" class="form-control rounded-pill border-0 shadow-sm px-4 text-primary" placeholder="fjalekalimi">
+                                <input type="password" name="fjalekalimi" autocomplete="off" class="form-control rounded-pill border-0 shadow-sm px-4 text-primary" placeholder="fjalekalimi">
                                 <span class="help-block"><?php echo $fjalekalimi_err; ?></span>
                             </div>
                             <!-- // ------------------- Remember me checkBox START-------------->
@@ -162,6 +164,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             </div>
         </div>
     </div>
+
 </body>
 
 </html>

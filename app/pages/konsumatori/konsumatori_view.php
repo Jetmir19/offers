@@ -1,17 +1,18 @@
 <?php
+
 // if GET Request START
 //------------------------------------------------------------
 if (isset($_GET['id']))
 //------------------------------------------------------------
 {
-    $konsumatorID = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_URL);
-    $row = getKonsumatoriById($konsumatorID);
+    $konsumatorID = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+    $row = getKonsumatoriById($konsumatorID) ?? [];
 
     // emri dhe mbiemri or firma
     $konsumatorEmri = $row['k_emri'] . ' ' . $row['k_mbiemri'];
     $k = $row['k_emri'] !== "" && $row['k_mbiemri'] !== "" ? $konsumatorEmri : $row['firma'];
 
-    if ($row) {
+    if (count($row) > 0) {
 ?>
         <div class="container-fluid">
 
@@ -42,15 +43,6 @@ if (isset($_GET['id']))
                             <p class="proile-rating">Data e regjistrimit : <span><?php echo $row['dateCreated']; ?></span></p>
                             <p class="proile-rating">Numri amëz : <span><?php echo $row['nr_amez']; ?></span></p>
 
-                            <div class="btn-group">
-                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Zgjith matesin
-                                </button>
-                                <div class="dropdown-menu">
-                                    <p class="proile-rating">Matesi 1 : <span><?php echo $row['nr_amez']; ?></span></p>
-                                    <p class="proile-rating">Matesi 2 : <span><?php echo $row['nr_amez']; ?></span></p>
-                                </div>
-                            </div>
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>

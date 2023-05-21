@@ -6,7 +6,7 @@
     </div>
     
 1. Create button to trigger the modal:
- <button type="button" class="btn btn-sm btn-success mr-2" data-toggle="modal" data-target="#dataModal" data-id="nothing" id="openDataModal" data-backdrop="static" data-keyboard="false" onclick="showIframeModal(iframePath, headerText)">view</button>
+ <button type="button" class="btn btn-sm btn-success mr-2" data-toggle="modal" data-target="#iframeModal" data-id="nothing" id="openiframeModal" data-backdrop="static" data-keyboard="false" onclick="showIframeModal(iframePath, headerText)">view</button>
 
  ....or from the Javascript
 

@@ -1,11 +1,12 @@
 <?php
+
 // define variables and set to empty values
 $furnitoretID = $njesiID = $cat_produktetID = $barkodi = $emriProduktit = $pershkrimiProdukit = $sasia = $serialnumer = $cmimiBleres = $cmimiShites =  $tvsh1 = $tvsh2 = $garancion_prej = $garancion_deri = $sasiakritike = $pstatusi = $dateCreated = "";
 $furnitoretIDErr = $njesiIDErr = $cat_produktetIDErr = $barkodiErr = $emriProduktitErr = $pershkrimiProdukitErr = $sasia = $serialnumerErr =  $cmimiBleresErr = $cmimiShitesErr = $tvsh1Err = $tvsh2Err = $garancion_prejErr = $garancion_deriErr = $sasiakritikeErr = $pstatusiErr = $dateCreatedErr = "";
 
 // Save START
 //------------------------------------------------------------
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['saveProduktet']))
+if (isset($_POST['saveProduktet']))
 //------------------------------------------------------------
 {
     // Disable form resubmission on refresh
