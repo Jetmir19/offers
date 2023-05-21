@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [19-May-2023 13:33:16 Europe/Skopje] PHP Warning:  Undefined array key "submit" in D:\xampp\htdocs\offers\app\pages\ofertat\ofertat.php on line 11
 [19-May-2023 13:41:56 Europe/Skopje] PHP Warning:  Undefined array key "submit" in D:\xampp\htdocs\offers\app\pages\ofertat\ofertat.php on line 11
 [19-May-2023 14:12:57 Europe/Skopje] PHP Warning:  Undefined array key "barkod" in D:\xampp\htdocs\offers\app\pages\produktet\produktet.php on line 146
@@ -979,4 +980,6 @@ Stack trace:
 [21-May-2023 12:46:03 Europe/Skopje] PHP Warning:  Undefined variable $komunaErr in D:\xampp\htdocs\offers\app\pages\konsumatori\konsumatori_new.php on line 156
 [21-May-2023 12:46:03 Europe/Skopje] PHP Warning:  Undefined variable $komunaErr in D:\xampp\htdocs\offers\app\pages\konsumatori\konsumatori_new.php on line 157
 [21-May-2023 13:24:15 Europe/Skopje] PHP Warning:  Undefined array key "image" in D:\xampp\htdocs\offers\app\pages\konfigurime\konfigurime.php on line 268
+>>>>>>> master
+=======
 >>>>>>> master
