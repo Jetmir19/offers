@@ -1027,3 +1027,4 @@ Stack trace:
 [16-May-2023 18:04:55 Europe/Skopje] PHP Warning:  Undefined array key "serialnumer" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 81
 [16-May-2023 18:04:55 Europe/Skopje] PHP Warning:  Undefined array key "vlera_max" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 82
 [16-May-2023 18:04:55 Europe/Skopje] PHP Warning:  Undefined array key "vlera_prez" in C:\xampp\htdocs\offers\app\pages\pagesat\pagesat_print.php on line 83
+[21-May-2023 14:33:30 Europe/Skopje] PHP Warning:  Undefined array key "loggedin" in D:\xampp\htdocs\offers\app\library\helperFunctions.php on line 37
