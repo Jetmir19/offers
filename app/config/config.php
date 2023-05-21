@@ -1,6 +1,23 @@
 <?php
-ob_start();
-session_start();
+//------------------------------------------------------------
+// Sessions
+//------------------------------------------------------------
+session_name('Offers_SESSION');
+// Use SSL/TLS encryption
+ini_set('session.cookie_secure', 1);
+ini_set('session.cookie_httponly', 1);
+// Set session cookie parameters
+session_set_cookie_params([
+    'secure' => true,
+    'httponly' => true,
+]);
+// Session and Cookie duration
+define('SESSION_DURATION', 3600); // the time is in seconds (60min)
+define('COOKIE_DURATION', 60 * 60 * 24 * 30); // 30 days
+if (session_status() === PHP_SESSION_NONE) {
+    ob_start();
+    session_start();
+}
 
 //------------------------------------------------------------
 // Error Reporting
@@ -15,7 +32,7 @@ ini_set('error_log', dirname(__DIR__) . '/error.log'); // Logging file path
 date_default_timezone_set('Europe/Skopje');
 
 //-------------------------------------------------------
-// Database Connection
+// MySQL Database Connection
 //-------------------------------------------------------
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'ewins');
@@ -24,45 +41,30 @@ define('DB_USER', 'root');
 define('DB_PASS', '123456');
 
 //-------------------------------------------------------
-// APP Absolute URL
+// APP
 //-------------------------------------------------------
-defined('APP_URL')
-    or define('APP_URL', 'http://localhost/offers');
-
-// APP Absolute PATH
-defined('APPROOT')
-    or define('APPROOT', dirname(dirname(__DIR__)));
-
+/* APP Absolute URL */
+define('APP_URL', 'http://localhost/offers');
+/* APP Absolute PATH */
+define('APPROOT', dirname(dirname(__DIR__)));
 /* app PATH */
-defined('APP_PATH')
-    or define('APP_PATH', APPROOT . '/app');
-
+define('APP_PATH', APPROOT . '/app');
+/* pages PATH */
+define('PAGES_PATH', APP_PATH . '/pages');
 /* public PATH */
-defined('PUBLIC_PATH')
-    or define('PUBLIC_PATH', APPROOT . '/public');
-
+define('PUBLIC_PATH', APPROOT . '/public');
 /* uploads PATH */
-defined('UPLOADS_PATH')
-    or define('UPLOADS_PATH', PUBLIC_PATH . '/uploads');
-
-// pages PATH
-defined('PAGES_PATH')
-    or define('PAGES_PATH', APP_PATH . '/pages');
-
+define('UPLOADS_PATH', PUBLIC_PATH . '/uploads');
 // database PATH
-defined('DB_PATH')
-    or define('DB_PATH', APP_PATH . '/config');
-
+define('DB_PATH', APP_PATH . '/config');
 /* library PATH */
-defined('LIBRARY_PATH')
-    or define('LIBRARY_PATH', APP_PATH . '/library');
-
-/* library PATH */
-defined('APP_VERSION')
-    or define('APP_VERSION', '1.0.0');
+define('LIBRARY_PATH', APP_PATH . '/library');
+/* Version */
+define('APP_VERSION', '1.0.0');
 
 
-
-/* Static Admin (hidden admin) */
+//-------------------------------------------------------
+// User Admin
+//-------------------------------------------------------
 // Username: jetmir1
 // password: jetmir1

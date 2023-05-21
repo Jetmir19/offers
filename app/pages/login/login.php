@@ -28,14 +28,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     if (empty(trim($_POST["emriperdorues"]))) {
         $emriperdorues_err = "Ju lutemi jepeni emrin përdorues.";
     } else {
-        $emriperdorues = trim($_POST["emriperdorues"]);
+        $emriperdorues = trim(htmlspecialchars($_POST["emriperdorues"]));
     }
 
     // Check if fjalekalimi is empty
     if (empty(trim($_POST["fjalekalimi"]))) {
         $fjalekalimi_err = "Ju lutemi jepeni fjalëkalimin.";
     } else {
-        $fjalekalimi = trim($_POST["fjalekalimi"]);
+        $fjalekalimi = trim(htmlspecialchars($_POST["fjalekalimi"]));
     }
 
     // Validate credentials
@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                             $_SESSION["loggedin"] = true;
                             $_SESSION["stafiID"] = $stafiID;
                             $_SESSION["emriperdorues"] = $emriperdorues;
-                            $_SESSION["emri"] = $ermri;
+                            $_SESSION["emri"] = $emri;
                             $_SESSION["mbiemri"] = $mbiemri;
 
                             // ------------------- Remember me checkBox START-------------->>
@@ -87,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                             header('Location:' . APP_URL . '/');
                         } else {
                             // Display an error message if fjalekalimi is not valid
-                            $fjalekalimi_err = "Fjalëkalimi gabuar!.";
+                            $fjalekalimi_err = "Kredencialet e pasakta!";
                         }
                     }
                 } else {
@@ -95,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                     $emriperdorues_err = "Nuk gjendet llogari me këtë emër përdorues!";
                 }
             } else {
-                echo "Opss! Diçka nuk është në rregull.";
+                echo "Opss! Diçka shkoi keq.";
             }
 
             // Close statement
@@ -133,9 +133,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                         <!-- Background image for card set in CSS! -->
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title text-center mb-0">Program per oferta biznisi</h5>
-                        <hr>
-                        <h5 class="card-title text-center">Identifikimi</h5>
+                        <h1 class="card-title text-center mb-0">Aplikacion për oferta biznesi</h1>
+                        <hr class="mt-3">
+                        <h5 class="card-title text-center my-4">Identifikimi</h5>
                         <form class="form" action="" method="post">
                             <div class="form-group mb-3" <?php echo (!empty($emriperdorues_err)) ? 'has-error' : ''; ?>>
                                 <input type="text" name="emriperdorues" class="form-control rounded-pill border-0 shadow-sm px-4" value="<?php echo isset($_COOKIE["emriperdorues"]) ? $_COOKIE["emriperdorues"] : $emriperdorues ?>" placeholder="Emri perdordorues">
@@ -153,8 +153,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                             <button type="submit" name="submit" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">Kyçje në sistem</button>
                             <div class="text-center d-flex justify-content-between mt-4">
                                 <p>Programuar nga:
-
-                                    <u><a href="http://jetmir-kazimi.eu5.net/" class="font-italic text-muted">&&& </u>
+                                    <u><a href="http://jetmir-kazimi.eu5.net/" class="font-italic text-muted">& & &</a></u>
                                 </p>
                             </div>
                         </form>

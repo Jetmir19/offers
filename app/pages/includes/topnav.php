@@ -9,7 +9,7 @@
 
 
         <!-- Logout button -->
-        <a class="btn btn-secondary" href="<?php echo APP_URL . "/app/pages/login/logout.php" ?>"><i class="fas fa-power-off"></i>Dalje</a>
+        <a class="btn btn-secondary" href="<?php echo APP_URL . "/app/pages/login/logout.php" ?>"><i class="fas fa-power-off"></i> Dalje</a>
     </nav>
 </header>
 

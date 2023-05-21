@@ -8,7 +8,7 @@ $emriProduktit = "";
 
 
 
-$_SESSION['row'][] = [$_POST['submit']];
+// $_SESSION['row'][] = [$_POST['submit']];
 // $row[] = $_SESSION['row'];
 // $_SESSION['row'] = $row;
 // Prezemi nalog
@@ -25,7 +25,7 @@ if (isset($_POST['submit'])) {
     array_push($_SESSION['row'], $_POST);
 
     if (mysqli_num_rows($result) < 1) {
-        $_SESSION['error'] = "nuk ekziston";
+        setSessionAlert('error', 'Produkti nuk ekziston');
     }
 }
 ?>
@@ -40,7 +40,7 @@ if (isset($_POST['submit'])) {
     </div> <!-- Header Title END -->
 
     <!-- Display Session Messages-->
-    <?php echo session_message(); ?>
+    <?php echo showSessionAlert(); ?>
 
     <section class="card my-3">
         <header class="card-header">
@@ -71,7 +71,7 @@ if (isset($_POST['submit'])) {
                                 </div>
                             </div>
                             <div class="col-1">
-                                <button type="submit" name="submit" value="submit" class="btn btn-primary">Save</button>
+                                <button type="submit" name="submit" class="btn btn-primary">Save</button>
                             </div>
                             <div class="col-1">
                                 <button type="submit" class="btn btn-warning">save</button>

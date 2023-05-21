@@ -14,11 +14,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['saveKonsumatori']))
     // Disable form resubmission on refresh
     disableFormResubmission();
 
-    // echo "<pre>";
-    // print_r($_POST);
-    // echo "</pre>";
-    // die;
-
     $validated = true;
 
     $stafiID = $_SESSION["stafiID"];
@@ -39,29 +34,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['saveKonsumatori']))
     // Include Validation
     require_once PAGES_PATH . '/konsumatori/includes/konsumatori_validate.php';
 
-    // Check for maticenBroj to avoid duplicate
-    $sqlConsCheck = mysqli_query($link, "SELECT * FROM konsumatoret WHERE nr_amez='" . $nr_amez . "'");
+    // Check for Numër amëz to avoid duplicate
+    $sqlConsCheck = mysqli_query($link, "SELECT * FROM konsumatoret WHERE nr_amez='$nr_amez'");
     if (!$sqlConsCheck) {
         die('Error: ' . mysqli_error($link));
     }
     if (mysqli_num_rows($sqlConsCheck) > 0) {
-        $_SESSION['error'] = "Ekziston konsumatorë me Numri amëz të njëjtë";
-    } else {
-        if ($validated === true) {
-            // Attempt insert query execution
-            $sql = "INSERT INTO konsumatoret (konsumator_code, stafiID, emri, mbiemri, firma, nr_amez, tip_konsumator, rruga, fshati, komuna, qyteti, shteti, adresa_perkohshme, mobil, email) VALUES ('{$konsumator_code}','{$stafiID}','{$k_emri}', '{$mbiemri}', '{$firma}', '{$nr_amez}', '{$tip_konsumator}', '{$rruga}', '{$fshati}', '{$komuna}', '{$qyteti}', '{$shteti}','{$adresa_perkohshme}', '{$mobil}', '{$email}')";
+        $validated = false;
+        setSessionAlert('error', 'Ekziston konsumator me Numër amëz të njëjtë');
+    }
 
-            if ($link->query($sql)) {
-                // Save in Historia
-                saveHistoria('create', 'konsumatori', 'Regjistruar me sukses.', 'success');
-                // $_SESSION['success'] = "Regjistruar me sukses.";
-                msgModal("success");
+    if ($validated === true) {
+        // Attempt insert query execution
+        $sql = "INSERT INTO konsumatoret (konsumator_code, stafiID, emri, mbiemri, firma, nr_amez, tip_konsumator, rruga, fshati, komuna, qyteti, shteti, adresa_perkohshme, mobil, email) VALUES ('{$konsumator_code}','{$stafiID}','{$k_emri}', '{$mbiemri}', '{$firma}', '{$nr_amez}', '{$tip_konsumator}', '{$rruga}', '{$fshati}', '{$komuna}', '{$qyteti}', '{$shteti}','{$adresa_perkohshme}', '{$mobil}', '{$email}')";
 
-                // CLEAR FIELDS
-                $konsumator_code = $k_emri = $k_mbiemri = $firma = $nr_amez = $tip_konsumator = $rruga = $fshati =  $komuna = $qyteti =  $shteti =  $adresa_perkohshme =  $mobil = $email = "";
-            } else {
-                msgModal("error", $link->error);
-            }
+        if ($link->query($sql)) {
+            // Save in Historia
+            saveHistoria('create', 'konsumatori', 'Regjistruar me sukses.', 'success');
+            // $_SESSION['success'] = "Regjistruar me sukses.";
+            msgModal("success");
+
+            // CLEAR FIELDS
+            $konsumator_code = $k_emri = $k_mbiemri = $firma = $nr_amez = $tip_konsumator = $rruga = $fshati = $komuna = $qyteti = $shteti = $adresa_perkohshme = $mobil = $email = "";
+        } else {
+            msgModal("error", $link->error);
         }
     }
 } // Save END
@@ -75,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['saveKonsumatori']))
     </div> <!-- Header Title END -->
 
     <!-- Display Session Messages-->
-    <?php echo session_message(); ?>
+    <?php echo showSessionAlert(); ?>
 
     <section class="card my-3">
         <header class="card-header">
@@ -222,7 +218,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['saveKonsumatori']))
                 <div class="row mt-5">
                     <div class="col text-right">
                         <hr class="mb-2">
-                        <a href="<?php echo APP_URL; ?>/index.php?page=matesi_new" class="btn btn-secondary mr-1 mb-2">Krijo Matës</a>
                         <button class="btn btn-success mr-1 px-4 mb-2" type="submit" name="saveKonsumatori">Ruaj</button>
                         <a href="<?= APP_URL . '/index.php?page=konsumatori'; ?>" class="btn btn-secondary mb-2">Anulo</a>
                     </div>
@@ -231,7 +226,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['saveKonsumatori']))
 
         </div> <!-- card-body END -->
     </section> <!-- card END -->
-
 </div> <!-- container END -->
 
 <script>

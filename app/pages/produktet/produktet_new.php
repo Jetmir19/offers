@@ -2,8 +2,6 @@
 // define variables and set to empty values
 $furnitoretID = $njesiID = $cat_produktetID = $barkodi = $emriProduktit = $pershkrimiProdukit = $sasia = $serialnumer = $cmimiBleres = $cmimiShites =  $tvsh1 = $tvsh2 = $garancion_prej = $garancion_deri = $sasiakritike = $pstatusi = $dateCreated = "";
 $furnitoretIDErr = $njesiIDErr = $cat_produktetIDErr = $barkodiErr = $emriProduktitErr = $pershkrimiProdukitErr = $sasia = $serialnumerErr =  $cmimiBleresErr = $cmimiShitesErr = $tvsh1Err = $tvsh2Err = $garancion_prejErr = $garancion_deriErr = $sasiakritikeErr = $pstatusiErr = $dateCreatedErr = "";
-// Default
-
 
 // Save START
 //------------------------------------------------------------
@@ -12,11 +10,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['saveProduktet']))
 {
     // Disable form resubmission on refresh
     disableFormResubmission();
-
-    // echo "<pre>";
-    // print_r($_POST);
-    // echo "</pre>";
-    // die;
 
     $validated = true;
 
@@ -44,49 +37,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['saveProduktet']))
     // Check if emriProduktit exists
     $sqlTab = mysqli_query($link, "SELECT * FROM produktet WHERE emriProduktit = '" . $emriProduktit . "'");
     if (!$sqlTab) {
-        $_SESSION['error'] =  $link->error . "<br>";
+        setSessionAlert('error', $link->error . "<br>");
     }
     if (mysqli_num_rows($sqlTab) > 0) {
         $validated = false;
-        $emriProduktitErr = "Ekziston produkt me emer te njejtë";
-        $_SESSION['error'] = $emriProduktitErr . "<br>";
-    } else {
-        if ($validated === true) {
-            try {
-                // Start transaction
-                $link->begin_transaction();
+        $emriProduktitErr = "Ekziston produkt me emer te njejtë<br>";
+        setSessionAlert('error', $emriProduktitErr);
+    }
 
-                // Attempt insert query execution with commit() transaction
-                $link->query("INSERT INTO produktet (furnitoretID, njesiID, stafiID, cat_produktetID, barkodi, emriProduktit, pershkrimiProdukit, sasia, serialnumer, cmimiBleres, cmimiShites, tvsh1, tvsh2, garancion_prej, garancion_deri, sasiakritike, pstatusi)
+    if ($validated === true) {
+        try {
+            // Start transaction
+            $link->begin_transaction();
+
+            // Attempt insert query execution with commit() transaction
+            $link->query("INSERT INTO produktet (furnitoretID, njesiID, stafiID, cat_produktetID, barkodi, emriProduktit, pershkrimiProdukit, sasia, serialnumer, cmimiBleres, cmimiShites, tvsh1, tvsh2, garancion_prej, garancion_deri, sasiakritike, pstatusi)
                 VALUES ('{$furnitoretID}','{$njesiID}','{$cat_produktetID}','{$stafiID}','{$barkodi}','{$emriProduktit}', '{$pershkrimiProdukit}', '{$sasia}','{$serialnumer}','{$cmimiBleres}','{$cmimiShites}','{$tvsh1}','{$tvsh2}','{$garancion_prej}','{$garancion_deri}','{$sasiakritike}', '{$pstatusi}')");
 
-                // Update old Produkti status to 'inaktiv'
-                if (isset($replace_produktetID)) {
-                    $link->query("UPDATE produktet SET pstatusi='inaktiv' WHERE produktetID = '{$replace_produktetID}'");
-                }
+            // Save in Historia
+            saveHistoria('create', 'produktet', 'Regjistruar me sukses.', 'success');
+            // $_SESSION['success']= "Me sukses u regjistrua";
+            msgModal("success", "Me sukses u regjistrua");
 
-                // Commit changes
-                $link->commit();
-
-                if (isset($replace_produktetID)) {
-                    // Save in Historia
-                    saveHistoria('create', 'produktet', 'Produkti u ndërua me sukses.', 'success');
-                    // Show message on the modal
-                    $body = '<p>Produkti u ndërua me sukses</p>';
-                    $btnok_url = "/index.php?page=produktet";
-                    msgModal("success", $body, $btnok_url);
-                } else {
-                    // Save in Historia
-                    saveHistoria('create', 'produktet', 'Regjistruar me sukses.', 'success');
-                    // $_SESSION['success']= "Me sukses u regjistrua";
-                    msgModal("success", "Me sukses u regjistrua");
-                }
-            } catch (Exception $e) {
-                // Something went wrong. Rollback
-                $link->rollback();
-                // Show error message on the modal
-                msgModal("error", $e->getMessage());
-            }
+            // Commit changes
+            $link->commit();
+        } catch (Exception $e) {
+            // Something went wrong. Rollback
+            $link->rollback();
+            // Show error message on the modal
+            msgModal("error", $e->getMessage());
         }
     }
 } // Save END
@@ -102,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['saveProduktet']))
     </div> <!-- Header Title END -->
 
     <!-- Display Session Messages-->
-    <?php echo session_message(); ?>
+    <?php echo showSessionAlert(); ?>
 
     <section class="card my-3">
         <header class="card-header">
@@ -230,142 +209,80 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['saveProduktet']))
                         </div>
                     </div>
 
+                    <div class="col-md-12">
+                        <div class="row mx-0 mt-2 pt-2 border border-<?php echo $furnitoretIDErr ? 'danger' : ''; ?>">
+                            <div class="col-md-6">
+                                <label for="dlist" class="control-label"><?php echo $lang['furnitoret_list'] ?? "furnitoret *"; ?></label>
+                                <?php
+                                echo '<datalist id="dlist">';
+                                $furnitoret = getFurnitoret();
+                                foreach ($furnitoret as $furnitori) {
+                                    echo "<option value='$furnitori[furnitoretID]'>$furnitori[personKontakt] $furnitori[Kompania]</option>";
+                                }
+                                echo "</datalist>";
+                                ?>
+                                <input list="dlist" id="inputFurnitori" name="inputFurnitori" class="form-control" value="<?php echo $furnitoretID; ?>" autocomplete="off">
+                            </div>
+                            <!-- furnitoret: emri dhe mbiemri - dynamic -->
+                            <div class="col-md-6">
+                                <label for="kompania" class="control-label">&nbsp;</label>
+                                <input type="text" class="form-control" id="kompania" disabled>
+                            </div>
+                            <div class="text-danger m-3"><?php echo $furnitoretIDErr; ?></div>
+                        </div>
+                    </div>
 
-                    <?php
-                    if (isset($replace_produktetID)) {
-                    ?>
-                        <div class="col-md-12">
-                            <div class="form-group row">
-                                <div class="col">
-                                    <label for="furnitoretID" class="control-label"><?php echo $lang['furnitoret_list'] ?? "furnitoret *"; ?></label>
-                                    <input type="text" class="form-control <?php echo $furnitoretIDErr ? ' is-invalid' : ''; ?>" id="furnitoretID" name="" value="<?php echo $furnitoret; ?>" disabled>
-                                    <span class="invalid-feedback"><?php echo $furnitoretIDErr; ?></span>
-                                </div>
+                    <div class="col-md-12">
+                        <div class="row mx-0 mt-2 pt-2 border border-<?php echo $njesiIDErr ? 'danger' : ''; ?>">
+                            <div class="col-md-6">
+                                <label for="Njlist" class="control-label"><?php echo $lang['Njesite_list'] ?? "Njesite *"; ?></label>
+                                <?php
+                                echo '<datalist id="Njlist">';
+                                $njesit = getNjesit();
+                                foreach ($njesit as $njesia) {
+                                    echo "<option value='$njesia[njesiID]'>$njesia[emri_njesis] $njesia[njesia]</option>";
+                                }
+                                echo "</datalist>";
+                                ?>
+                                <input list="Njlist" id="inputNjesi" name="inputNjesi" class="form-control" value="<?php echo $njesiID; ?>" autocomplete="off">
                             </div>
-                            <input type="hidden" id="inputFurnitori" name="inputFurnitori" value="<?php echo $replace_furnitoretID; ?>">
-                        </div>
-                    <?php
-                    } else {
-                    ?>
-                        <div class="col-md-12">
-                            <div class="row mx-0 mt-2 pt-2 border border-<?php echo $furnitoretIDErr ? 'danger' : ''; ?>">
-                                <div class="col-md-6">
-                                    <label for="dlist" class="control-label"><?php echo $lang['furnitoret_list'] ?? "furnitoret *"; ?></label>
-                                    <?php
-                                    echo '<datalist id="dlist">';
-                                    $furnitoret = getFurnitoret();
-                                    foreach ($furnitoret as $furnitori) {
-                                        echo "<option value='$furnitori[furnitoretID]'>$furnitori[personKontakt] $furnitori[Kompania]</option>";
-                                    }
-                                    echo "</datalist>";
-                                    ?>
-                                    <input list="dlist" id="inputFurnitori" name="inputFurnitori" class="form-control" value="<?php echo $furnitoretID; ?>" autocomplete="off">
-                                </div>
-                                <!-- furnitoret: emri dhe mbiemri - dynamic -->
-                                <div class="col-md-6">
-                                    <label for="kompania" class="control-label">&nbsp;</label>
-                                    <input type="text" class="form-control" id="kompania" disabled>
-                                </div>
-                                <div class="text-danger m-3"><?php echo $furnitoretIDErr; ?></div>
+                            <!-- Njesite: emri dhe mbiemri - dynamic -->
+                            <div class="col-md-6">
+                                <label for="emri_njesis" class="control-label">&nbsp;</label>
+                                <input type="text" class="form-control" id="emri_njesis" disabled>
                             </div>
+                            <div class="text-danger m-3"><?php echo $njesiIDErr; ?></div>
                         </div>
-                    <?php
-                    }
-                    ?>
-                    <?php
-                    if (isset($replace_produktetID)) {
-                    ?>
-                        <div class="col-md-12">
-                            <div class="form-group row">
-                                <div class="col">
-                                    <label for="njesiID" class="control-label"><?php echo $lang['furnitoret_list'] ?? "njesit*"; ?></label>
-                                    <input type="text" class="form-control <?php echo $njesiIDErr ? ' is-invalid' : ''; ?>" id="njesiID" name="" value="<?php echo $njesi; ?>" disabled>
-                                    <span class="invalid-feedback"><?php echo $njesiIDErr; ?></span>
-                                </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="row mx-0 mt-2 pt-2 border border-<?php echo $cat_produktetIDErr ? 'danger' : ''; ?>">
+                            <div class="col-md-6">
+                                <label for="Blist" class="control-label"><?php echo $lang['cat_list'] ?? "Category *"; ?></label>
+                                <?php
+                                echo '<datalist id="Blist">';
+                                $catProduktet = getCatProduktet();
+                                foreach ($catProduktet as $cat_produkt) {
+                                    echo "<option value='$cat_produkt[cat_produktetID]'>$cat_produkt[emri_cat] $cat_produkt[pershkrimiCat]</option>";
+                                }
+                                echo "</datalist>";
+                                ?>
+                                <input list="Blist" id="inputcat_produktet" name="inputcat_produktet" class="form-control" value="<?php echo $cat_produktetID; ?>" autocomplete="off">
                             </div>
-                            <input type="hidden" id="inputNjesi" name="inputNjesi" value="<?php echo $replace_njesiID; ?>">
-                        </div>
-                    <?php
-                    } else {
-                    ?>
-                        <div class="col-md-12">
-                            <div class="row mx-0 mt-2 pt-2 border border-<?php echo $njesiIDErr ? 'danger' : ''; ?>">
-                                <div class="col-md-6">
-                                    <label for="Njlist" class="control-label"><?php echo $lang['Njesite_list'] ?? "Njesite *"; ?></label>
-                                    <?php
-                                    echo '<datalist id="Njlist">';
-                                    $njesit = getNjesit();
-                                    foreach ($njesit as $njesia) {
-                                        echo "<option value='$njesia[njesiID]'>$njesia[emri_njesis] $njesia[njesia]</option>";
-                                    }
-                                    echo "</datalist>";
-                                    ?>
-                                    <input list="Njlist" id="inputNjesi" name="inputNjesi" class="form-control" value="<?php echo $njesiID; ?>" autocomplete="off">
-                                </div>
-                                <!-- Njesite: emri dhe mbiemri - dynamic -->
-                                <div class="col-md-6">
-                                    <label for="emri_njesis" class="control-label">&nbsp;</label>
-                                    <input type="text" class="form-control" id="emri_njesis" disabled>
-                                </div>
-                                <div class="text-danger m-3"><?php echo $njesiIDErr; ?></div>
+                            <!-- cat_produkt: emri dhe mbiemri - dynamic -->
+                            <div class="col-md-6">
+                                <label for="pershkrimiCat" class="control-label">&nbsp;</label>
+                                <input type="text" class="form-control" id="pershkrimiCat" disabled>
                             </div>
+                            <div class="text-danger m-3"><?php echo $cat_produktetIDErr; ?></div>
                         </div>
-                    <?php
-                    }
-                    ?>
-                    <?php
-                    if (isset($replace_produktetID)) {
-                    ?>
-                        <div class="col-md-12">
-                            <div class="form-group row">
-                                <div class="col">
-                                    <label for="cat_produktetID" class="control-label"><?php echo $lang['furnitoret_list'] ?? "cat_produkt*"; ?></label>
-                                    <input type="text" class="form-control <?php echo $cat_produktetIDErr ? ' is-invalid' : ''; ?>" id="cat_produktetID" name="" value="<?php echo $cat_produktetID; ?>" disabled>
-                                    <span class="invalid-feedback"><?php echo $cat_produktetIDErr; ?></span>
-                                </div>
-                            </div>
-                            <input type="hidden" id="inputcat_produktet" name="inputcat_produktet" value="<?php echo $replace_cat_produktetID; ?>">
-                        </div>
-                    <?php
-                    } else {
-                    ?>
-                        <div class="col-md-12">
-                            <div class="row mx-0 mt-2 pt-2 border border-<?php echo $cat_produktetIDErr ? 'danger' : ''; ?>">
-                                <div class="col-md-6">
-                                    <label for="Blist" class="control-label"><?php echo $lang['cat_list'] ?? "Category *"; ?></label>
-                                    <?php
-                                    echo '<datalist id="Blist">';
-                                    $cat = getCat();
-                                    foreach ($cat as $cat_produkt) {
-                                        echo "<option value='$cat_produkt[cat_produktetID]'>$cat_produkt[emri_cat] $cat_produkt[pershkrimiCat]</option>";
-                                    }
-                                    echo "</datalist>";
-                                    ?>
-                                    <input list="Blist" id="inputcat_produktet" name="inputcat_produktet" class="form-control" value="<?php echo $cat_produktetID; ?>" autocomplete="off">
-                                </div>
-                                <!-- cat_produkt: emri dhe mbiemri - dynamic -->
-                                <div class="col-md-6">
-                                    <label for="pershkrimiCat" class="control-label">&nbsp;</label>
-                                    <input type="text" class="form-control" id="pershkrimiCat" disabled>
-                                </div>
-                                <div class="text-danger m-3"><?php echo $cat_produktetIDErr; ?></div>
-                            </div>
-                        </div>
-                    <?php
-                    }
-                    ?>
+                    </div>
                 </div> <!-- row END -->
 
                 <!-- Buttons START -->
                 <div class="row mt-5">
                     <div class="col text-right">
                         <hr class="mb-2">
-                        <?php
-                        if (!isset($replace_produktetID)) { ?>
-                            <a href="<?= APP_URL . '/index.php?page=produktet_new'; ?>" class="btn btn-secondary mr-1 mb-2">Krijo furnitori</a>
-                        <?php
-                        }
-                        ?>
                         <button class="btn btn-success mr-1 px-4 mb-2" type="submit" id="saveProduktet" name="saveProduktet">Ruaj</button>
                         <a href="<?= APP_URL . '/index.php?page=produktet'; ?>" class="btn btn-secondary mb-2">Anulo</a>
                     </div>
@@ -377,7 +294,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['saveProduktet']))
 </div> <!-- container END -->
 
 <script>
-    // Get furnitorii name from the datalist
+    // Get furnitori name from the datalist
     window.addEventListener("DOMContentLoaded", function(event) {
         let inputF = document.getElementById("inputFurnitori");
         let inputNj = document.getElementById("inputNjesi");

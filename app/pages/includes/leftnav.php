@@ -10,11 +10,13 @@ $require_configurime = $_SESSION["require_konfigurime_style"] ?? '';
     <div class="shadow-sm d-flex flex-wrap align-items-center justify-content-between">
         <div class="d-flex flex-wrap align-items-center">
             <div id="profile-img" class="mr-2">
-                <?php if ($stafi['image']) { ?>
-                    <img src="<?php echo APP_URL . "/public/uploads/stafi/" . $stafi['image']; ?>" alt="image" width="60px" height="60px">
-                <?php } else { ?>
-                    <img src="<?php echo APP_URL . "/public/uploads/no-profile.png"; ?>" alt=" image" width="60px" height="60px">
-                <?php } ?>
+                <?php
+                if ($stafi['image'] && file_exists(APPROOT . "/public/uploads/stafi/" . $stafi['image'])) {
+                    echo '<img src="' . APP_URL . "/public/uploads/stafi/" . $stafi['image'] . '" alt="image" width="60px" height="60px">';
+                } else {
+                    echo '<img src="' . APP_URL . '/public/uploads/stafi/no-profile.png" alt="image" width="60px" height="60px">';
+                }
+                ?>
             </div>
             <div id="profile-desc" class="mt-1 text-left align-self-start">
                 <span><?= $stafi["emri"] ?></span>
@@ -44,12 +46,14 @@ $require_configurime = $_SESSION["require_konfigurime_style"] ?? '';
     <div id="menu-links" class="navbar-collapse collapse">
         <ul class="navbar-nav">
             <div class="dropdown-divider"></div>
+
             <!-- Dashboard -->
             <li class="nav-item <?php activeButton('/'); ?>">
                 <a href="<?php echo APP_URL; ?>/" class="one-link" <?= $require_configurime ?>>
                     <i class="fas fa-home fa-fw"></i>Dashboard
                 </a>
             </li>
+
             <!-- Konsumatori -->
             <li class="nav-item <?php activeButton(['konsumatori', 'konsumatori_new', 'konsumatori_view', 'konsumatori_edit']); ?>">
                 <button class="dropdown-btn" <?= $require_configurime ?>>
@@ -63,6 +67,7 @@ $require_configurime = $_SESSION["require_konfigurime_style"] ?? '';
                     </a>
                 </div>
             </li>
+
             <!-- Produktet -->
             <li class="nav-item <?php activeButton(['produktet', 'produktet_new', 'produktet_edit']); ?>">
                 <button class="dropdown-btn" <?= $require_configurime ?>>
@@ -73,7 +78,7 @@ $require_configurime = $_SESSION["require_konfigurime_style"] ?? '';
                         <i class="fa fa-angle-double-right fa-fw"></i>Produktet
                     </a>
                     <a href="index.php?page=produktet_new" class="<?php activeLink('produktet_new'); ?>">
-                        <i class="fa fa-angle-double-right fa-fw"></i>Krijo Produkt
+                        <i class="fa fa-angle-double-right fa-fw"></i>Krijo produkt
                     </a>
                 </div>
             </li>
@@ -81,32 +86,38 @@ $require_configurime = $_SESSION["require_konfigurime_style"] ?? '';
             <!-- Njesit -->
             <li class="nav-item <?php activeButton(['njesit', 'njesit_new', 'njesit_edit']); ?>">
                 <button class="dropdown-btn" <?= $require_configurime ?>>
-                    <i class="fa-regular fa-weight-scale fa-fw"></i>njesit<i class="fa fa-caret-down fa-fw"></i>
-
+                    <i class="fas fa-square-root-alt fa-fw"></i>Njësitë<i class="fa fa-caret-down fa-fw"></i>
                 </button>
                 <div class="dropdown-container">
                     <a href="index.php?page=njesit" class="<?php activeLink('njesit'); ?>">
-                        <i class="fa fa-angle-double-right"></i>njesit
+                        <i class="fa fa-angle-double-right fa-fw"></i>Njësitë
                     </a>
                     <a href="index.php?page=njesit_new" class="<?php activeLink('njesit_new'); ?>">
-                        <i class="fa fa-angle-double-right fa-fw"></i>Krijo njesi
+                        <i class="fa fa-angle-double-right fa-fw"></i>Krijo njësi
                     </a>
                 </div>
             </li>
+
             <!-- Ofertat -->
             <li class="nav-item <?php activeButton('ofertat'); ?>">
                 <a href="index.php?page=ofertat" class="one-link" <?= $require_configurime ?>>
-                    <i class="fa-sharp fa-regular fa-shelves"></i>ofertat
-                </a>
-            </li>
-            <!-- Pagesa -->
-            <li class="nav-item <?php activeButton('pagesat'); ?>">
-                <a href="index.php?page=pagesat" class="one-link" <?= $require_configurime ?>>
-                    <i class="fas fa-cash-register fa-fw"></i>pagesat
-
+                    <i class="fas fa-file-invoice fa-fw"></i>Ofertat
                 </a>
             </li>
 
+            <!-- Pagesat -->
+            <li class="nav-item <?php activeButton(['pagesat', 'pagesat_new']); ?>">
+                <button class="dropdown-btn" <?= $require_configurime ?>>
+                    <i class="fas fa-cash-register fa-fw"></i>Pagesat<i class="fa fa-caret-down fa-fw"></i>
+                </button>
+                <div class="dropdown-container">
+                    <a href="index.php?page=pagesat" class="<?php activeLink('pagesat'); ?>" <?= $require_configurime ?>>
+                        <i class="fa fa-angle-double-right fa-fw"></i>Pagesat
+                    </a>
+                    <a href="index.php?page=pagesat_new" class="<?php activeLink('pagesat_new'); ?>" <?= $require_configurime ?>>
+                        <i class="fa fa-angle-double-right fa-fw"></i>Krijo pagesë
+                    </a>
+                </div>
             </li>
 
             <?php
@@ -120,13 +131,14 @@ $require_configurime = $_SESSION["require_konfigurime_style"] ?? '';
                     </button>
                     <div class="dropdown-container">
                         <a href="index.php?page=stafi" class="<?php activeLink('stafi'); ?>">
-                            <i class="fas fa-angle-double-right"></i>Stafi
+                            <i class="fas fa-angle-double-right fa-fw"></i>Stafi
                         </a>
                         <a href="index.php?page=stafi_new" class="<?php activeLink('stafi_new'); ?>">
                             <i class="fa fa-angle-double-right fa-fw"></i>Krijo staf
                         </a>
                     </div>
                 </li>
+
                 <!-- konfigurime -->
                 <li class="nav-item <?php activeButton('konfigurime'); ?>">
                     <a href="index.php?page=konfigurime" class="one-link" <?= $require_configurime ?>>
@@ -143,6 +155,7 @@ $require_configurime = $_SESSION["require_konfigurime_style"] ?? '';
                     <i class="fas fa-history fa-fw"></i>Historia
                 </a>
             </li>
+
             <!-- Ndihmë -->
             <li class="nav-item <?php activeButton('ndihme'); ?>">
                 <a href="index.php?page=ndihme" class="one-link" <?= $require_configurime ?>>

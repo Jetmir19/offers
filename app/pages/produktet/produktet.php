@@ -10,11 +10,11 @@ if (isset($_POST['produktetDelete'])) {
         // Save in Historia
         saveHistoria('delete', 'produktet', 'U fshij me sukses.', 'success');
         // Success
-        $_SESSION['success'] = "U fshij me sukses.";
+        setSessionAlert('success', 'U fshij me sukses.');
     } else {
         // Update Error
-        $_SESSION['error'] = $link->error;
-        die("Dicka shkoi keq in query $sql and the error is:" . mysqli_error($link));
+        setSessionAlert('error', $link->error);
+        die("Error:" . mysqli_error($link));
     }
 } // Delete END
 
@@ -60,7 +60,7 @@ if ($result && $result->num_rows < 1) {
     </div> <!-- Header Title END -->
 
     <!-- Display Session Messages-->
-    <?php echo session_message(); ?>
+    <?php echo showSessionAlert(); ?>
 
     <form class="form-group" name="formSearch" id="formSearch" method="POST" action="" method="post">
         <fieldset class="form-group">

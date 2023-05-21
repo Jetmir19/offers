@@ -1,8 +1,9 @@
 <?php
+
 // Search/Filter buttons
-#------------------------------------------------------------
+//------------------------------------------------------------
 function showSearchButtons($page)
-#------------------------------------------------------------
+//------------------------------------------------------------
 {
     echo '<hr class="mb-1">
             <div class="row mb-2 align-items-end">
@@ -24,13 +25,57 @@ function showSearchButtons($page)
 }
 
 /**
+ * Get's the current page(button) from the url
+ * @param array $pages array of pages or string
+ * @return string if the $page matches
+ */
+//------------------------------------------------------------
+function activeButton($pages)
+//------------------------------------------------------------
+{
+    // Get page url 
+    $page = isset($_GET['page']) ? $_GET['page'] : '/';
+    $page = filter_var($page, FILTER_SANITIZE_URL);
+
+    if (is_array($pages)) {
+        foreach ($pages as $p) {
+            if ($p === $page) {
+                echo 'active-page';
+            }
+        }
+    } else {
+        if ($pages == $page) {
+            echo 'active-page';
+        }
+    }
+}
+
+/**
+ * Get's the current page(link) from the url
+ * @param string $link link of the page
+ * @return string if the $link matches
+ */
+//------------------------------------------------------------
+function activeLink($link)
+//------------------------------------------------------------
+{
+    // Get page url 
+    $page = isset($_GET['page']) ? $_GET['page'] : '/';
+    $page = filter_var($page, FILTER_SANITIZE_URL);
+
+    if ($link == $page) {
+        echo 'active-link';
+    }
+}
+
+/**
  * Bootstrap Modal for error Messages
  * @param string $status "success" or "error".
  * @param string $body html or body message.
  *  */
-#------------------------------------------------------------
-function msgModal($status, $body = "", $btnok_url = "")
-#------------------------------------------------------------
+//------------------------------------------------------------
+function msgModal($status = "info", $body = "", $btnok_url = "")
+//------------------------------------------------------------
 {
     $icon = "";
     $btnok = "";
@@ -42,6 +87,10 @@ function msgModal($status, $body = "", $btnok_url = "")
     if ($status == 'error') {
         $icon = '<span style="font-size: 3em; color: Tomato;"><i class="fas fa-exclamation-circle"></i><span>';
         $body = $body != "" ? '<small class="text-danger">' . $body . '</small>' : "Dicka shkoi keq!";
+    }
+    if ($status == 'info') {
+        $icon = '<span style="font-size: 3em; color: lightblue;"><i class="fas fa-info-circle"></i><span>';
+        $body = $body != "" ? '<small class="text-info">' . $body . '</small>' : "Mungojnë informacione";
     }
 
     if ($btnok_url != "") {
@@ -76,9 +125,9 @@ function msgModal($status, $body = "", $btnok_url = "")
 }
 
 // Error/Success Message Box
-#------------------------------------------------------------
+//------------------------------------------------------------
 function msgBox($msg, $url, $icon = "", $btn_text = "")
-#------------------------------------------------------------
+//------------------------------------------------------------
 {
     if (!$btn_text) {
         $btn_text = "Kthehu mbrapa";
