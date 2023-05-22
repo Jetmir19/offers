@@ -64,7 +64,7 @@ if ($result && $result->num_rows < 1) {
                     <div class="form-group row">
                         <div class="col">
                             <label for="emri_njesis" class="control-label">Emri i Njësisë</label>
-                            <input type="text" class="form-control" id="emri_njesis" name="emri_njesis" value="<?= $emri_njesis ?? ""; ?>" placeholder="emri_njesis">
+                            <input type="text" class="form-control" id="emri_njesis" name="emri_njesis" value="<?= $emri_njesis ?? ""; ?>" placeholder="Emri i Njësisë">
                             <span id="emri_njesisErr" class="invalid-feedback">Emri njesi i detyrueshëm.</span>
                         </div>
                     </div>
@@ -73,7 +73,7 @@ if ($result && $result->num_rows < 1) {
                     <div class="form-group row">
                         <div class="col">
                             <label for="njesia" class="control-label">Njësia</label>
-                            <input type="text" class="form-control" id="njesia" name="njesia" value="<?= $njesia ?? ""; ?>" placeholder="njesia">
+                            <input type="text" class="form-control" id="njesia" name="njesia" value="<?= $njesia ?? ""; ?>" placeholder="Njësia">
                             <span id="njesiaErr" class="invalid-feedback">Njësia e detyrueshme.</span>
                         </div>
                     </div>
@@ -106,7 +106,7 @@ if ($result && $result->num_rows < 1) {
                             <td>
                                 <div class="d-flex justify-content-center">
                                     <!-- view -->
-                                    <button type="button" class="btn btnStView" data-toggle="modal" data-target="#iframeModal" data-btnView="<?= $njeID ?>" data-backdrop="static" data-keyboard="false">
+                                    <button type="button" class="btn btnNjView" data-btnView="<?= $njeID ?>">
                                         <i class="far fa-list-alt fa-lg text-info"></i>
                                     </button>
                                     <!-- edit -->
@@ -160,8 +160,8 @@ if ($result && $result->num_rows < 1) {
         }
     });
 
-    // btnStView click
-    document.querySelectorAll('.btnStView').forEach(function(el) {
+    // btnNjView click
+    document.querySelectorAll('.btnNjView').forEach(function(el) {
         el.addEventListener('click', function(e) {
             const njeID = e.currentTarget.getAttribute('data-btnView');
             const iframePath = "<?php echo APP_URL . '/app/pages/njesit/modals/njesit_view.php' ?>";

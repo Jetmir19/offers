@@ -11,7 +11,7 @@ $stafi = getStafiById($stafiID) ?? [];
 if (count($row) > 0) {
 ?>
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col">
                 <ul class="list-group list-group-flush">

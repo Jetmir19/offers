@@ -1039,3 +1039,15 @@ Stack trace:
 [21-May-2023 15:17:21 Europe/Skopje] PHP Warning:  Undefined array key "barkod" in D:\xampp\htdocs\offers\app\pages\produktet\produktet.php on line 135
 [21-May-2023 15:17:24 Europe/Skopje] PHP Warning:  Undefined array key "barkod" in D:\xampp\htdocs\offers\app\pages\produktet\produktet.php on line 135
 [21-May-2023 15:17:28 Europe/Skopje] PHP Warning:  Undefined array key "barkod" in D:\xampp\htdocs\offers\app\pages\produktet\produktet.php on line 135
+[21-May-2023 16:09:38 Europe/Skopje] PHP Warning:  Undefined variable $sasiaErr in D:\xampp\htdocs\offers\app\pages\produktet\produktet_new.php on line 126
+[21-May-2023 16:09:38 Europe/Skopje] PHP Warning:  Undefined variable $sasiaErr in D:\xampp\htdocs\offers\app\pages\produktet\produktet_new.php on line 127
+[21-May-2023 16:09:38 Europe/Skopje] PHP Warning:  Undefined array key "personKontakt" in D:\xampp\htdocs\offers\app\pages\produktet\produktet_new.php on line 221
+[21-May-2023 16:09:40 Europe/Skopje] PHP Warning:  Undefined array key "barkod" in D:\xampp\htdocs\offers\app\pages\produktet\produktet.php on line 135
+[21-May-2023 16:09:43 Europe/Skopje] PHP Warning:  Undefined array key "barkod" in D:\xampp\htdocs\offers\app\pages\produktet\produktet.php on line 135
+[21-May-2023 16:09:45 Europe/Skopje] PHP Warning:  Undefined array key "barkod" in D:\xampp\htdocs\offers\app\pages\produktet\produktet.php on line 135
+[21-May-2023 16:09:47 Europe/Skopje] PHP Warning:  Undefined variable $sasiaErr in D:\xampp\htdocs\offers\app\pages\produktet\produktet_new.php on line 126
+[21-May-2023 16:09:47 Europe/Skopje] PHP Warning:  Undefined variable $sasiaErr in D:\xampp\htdocs\offers\app\pages\produktet\produktet_new.php on line 127
+[21-May-2023 16:09:47 Europe/Skopje] PHP Warning:  Undefined array key "personKontakt" in D:\xampp\htdocs\offers\app\pages\produktet\produktet_new.php on line 221
+[21-May-2023 16:09:49 Europe/Skopje] PHP Warning:  Undefined array key "barkod" in D:\xampp\htdocs\offers\app\pages\produktet\produktet.php on line 135
+[21-May-2023 16:09:52 Europe/Skopje] PHP Warning:  Undefined array key "barkod" in D:\xampp\htdocs\offers\app\pages\produktet\produktet.php on line 135
+[22-May-2023 07:46:51 Europe/Skopje] PHP Warning:  Undefined array key "barkod" in D:\xampp\htdocs\offers\app\pages\produktet\produktet.php on line 135

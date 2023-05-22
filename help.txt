@@ -1,19 +1,13 @@
 ##### How to create modal uji2021 #####
 
-1. At the beggining of the file where you want to open the Modal Create a div like this or put it in the header.php as global div:
+- At the beggining of the file where you want to open the Modal Create a div like this or put it in the header.php as global div:
     <div id="modal-container">
         <!-- Modal will be opened here!.... -->
     </div>
     
-1. Create button to trigger the modal:
- <button type="button" class="btn btn-sm btn-success mr-2" data-toggle="modal" data-target="#iframeModal" data-id="nothing" id="openiframeModal" data-backdrop="static" data-keyboard="false" onclick="showIframeModal(iframePath, headerText)">view</button>
-
- ....or from the Javascript
-
-2. In this button call onclick="showIframeModal(iframePath, headerText)"
-3. iframePath: is the file you want to open inside modal and the query data you want to send like page.php?id=2
-4. headerText: is the header text of the modal
-5. In the iframe file we get the 'id' from the url
+- Create button to trigger the modal:
+ <button type="button" class="btnStView btn btn-sm btn-success mr-2" data-btnView="10" id="openiframeModal">view</button>
+ <button type="button" class="btnStView btn btn-sm btn-success mr-2" data-btnView="19" id="openiframeModal">view</button>
 
 -------------------------------------------------------------------------------------------------------------------------
 

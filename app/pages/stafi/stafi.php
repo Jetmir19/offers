@@ -118,7 +118,7 @@ if ($result && $result->num_rows < 1) {
                                 <td>
                                     <div class="d-flex justify-content-center">
                                         <!-- view -->
-                                        <button type="button" class="btn btnStView" data-toggle="modal" data-target="#iframeModal" data-btnView="<?= $stID ?>" data-backdrop="static" data-keyboard="false">
+                                        <button type="button" class="btn btnStView" data-btnView="<?= $stID ?>">
                                             <i class="far fa-list-alt fa-lg text-info"></i>
                                         </button>
                                         <!-- edit -->
@@ -153,9 +153,11 @@ if ($result && $result->num_rows < 1) {
                         }
                     }
                 } else {
-                    echo '<tr><td colspan="100%">
-                            <div class="border text-center p-2"><span class="text-muted">Nuk u gjet asnjë regjistrim.</span></div>
-                        </td></tr>';
+                    echo '<tr>
+                            <td colspan="100%">
+                                <div class="border text-center p-2"><span class="text-muted">Nuk u gjet asnjë regjistrim.</span></div>
+                            </td>
+                        </tr>';
                 }
                 ?>
             </tbody>

@@ -8,7 +8,7 @@ $row = getStafiById((int)$_GET['stid']) ?? [];
 if (count($row) > 0) {
 ?>
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-4">
                 <?php
