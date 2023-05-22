@@ -1,10 +1,4 @@
-<!-- Wrapper END (starts in topnav) -->
-</div>
-</div>
-<!-- Global container for the bootstrap Modals -->
-<div id="modal-container">
-    <!-- Modal will be opened here.... -->
-</div>
+</div> <!-- Wrapper END (starts in topnav) -->
 
 <footer class="main-footer p-3 text-center bg-dark text-white">
     <span class="text-muted mx-auto">&copy; Offers - version <?php echo APP_VERSION; ?></span>

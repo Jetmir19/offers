@@ -1,5 +1,4 @@
-<!-- main #content END (starts in leftnav) -->
-</div>
+</div> <!-- main #content END (starts in leftnav) -->
 
 <aside id="ads">
     <!-- Converter API -->

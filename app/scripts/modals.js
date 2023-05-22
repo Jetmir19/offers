@@ -42,7 +42,7 @@ function showIframeModal(options)
     </div>
   </div>`;
   // Inject Modal into the DOM
-  document.getElementById("modal-container").innerHTML = modalHTML;
+  document.body.insertAdjacentHTML('afterbegin', modalHTML.trim());
 
   // Create a new Bootstrap modal object with the specified options
   const modal = $('#iframeModal').modal({
@@ -135,7 +135,7 @@ function confirmModal(headerText = "", html = "", callback = null)
     </div>
   </div>`;
   // Inject Modal into the DOM
-  document.getElementById("modal-container").innerHTML = modalHTML;
+  document.body.insertAdjacentHTML('afterbegin', modalHTML.trim());
 
   // Create a new Bootstrap modal object with the specified options
   const modal = $('#confirmModal').modal({
@@ -146,14 +146,20 @@ function confirmModal(headerText = "", html = "", callback = null)
   // Button (Po) clicked
   document.getElementById("poBtn").onclick = function () {
     // return callback ('po' clicked)
-    callback(true);
-    modal.modal('hide');
+    if (callback) {
+      callback(true);
+      modal.modal('hide');
+    }
+    console.log('Button (Po) clicked');
   };
 
   // Button (Anulo) clicked
   document.getElementById("closeConfirmModal").onclick = function () {
     // return callback ('anulo' clicked)
-    callback(false);
+    if (callback) {
+      callback(false);
+    }
+    console.log('Button (Anulo) clicked');
     modal.modal('hide');
   };
 
