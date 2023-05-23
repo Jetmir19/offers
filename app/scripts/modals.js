@@ -50,16 +50,14 @@ function showIframeModal(options)
     backdrop: 'static'
   });
 
+  // Show a loading spinner
+  isLoading(true);
+
   // Select Modal iframe elements
   let iframe = document.querySelector("#miframe");
-  let modalSpinner = document.querySelector('#modal-spinner');
   let action_btn = document.getElementById("action-btn");
   // Handle iframe onload event
   iframe.onload = function () {
-    // remove spinner
-    if (modalSpinner) {
-      modalSpinner.remove();
-    }
     // Reset action button
     if (options.btnActionShow && options.btnActionDisabled) {
       action_btn.setAttribute("disabled", true);
@@ -67,6 +65,8 @@ function showIframeModal(options)
     setTimeout(() => {
       // resize Iframe
       iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+      // remove spinner
+      isLoading(false);
     }, 500);
   }
 
@@ -89,7 +89,7 @@ function showIframeModal(options)
   // Show the modal
   modal.modal('show');
   // Update the layout of the modal
-  // modal.modal('handleUpdate');
+  modal.modal('handleUpdate');
   // Listen to the modal's 'shown.bs.modal' event
   modal.on('shown.bs.modal', function () {
     // console.log('Modal shown');
@@ -143,6 +143,9 @@ function confirmModal(headerText = "", html = "", callback = null)
     backdrop: 'static'
   });
 
+  // Show a loading spinner
+  isLoading(true);
+
   // Button (Po) clicked
   document.getElementById("poBtn").onclick = function () {
     // return callback ('po' clicked)
@@ -170,6 +173,8 @@ function confirmModal(headerText = "", html = "", callback = null)
   // Listen to the modal's 'shown.bs.modal' event
   modal.on('shown.bs.modal', function () {
     // console.log('Modal shown');
+    // remove spinner
+    isLoading(false);
   });
   // Listen to the modal's 'hide.bs.modal' event
   modal.on('hide.bs.modal', function () {
@@ -177,4 +182,27 @@ function confirmModal(headerText = "", html = "", callback = null)
     // Remove modal from the DOM
     modal.remove();
   });
+}
+
+//------------------------------------------------------------
+function isLoading(show)
+//------------------------------------------------------------
+{
+  let spinnerHTML = `
+    <div id="modal-spinner" class="position-absolute top-50 start-50 translate-middle mt-1">
+        <div class="modal-spinner-inner">
+          <div class="spinner-border" role="status">
+              <span class="sr-only visually-hidden">Loading...</span>
+          </div>
+        </div>
+    </div>`;
+
+  const modalBody = document.querySelector('.modal-body');
+  const spinner = modalBody.querySelector('#modal-spinner');
+
+  if (show === true) {
+    modalBody.insertAdjacentHTML('afterbegin', spinnerHTML);
+  } else {
+    if (spinner) spinner.remove();
+  }
 }
