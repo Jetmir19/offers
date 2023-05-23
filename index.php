@@ -18,11 +18,6 @@ requireLogin();
 // Require konfigurime
 requireKonfigurime();
 
-// Static includes
-include PAGES_PATH . '/includes/header.php';
-include PAGES_PATH . '/includes/topnav.php';
-include PAGES_PATH . '/includes/leftnav.php';
-
 // Get single stafi
 $stafi = getStafiById($_SESSION["stafiID"]);
 
@@ -47,6 +42,7 @@ $pagesArray = array(
     'njesit' => 'njesit/njesit',
     'njesit_new' => 'njesit/njesit_new',
     'njesit_edit' => 'njesit/njesit_edit',
+    'njesit_view' => $stafi['isAdmin'] == 1 ? 'njesit/modals/njesit_view' : 'error/401',
 
     // --- ofertat --- //
     'ofertat' => 'ofertat/ofertat',
@@ -56,7 +52,6 @@ $pagesArray = array(
     'pagesat' => 'pagesat/pagesat',
     'pagesat_new' => 'pagesat/pagesat_new',
     'cart_edit' => 'pagesat/cart/cart_edit',
-    // --- pagesat print--- //
     'pagesat_print' => 'pagesat/pagesat_print',
 
     // --- stafi --- //
@@ -71,14 +66,25 @@ $pagesArray = array(
 
     // --- historia --- //
     'historia' => 'historia/historia',
+    'historia_view' => $stafi['isAdmin'] == 1 ? 'historia/modals/historia_view' : 'error/401',
 
     // --- ndihme --- //    
     'ndihme' => 'ndihme/ndihme',
 );
 
 // Get page url 
-$page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
+$page = isset($_GET['page']) ? htmlspecialchars($_GET['page']) : 'dashboard';
 $page = filter_var($page, FILTER_SANITIZE_URL);
+// Check if the page is loaded within an iframe
+$isIframe = isset($_GET['iframe']) && htmlspecialchars($_GET['iframe']) === 'true';
+
+// Static includes
+require_once PAGES_PATH . '/includes/header.php';
+// Do not load these if page is iframe
+if (!$isIframe) {
+    require_once PAGES_PATH . '/includes/topnav.php';
+    require_once PAGES_PATH . '/includes/leftnav.php';
+}
 
 /**
  * If that key exist in $pagesArray the we use the value of that array as path of the file
@@ -96,7 +102,5 @@ if (array_key_exists($page, $pagesArray)) {
 } else {
     require_once PAGES_PATH . '/error/404.php';
 }
-// ------------------------- ROUTING END ------------------------------- //
 
-// include PAGES_PATH . '/includes/sideright.php';
-include PAGES_PATH . '/includes/footer.php';
+require_once PAGES_PATH . '/includes/footer.php';

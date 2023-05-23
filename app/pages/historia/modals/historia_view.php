@@ -1,13 +1,9 @@
 <?php
-// Global config
-require_once "../../../config/config.php";
-// Modal Header
-require_once PAGES_PATH . '/includes/header_modal.php';
-
 $historiaID = filter_input(INPUT_GET, "hid", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $stafiID = filter_input(INPUT_GET, "sid", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $row = getHistoriaById($historiaID) ?? [];
 $stafi = getStafiById($stafiID) ?? [];
+
 if (count($row) > 0) {
 ?>
 
@@ -24,11 +20,8 @@ if (count($row) > 0) {
                 </ul>
             </div>
         </div>
-    </div> <!-- container END -->
+    </div>
 
 <?php
 }
-
-// Modal Header
-require_once PAGES_PATH . '/includes/footer_modal.php';
 ?>

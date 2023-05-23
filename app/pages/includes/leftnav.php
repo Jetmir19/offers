@@ -1,4 +1,5 @@
 <?php
+
 // Get a single stafi
 $stafi = getStafiById($_SESSION["stafiID"]);
 
@@ -167,5 +168,5 @@ $require_configurime = $_SESSION["require_konfigurime_style"] ?? '';
 
 </nav>
 
-<!-- main content START (ends in sideright) -->
+<!-- main content START (ends in footer) -->
 <div id="content">

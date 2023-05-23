@@ -11,7 +11,7 @@
 
 -------------------------------------------------------------------------------------------------------------------------
 
-#iframe file example: stafi_view.php
+#iframe example: stafi_view.php
 
 # example how to call the modal in the file -> (stafi.php)
 
@@ -19,11 +19,37 @@
 document.querySelectorAll('.btnStView').forEach(function(el) {
     el.addEventListener('click', function(e) {
         const stid = e.currentTarget.getAttribute('data-btnView');
-        const iframePath = "<?php echo APP_URL . '/app/pages/stafi/modals/stafi_view.php' ?>";
+        const iframeUrl = "<?php echo APP_URL . '/app/pages/stafi/modals/stafi_view.php' ?>";
         const options = {
-            iframePath: `${iframePath}?stid=${stid}`,
+            iframeUrl: `${iframeUrl}?stid=${stid}`,
             headerText: 'Profili Stafit',
             btnActionShow: false
+        };
+        // Show modal without action button
+        showIframeModal(options);
+    });
+});
+
+
+
+
+
+// Example Modal with action - to submit a form or do anything with javascript
+
+// btnNjView click
+document.querySelectorAll('.btnNjView').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+        const njeID = e.currentTarget.getAttribute('data-btnView');
+        const baseUrl = "<?php echo APP_URL . '/index.php?iframe=true' ?>";
+        const options = {
+            iframeUrl: `${baseUrl}&page=njesit_view&njeID=${njeID}`,
+            headerText: 'Njesi View',
+            btnActionShow: true,
+            btnActionText: "Ruaj",
+            btnAction: function() {
+                console.log("test");
+                // or form submit, or anything
+            }
         };
         // Show modal without action button
         showIframeModal(options);

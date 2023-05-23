@@ -11,5 +11,5 @@
     </nav>
 </header>
 
-<!-- Wrapper START (ends in sideright) -->
+<!-- Wrapper START (ends in footer) -->
 <div id="wrapper">

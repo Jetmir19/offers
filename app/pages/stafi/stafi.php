@@ -191,9 +191,9 @@ if ($result && $result->num_rows < 1) {
     document.querySelectorAll('.btnStView').forEach(function(el) {
         el.addEventListener('click', function(e) {
             const stid = e.currentTarget.getAttribute('data-btnView');
-            const iframePath = "<?php echo APP_URL . '/app/pages/stafi/modals/stafi_view.php' ?>";
+            const baseUrl = "<?php echo APP_URL . '/index.php?iframe=true' ?>";
             const options = {
-                iframePath: `${iframePath}?stid=${stid}`,
+                iframeUrl: `${baseUrl}&page=stafi_view&stid=${stid}`,
                 headerText: 'Profili Stafit',
                 btnActionShow: false
             };

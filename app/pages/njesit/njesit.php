@@ -164,9 +164,9 @@ if ($result && $result->num_rows < 1) {
     document.querySelectorAll('.btnNjView').forEach(function(el) {
         el.addEventListener('click', function(e) {
             const njeID = e.currentTarget.getAttribute('data-btnView');
-            const iframePath = "<?php echo APP_URL . '/app/pages/njesit/modals/njesit_view.php' ?>";
+            const baseUrl = "<?php echo APP_URL . '/index.php?iframe=true' ?>";
             const options = {
-                iframePath: `${iframePath}?njeID=${njeID}`,
+                iframeUrl: `${baseUrl}&page=njesit_view&njeID=${njeID}`,
                 headerText: 'Njesi View',
                 btnActionShow: false
             };

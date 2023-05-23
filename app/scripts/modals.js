@@ -5,12 +5,12 @@
  *
  * @param {Object} options - Options for the modal.
  *    Available options:
- *      - options.btnActionDisabled (boolean): Indicates whether the action button should be disabled.
- *      - options.btnActionText (string): The text to be displayed on the action button.
  *      - data.headerText (string): The header text for the modal.
- *      - options.iframePath (string): The URL to be loaded in an iframe within the modal.
+ *      - options.iframeUrl (string): The URL to be loaded in an iframe within the modal.
  *      - options.btnActionShow (boolean): Indicates whether the action button should be shown.
+ *      - options.btnActionText (string): The text to be displayed on the action button (default: 'Submit').
  *      - options.btnAction (function): A function to be invoked when the action button is clicked.
+ *      - options.btnActionDisabled (boolean): Indicates whether the action button should be disabled.
  */
 //------------------------------------------------------------
 function showIframeModal(options)
@@ -19,7 +19,7 @@ function showIframeModal(options)
   console.log(options);
 
   // Dinamic Action button of the Modal
-  let btnAction = `<button type="button" class="btn btn-success px-4" id="action-btn" name="action-btn" ${options.btnActionDisabled ? 'disabled' : ''}> ${options.btnActionText} </button>`;
+  let btnAction = `<button type="button" class="btn btn-success px-4" id="action-btn" name="action-btn" ${options.btnActionDisabled ? 'disabled' : ''}> ${options.btnActionText || 'Submit'} </button>`;
 
   let modalHTML = `
   <div class="modal fade" id="iframeModal" tabindex="-1" aria-labelledby="iframeModalLabel" aria-hidden="true">
@@ -32,7 +32,7 @@ function showIframeModal(options)
           </button>
         </div>
         <div class="modal-body p-0">
-            <iframe id="miframe" name="miframe" src="${options.iframePath}" frameborder="0" allowfullscreen></iframe>
+            <iframe id="miframe" name="miframe" src="${options.iframeUrl}" frameborder="0" allowfullscreen></iframe>
         </div>
         <div class="modal-footer">
             ${options.btnActionShow ? btnAction : ""}

@@ -138,9 +138,9 @@ if ($result && $result->num_rows < 1) {
         el.addEventListener('click', function(e) {
             const hid = e.currentTarget.getAttribute('data-btnView');
             const sid = e.currentTarget.getAttribute('data-stafiID');
-            const iframePath = "<?php echo APP_URL . '/app/pages/historia/modals/historia_view.php' ?>";
+            const baseUrl = "<?php echo APP_URL . '/index.php?iframe=true' ?>";
             const options = {
-                iframePath: `${iframePath}?hid=${hid}&sid=${sid}`,
+                iframeUrl: `${baseUrl}&page=historia_view&hid=${hid}&sid=${sid}`,
                 headerText: 'Historia View',
                 btnActionShow: false
             };

@@ -1,7 +1,7 @@
 /************ Default: Wrapper Grid Layout START **********/
 #wrapper {
   /* 100 viewport height minus header and footer */
-  min-height: calc(100vh - 54.8px - 56px);
+  min-height: calc(100vh - 54.8px - 32px);
   margin: 0 auto;
   padding: 5px;
   display: grid;
@@ -24,8 +24,6 @@
   margin-left: 5px;
   margin-right: 5px;
 }
-
-
 
 /************ Default: Wrapper Grid Layout END **********/
 
@@ -81,9 +79,6 @@
     padding: 0 1.75rem !important;
   }
 }
-
-/*invoice css */
-
 
 /* Large devices (desktops, less than 1200px) */
 @media (max-width: 1199.98px) {}

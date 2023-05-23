@@ -26,7 +26,7 @@ error_reporting(E_ALL); // Just for Develop
 ini_set('ignore_repeated_errors', TRUE); // always use TRUE
 ini_set('display_errors', TRUE); // Error/Exception display, use FALSE only in production
 ini_set('log_errors', TRUE); // Error/Exception file logging engine.
-ini_set('error_log', dirname(__DIR__) . '/error.log'); // Logging file path
+ini_set('error_log', dirname(dirname(__DIR__)) . '/error.log'); // Logging file path
 
 // Set the new timezone
 date_default_timezone_set('Europe/Skopje');

@@ -1,10 +1,6 @@
 <?php
-// Global config
-require_once "../../../config/config.php";
-// Modal Header
-require_once PAGES_PATH . '/includes/header_modal.php';
-
 $row = getStafiById((int)$_GET['stid']) ?? [];
+
 if (count($row) > 0) {
 ?>
 
@@ -39,7 +35,4 @@ if (count($row) > 0) {
 
 <?php
 }
-
-// Modal Footer
-require_once PAGES_PATH . '/includes/footer_modal.php';
 ?>
