@@ -28,9 +28,9 @@
 </head>
 
 <body>
-    <!-- Loading Spinner Show -->
+    <!-- Show Loading Spinner -->
     <div id="main-spinner">
-        <div class="row justify-content-center m-0">
+        <div class="spinner-inner">
             <div class="spinner-border" role="status">
                 <span class="sr-only">Loading...</span>
             </div>

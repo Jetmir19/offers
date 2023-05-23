@@ -56,6 +56,10 @@ function showIframeModal(options)
   let action_btn = document.getElementById("action-btn");
   // Handle iframe onload event
   iframe.onload = function () {
+    // remove spinner
+    if (modalSpinner) {
+      modalSpinner.remove();
+    }
     // Reset action button
     if (options.btnActionShow && options.btnActionDisabled) {
       action_btn.setAttribute("disabled", true);
@@ -63,10 +67,6 @@ function showIframeModal(options)
     setTimeout(() => {
       // resize Iframe
       iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
-      // remove spinner
-      if (modalSpinner != null) {
-        modalSpinner.remove();
-      }
     }, 500);
   }
 
@@ -89,7 +89,7 @@ function showIframeModal(options)
   // Show the modal
   modal.modal('show');
   // Update the layout of the modal
-  modal.modal('handleUpdate');
+  // modal.modal('handleUpdate');
   // Listen to the modal's 'shown.bs.modal' event
   modal.on('shown.bs.modal', function () {
     // console.log('Modal shown');

@@ -6,7 +6,7 @@ window.onload = function () {
 }
 
 // First time page loaded
-document.addEventListener("DOMContentLoaded", function (event) {
+document.addEventListener("DOMContentLoaded", function () {
     createLeftMenuEvents();
 });
 

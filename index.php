@@ -72,7 +72,7 @@ $pagesArray = array(
     'ndihme' => 'ndihme/ndihme',
 );
 
-// Get page url 
+// Get page from url 
 $page = isset($_GET['page']) ? htmlspecialchars($_GET['page']) : 'dashboard';
 $page = filter_var($page, FILTER_SANITIZE_URL);
 // Check if the page is loaded within an iframe

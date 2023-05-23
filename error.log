@@ -17,3 +17,7 @@ Stack trace:
 #0 D:\xampp\htdocs\offers\index.php(98): require_once()
 #1 {main}
   thrown in D:\xampp\htdocs\offers\app\pages\njesit\modals\njesit_view.php on line 3
+[23-May-2023 15:57:14 Europe/Skopje] PHP Warning:  Undefined array key "loggedin" in D:\xampp\htdocs\offers\app\library\sessionFunctions.php on line 8
+[23-May-2023 15:57:24 Europe/Skopje] PHP Warning:  Undefined array key "loggedin" in D:\xampp\htdocs\offers\app\library\sessionFunctions.php on line 8
+[23-May-2023 15:59:07 Europe/Skopje] PHP Warning:  Undefined array key "loggedin" in D:\xampp\htdocs\offers\app\library\sessionFunctions.php on line 8
+[23-May-2023 15:59:17 Europe/Skopje] PHP Warning:  Undefined array key "loggedin" in D:\xampp\htdocs\offers\app\library\sessionFunctions.php on line 8
