@@ -102,13 +102,13 @@ if ($result && $result->num_rows < 1) {
                 if ($result && $result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                         $hid = $row['historiaID'];
-                        $sid = $row['stafiID'];
+                        $stid = $row['stafiID'];
                 ?>
                         <tr>
                             <td>
                                 <div class="d-flex justify-content-center">
                                     <!-- view -->
-                                    <button type="button" class="btn btnHView" data-btnView="<?= $hid ?>" data-stafiID="<?= $sid ?>">
+                                    <button type="button" class="btn btnHView" data-page="<?= APP_URL . '/index.php?iframe=true&page=historia_view&hid=' . $hid . '&stid=' . $stid ?>">
                                         <i class="far fa-list-alt fa-lg text-info"></i>
                                     </button>
                                     <!-- Delete -->
@@ -124,6 +124,12 @@ if ($result && $result->num_rows < 1) {
                         </tr>
                 <?php
                     }
+                } else {
+                    echo '<tr>
+                            <td colspan="100%">
+                                <div class="border text-center p-2"><span class="text-muted">Nuk u gjet asnjë regjistrim.</span></div>
+                            </td>
+                        </tr>';
                 }
                 ?>
             </tbody>
@@ -135,16 +141,13 @@ if ($result && $result->num_rows < 1) {
 <script>
     // btnStView click
     document.querySelectorAll('.btnHView').forEach(function(el) {
-        el.addEventListener('click', function(e) {
-            const hid = e.currentTarget.getAttribute('data-btnView');
-            const sid = e.currentTarget.getAttribute('data-stafiID');
-            const baseUrl = "<?php echo APP_URL . '/index.php?iframe=true' ?>";
+        el.addEventListener('click', function(event) {
             const options = {
-                iframeUrl: `${baseUrl}&page=historia_view&hid=${hid}&sid=${sid}`,
+                iframeUrl: event.currentTarget.getAttribute('data-page'),
                 headerText: 'Historia View',
                 btnActionShow: false
             };
-            // Show modal without action button
+            // Show iframeModal without action button
             showIframeModal(options);
         });
     });
@@ -152,13 +155,28 @@ if ($result && $result->num_rows < 1) {
     // Delete form confirmation
     const frmDelete = document.querySelectorAll('.frmDelete');
     frmDelete.forEach(function(frm) {
-        frm.addEventListener('submit', function(e) {
-            if (confirm('Jeni të sigurt?')) {
-                console.log("Form submited!");
-            } else {
-                e.preventDefault();
-                location.replace("<?php echo APP_URL . '/index.php?page=historia'; ?>");
-            }
+        frm.addEventListener('submit', function(event) {
+            // Option 1: Native javascript popup
+            // if (confirm('Jeni të sigurt?')) {
+            //     console.log("Form submited!");
+            // } else {
+            //     e.preventDefault();
+            //     location.replace("<?php echo APP_URL . '/index.php?page=historia'; ?>");
+            // }
+
+            // Option 2: Custom Bootstrap Modal
+            event.preventDefault();
+            // Show confirmModal
+            confirmModal(
+                'Konfirmim...',
+                '<h4>Jeni të sigurt?</h3>',
+                function(response) {
+                    if (response === 'po') {
+                        console.log("po clicked");
+                        frm.submit();
+                    }
+                }
+            );
         });
     });
 </script>

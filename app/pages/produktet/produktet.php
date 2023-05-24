@@ -6,7 +6,7 @@ if (isset($_POST['produktetDelete'])) {
     disableFormResubmission();
 
     $id = htmlspecialchars($_POST['produktetDelete']);
-    $sql = "UPDATE produktet SET isDeleted = '1' WHERE produktetID = '$id'";
+    $sql = "UPDATE produktet SET isDeleted = '1' WHERE produktID = '$id'";
     if (mysqli_query($link, $sql)) {
         // Save in Historia
         saveHistoria('delete', 'produktet', 'U fshij me sukses.', 'success');
@@ -26,15 +26,15 @@ if (isset($_POST['search'])) {
     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
     $emriProduktit = mysqli_real_escape_string($link, $_POST['emriProduktit']);
-    $cat_produktet = mysqli_real_escape_string($link, $_POST['cat_produktet']);
+    $produktet_cat = mysqli_real_escape_string($link, $_POST['produktet_cat']);
 
     // Search by emriProduktit
     if ($emriProduktit != "") {
         $sql .= " AND emriProduktit = '$emriProduktit'";
     }
     // Search by nr_amez
-    if ($cat_produktet != "") {
-        $sql .= " AND cat_produktet = '$cat_produktet'";
+    if ($produktet_cat != "") {
+        $sql .= " AND produktet_cat = '$produktet_cat'";
     }
 }
 
@@ -70,8 +70,8 @@ if ($result && $result->num_rows < 1) {
                 <div class="col-sm">
                     <div class="form-group row">
                         <div class="col">
-                            <label for="serial" class="control-label">cat_produktet</label>
-                            <input type="text" class="form-control" id="cat_produktet" name="cat_produktet" value="<?= $cat_produktet ?? ""; ?>" placeholder="cat_produktet">
+                            <label for="serial" class="control-label">produktet_cat</label>
+                            <input type="text" class="form-control" id="produktet_cat" name="produktet_cat" value="<?= $produktet_cat ?? ""; ?>" placeholder="produktet_cat">
                         </div>
                     </div>
                 </div>
@@ -110,7 +110,7 @@ if ($result && $result->num_rows < 1) {
                 <?php
                 if ($result && $result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
-                        $poID = $row['produktetID'];
+                        $poID = $row['produktID'];
                         $pstatusi = $row['pstatusi'];
                         if ($pstatusi == 'aktiv') {
                             $pstatusi = '<i class="fas fa-circle fa-lg text-success align-middle"></i> ';
@@ -127,7 +127,7 @@ if ($result && $result->num_rows < 1) {
                                     </a>
                                     <!-- Delete -->
                                     <form class="frmDelete" action="?page=produktet" method="POST">
-                                        <input type="hidden" name="produktetDelete" value="<?php echo $row['produktetID']; ?>">
+                                        <input type="hidden" name="produktetDelete" value="<?php echo $row['produktID']; ?>">
                                         <button class="btn" type="submit"><i class="far fa-trash-alt fa-lg text-danger"></i></button>
                                     </form>
                                 </div>

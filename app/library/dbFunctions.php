@@ -96,7 +96,7 @@ function getNjesit()
 function getCatProduktet()
 //------------------------------------------------------------
 {
-  $sql = "SELECT * FROM cat_produktet
+  $sql = "SELECT * FROM produktet_cat
           WHERE isDeleted = 0";
   $result = DBLINK->query($sql);
 
@@ -230,7 +230,7 @@ function getOfertatPrint($fatura_printID)
   $sql = "SELECT * FROM oferte_fature 
   LEFT JOIN konsumatoret ON oferte_fature.konsumatorID = konsumatoret.konsumatorID
   RIGHT JOIN stafi ON oferte_fature.stafiID = stafi.stafiID
-   WHERE oferte_fature.ofertatID='$fatura_printID' 
+   WHERE oferte_fature.oferte_fatureID='$fatura_printID' 
    AND oferte_fature.isDeleted = '0'";
   $result = DBLINK->query($sql);
 
@@ -248,11 +248,11 @@ function getOfertatPrint($fatura_printID)
 function getArtikujtPrint($fatura_printID)
 //------------------------------------------------------------
 {
-  $sql = "SELECT * FROM artikujt_per_oferte_fature
-          INNER JOIN konsumatoret ON artikujt_per_oferte_fature.konsumatorID = konsumatoret.konsumatorID
-          LEFT JOIN oferte_fature ON artikujt_per_oferte_fature.a_ofertatID = oferte_fature.ofertatID
-          WHERE  artikujt_per_oferte_fature.a_ofertatID ='$fatura_printID'
-          AND artikujt_per_oferte_fature.isDeleted='0'";
+  $sql = "SELECT * FROM oferte_fature_items
+          INNER JOIN konsumatoret ON oferte_fature_items.konsumatorID = konsumatoret.konsumatorID
+          LEFT JOIN oferte_fature ON oferte_fature_items.a_oferte_fatureID = oferte_fature.oferte_fatureID
+          WHERE  oferte_fature_items.a_oferte_fatureID ='$fatura_printID'
+          AND oferte_fature_items.isDeleted='0'";
   $result = DBLINK->query($sql);
 
   if ($result) {

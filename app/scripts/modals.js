@@ -56,18 +56,26 @@ function showIframeModal(options)
   // Select Modal iframe elements
   let iframe = document.querySelector("#miframe");
   let action_btn = document.getElementById("action-btn");
+
   // Handle iframe onload event
   iframe.onload = function () {
-    // Reset action button
-    if (options.btnActionShow && options.btnActionDisabled) {
-      action_btn.setAttribute("disabled", true);
-    }
-    setTimeout(() => {
-      // resize Iframe
-      iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
-      // remove spinner
+    // Check if the URL contain the query parameter 'iframe=true'
+    if (!iframe.src.includes('iframe=true')) {
+      console.log('URL does not include the query parameter "iframe=true"');
+      iframe.contentDocument.body.innerHTML = '<p class="text-center p-3">URL does not include the query parameter "iframe=true"</p>';
       isLoading(false);
-    }, 500);
+    } else {
+      // Reset action button
+      if (options.btnActionShow && options.btnActionDisabled) {
+        action_btn.setAttribute("disabled", true);
+      }
+      setTimeout(() => {
+        // resize Iframe
+        iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+        // remove spinner
+        isLoading(false);
+      }, 500);
+    }
   }
 
   // Hide modal - x button on top
@@ -109,7 +117,7 @@ function showIframeModal(options)
  * @param {string} html - The HTML content to be injected into the modal body.
  * @param {function} callback - A callback function to be invoked when a button is clicked.
  *    The callback function will response with a boolean parameter indicating the button clicked:
- *      - true: The "Po" button is clicked.
+ *      - 'po': The "Po" button is clicked.
  *      - false: The "Anulo" button is clicked.
  */
 //------------------------------------------------------------
@@ -128,8 +136,8 @@ function confirmModal(headerText = "", html = "", callback = null)
           ${html}
         </div>
         <div class="modal-footer">
-          <button type="button" id="closeConfirmModal" class="btn btn-secondary">Anulo</button>
-          <button type="button" id="poBtn" class="btn btn-success"> Po </button>
+          <button type="button" id="anuloBtn" class="btn btn-secondary">Anulo</button>
+          <button type="button" id="poBtn" class="btn btn-success px-4"> Po </button>
         </div>
       </div>
     </div>
@@ -150,19 +158,19 @@ function confirmModal(headerText = "", html = "", callback = null)
   document.getElementById("poBtn").onclick = function () {
     // return callback ('po' clicked)
     if (callback) {
-      callback(true);
+      callback('po');
       modal.modal('hide');
     }
-    console.log('Button (Po) clicked');
+    // console.log('Button (Po) clicked');
   };
 
   // Button (Anulo) clicked
-  document.getElementById("closeConfirmModal").onclick = function () {
+  document.getElementById("anuloBtn").onclick = function () {
     // return callback ('anulo' clicked)
     if (callback) {
       callback(false);
     }
-    console.log('Button (Anulo) clicked');
+    // console.log('Button (Anulo) clicked');
     modal.modal('hide');
   };
 

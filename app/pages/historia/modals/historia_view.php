@@ -1,8 +1,8 @@
 <?php
 $historiaID = filter_input(INPUT_GET, "hid", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$stafiID = filter_input(INPUT_GET, "sid", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$row = getHistoriaById($historiaID) ?? [];
+$stafiID = filter_input(INPUT_GET, "stid", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $stafi = getStafiById($stafiID) ?? [];
+$row = getHistoriaById($historiaID) ?? [];
 
 if (count($row) > 0) {
 ?>
@@ -23,5 +23,11 @@ if (count($row) > 0) {
     </div>
 
 <?php
+} else {
+    echo '<tr>
+            <td colspan="100%">
+                <div class="border text-center p-2"><span class="text-muted">Nuk u gjet asnjë regjistrim.</span></div>
+            </td>
+        </tr>';
 }
 ?>

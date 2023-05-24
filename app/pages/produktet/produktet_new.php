@@ -1,8 +1,11 @@
 <?php
 
+// Warning:
+// Where does the $lang variable comes from ?????
+
 // define variables and set to empty values
-$furnitoretID = $njesiID = $cat_produktetID = $barkodi = $emriProduktit = $pershkrimiProdukit = $sasia = $serialnumer = $cmimiBleres = $cmimiShites =  $tvsh1 = $tvsh2 = $garancion_prej = $garancion_deri = $sasiakritike = $pstatusi = $dateCreated = "";
-$furnitoretIDErr = $njesiIDErr = $cat_produktetIDErr = $barkodiErr = $emriProduktitErr = $pershkrimiProdukitErr = $sasia = $serialnumerErr =  $cmimiBleresErr = $cmimiShitesErr = $tvsh1Err = $tvsh2Err = $garancion_prejErr = $garancion_deriErr = $sasiakritikeErr = $pstatusiErr = $dateCreatedErr = "";
+$furnitorID = $njesiID = $produkt_catID = $barkodi = $emriProduktit = $pershkrimiProdukit = $sasia = $serialnumer = $cmimiBleres = $cmimiShites =  $tvsh1 = $tvsh2 = $garancion_prej = $garancion_deri = $sasiakritike = $pstatusi = $dateCreated = "";
+$furnitorIDErr = $njesiIDErr = $produkt_catIDErr = $barkodiErr = $emriProduktitErr = $pershkrimiProdukitErr = $sasia = $serialnumerErr =  $cmimiBleresErr = $cmimiShitesErr = $tvsh1Err = $tvsh2Err = $garancion_prejErr = $garancion_deriErr = $sasiakritikeErr = $pstatusiErr = $dateCreatedErr = "";
 
 // Save START
 //------------------------------------------------------------
@@ -27,9 +30,9 @@ if (isset($_POST['saveProduktet']))
     $garancion_deri = mysqli_real_escape_string($link, $_POST['garancion_deri']);
     $sasiakritike = mysqli_real_escape_string($link, $_POST['sasiakritike']);
     $pstatusi = mysqli_real_escape_string($link, $_POST['pstatusi']);
-    $furnitoretID = isset($replace_furnitoretID) ? $replace_furnitoretID : mysqli_real_escape_string($link, $_POST['inputFurnitori']);
+    $furnitorID = isset($replace_furnitorID) ? $replace_furnitorID : mysqli_real_escape_string($link, $_POST['inputFurnitori']);
     $njesiID = isset($replace_njesiID) ? $replace_njesiID : mysqli_real_escape_string($link, $_POST['inputNjesi']);
-    $cat_produktetID = isset($replace_cat_produktetID) ? $replace_cat_produktetID : mysqli_real_escape_string($link, $_POST['inputcat_produktet']);
+    $produkt_catID = isset($replace_produkt_catID) ? $replace_produkt_catID : mysqli_real_escape_string($link, $_POST['inputproduktet_cat']);
     $stafiID = $_SESSION["stafiID"];
 
     // Include Validation
@@ -52,8 +55,8 @@ if (isset($_POST['saveProduktet']))
             $link->begin_transaction();
 
             // Attempt insert query execution with commit() transaction
-            $link->query("INSERT INTO produktet (furnitoretID, njesiID, stafiID, cat_produktetID, barkodi, emriProduktit, pershkrimiProdukit, sasia, serialnumer, cmimiBleres, cmimiShites, tvsh1, tvsh2, garancion_prej, garancion_deri, sasiakritike, pstatusi)
-                VALUES ('{$furnitoretID}','{$njesiID}','{$cat_produktetID}','{$stafiID}','{$barkodi}','{$emriProduktit}', '{$pershkrimiProdukit}', '{$sasia}','{$serialnumer}','{$cmimiBleres}','{$cmimiShites}','{$tvsh1}','{$tvsh2}','{$garancion_prej}','{$garancion_deri}','{$sasiakritike}', '{$pstatusi}')");
+            $link->query("INSERT INTO produktet (furnitorID, njesiID, stafiID, produkt_catID, barkodi, emriProduktit, pershkrimiProdukit, sasia, serialnumer, cmimiBleres, cmimiShites, tvsh1, tvsh2, garancion_prej, garancion_deri, sasiakritike, pstatusi)
+                VALUES ('{$furnitorID}','{$njesiID}','{$produkt_catID}','{$stafiID}','{$barkodi}','{$emriProduktit}', '{$pershkrimiProdukit}', '{$sasia}','{$serialnumer}','{$cmimiBleres}','{$cmimiShites}','{$tvsh1}','{$tvsh2}','{$garancion_prej}','{$garancion_deri}','{$sasiakritike}', '{$pstatusi}')");
 
             // Save in Historia
             saveHistoria('create', 'produktet', 'Regjistruar me sukses.', 'success');
@@ -211,25 +214,25 @@ if (isset($_POST['saveProduktet']))
                     </div>
 
                     <div class="col-md-12">
-                        <div class="row mx-0 mt-2 pt-2 border border-<?php echo $furnitoretIDErr ? 'danger' : ''; ?>">
+                        <div class="row mx-0 mt-2 pt-2 border border-<?php echo $furnitorIDErr ? 'danger' : ''; ?>">
                             <div class="col-md-6">
                                 <label for="dlist" class="control-label"><?php echo $lang['furnitoret_list'] ?? "furnitoret *"; ?></label>
                                 <?php
                                 echo '<datalist id="dlist">';
                                 $furnitoret = getFurnitoret();
                                 foreach ($furnitoret as $furnitori) {
-                                    echo "<option value='$furnitori[furnitoretID]'>$furnitori[personKontakt] $furnitori[Kompania]</option>";
+                                    echo "<option value='$furnitori[furnitorID]'>$furnitori[kontakt] $furnitori[kompania]</option>";
                                 }
                                 echo "</datalist>";
                                 ?>
-                                <input list="dlist" id="inputFurnitori" name="inputFurnitori" class="form-control" value="<?php echo $furnitoretID; ?>" autocomplete="off">
+                                <input list="dlist" id="inputFurnitori" name="inputFurnitori" class="form-control" value="<?php echo $furnitorID; ?>" autocomplete="off">
                             </div>
                             <!-- furnitoret: emri dhe mbiemri - dynamic -->
                             <div class="col-md-6">
                                 <label for="kompania" class="control-label">&nbsp;</label>
                                 <input type="text" class="form-control" id="kompania" disabled>
                             </div>
-                            <div class="text-danger m-3"><?php echo $furnitoretIDErr; ?></div>
+                            <div class="text-danger m-3"><?php echo $furnitorIDErr; ?></div>
                         </div>
                     </div>
 
@@ -257,25 +260,25 @@ if (isset($_POST['saveProduktet']))
                     </div>
 
                     <div class="col-md-12">
-                        <div class="row mx-0 mt-2 pt-2 border border-<?php echo $cat_produktetIDErr ? 'danger' : ''; ?>">
+                        <div class="row mx-0 mt-2 pt-2 border border-<?php echo $produkt_catIDErr ? 'danger' : ''; ?>">
                             <div class="col-md-6">
                                 <label for="Blist" class="control-label"><?php echo $lang['cat_list'] ?? "Category *"; ?></label>
                                 <?php
                                 echo '<datalist id="Blist">';
                                 $catProduktet = getCatProduktet();
                                 foreach ($catProduktet as $cat_produkt) {
-                                    echo "<option value='$cat_produkt[cat_produktetID]'>$cat_produkt[emri_cat] $cat_produkt[pershkrimiCat]</option>";
+                                    echo "<option value='$cat_produkt[produkt_catID]'>$cat_produkt[emri_cat] $cat_produkt[pershkrimiCat]</option>";
                                 }
                                 echo "</datalist>";
                                 ?>
-                                <input list="Blist" id="inputcat_produktet" name="inputcat_produktet" class="form-control" value="<?php echo $cat_produktetID; ?>" autocomplete="off">
+                                <input list="Blist" id="inputproduktet_cat" name="inputproduktet_cat" class="form-control" value="<?php echo $produkt_catID; ?>" autocomplete="off">
                             </div>
                             <!-- cat_produkt: emri dhe mbiemri - dynamic -->
                             <div class="col-md-6">
                                 <label for="pershkrimiCat" class="control-label">&nbsp;</label>
                                 <input type="text" class="form-control" id="pershkrimiCat" disabled>
                             </div>
-                            <div class="text-danger m-3"><?php echo $cat_produktetIDErr; ?></div>
+                            <div class="text-danger m-3"><?php echo $produkt_catIDErr; ?></div>
                         </div>
                     </div>
                 </div> <!-- row END -->
@@ -299,7 +302,7 @@ if (isset($_POST['saveProduktet']))
     window.addEventListener("DOMContentLoaded", function(event) {
         let inputF = document.getElementById("inputFurnitori");
         let inputNj = document.getElementById("inputNjesi");
-        let inputB = document.getElementById("inputcat_produktet");
+        let inputB = document.getElementById("inputproduktet_cat");
         let optionF = document.getElementById('dlist');
         let optionNj = document.getElementById('Njlist');
         let optionB = document.getElementById('Blist');
@@ -323,11 +326,11 @@ if (isset($_POST['saveProduktet']))
         }
 
         if (optionB != null) {
-            setNameinputcat_produktet(inputB.value, optionB.childNodes);
+            setNameinputproduktet_cat(inputB.value, optionB.childNodes);
 
             // onchange
             inputB.onchange = function(el) {
-                setNameinputcat_produktet(this.value, optionB.childNodes);
+                setNameinputproduktet_cat(this.value, optionB.childNodes);
             }
         }
     });
@@ -352,7 +355,7 @@ if (isset($_POST['saveProduktet']))
         }
     }
 
-    function setNameinputcat_produktet(val, opt) {
+    function setNameinputproduktet_cat(val, opt) {
         for (let i = 0; i < opt.length; i++) {
             if (opt[i].value === val) {
                 // console.log(opt[i].textContent);

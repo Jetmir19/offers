@@ -106,7 +106,7 @@ if ($result && $result->num_rows < 1) {
                             <td>
                                 <div class="d-flex justify-content-center">
                                     <!-- view -->
-                                    <button type="button" class="btn btnNjView" data-btnView="<?= $njeID ?>">
+                                    <button type="button" class="btn btnNjView" data-page="<?= APP_URL . '/index.php?iframe=true&page=njesit_view&njeId=' . $njeID ?>">
                                         <i class="far fa-list-alt fa-lg text-info"></i>
                                     </button>
                                     <!-- edit -->
@@ -162,11 +162,9 @@ if ($result && $result->num_rows < 1) {
 
     // btnNjView click
     document.querySelectorAll('.btnNjView').forEach(function(el) {
-        el.addEventListener('click', function(e) {
-            const njeID = e.currentTarget.getAttribute('data-btnView');
-            const baseUrl = "<?php echo APP_URL . '/index.php?iframe=true' ?>";
+        el.addEventListener('click', function(event) {
             const options = {
-                iframeUrl: `${baseUrl}&page=njesit_view&njeID=${njeID}`,
+                iframeUrl: event.currentTarget.getAttribute('data-page'),
                 headerText: 'Njesi View',
                 btnActionShow: false
             };

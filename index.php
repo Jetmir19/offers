@@ -70,6 +70,14 @@ $pagesArray = array(
 
     // --- ndihme --- //    
     'ndihme' => 'ndihme/ndihme',
+
+    // --- ndihme --- //    
+    'ndihme' => 'ndihme/ndihme',
+
+    // --- error pages --- //    
+    '404' => 'error/404',
+    '401' => 'error/401',
+    'jsoff' => 'error/jsoff',
 );
 
 // Get page from url 

@@ -65,20 +65,20 @@ if (!empty($_POST["sasiakritike"])) {
 
 if (empty($_POST["inputFurnitori"])) {
     $validated = false;
-    $furnitoretIDErr = "Furnitori i detyrueshëm";
+    $furnitorIDErr = "Furnitori i detyrueshëm";
 } else {
-    $furnitoretID = clean_input($_POST["inputFurnitori"]);
-    if (!preg_match('/^[0-9]+$/', $furnitoretID)) {
+    $furnitorID = clean_input($_POST["inputFurnitori"]);
+    if (!preg_match('/^[0-9]+$/', $furnitorID)) {
         $validated = false;
-        $furnitoretIDErr = "Lejohen vetëm numra (pa hapësirë)";
+        $furnitorIDErr = "Lejohen vetëm numra (pa hapësirë)";
     }
     // Check is furnitori exists
-    $sqlFurnitoret = "SELECT * FROM furnitoret WHERE furnitoretID = '{$furnitoretID}'";
+    $sqlFurnitoret = "SELECT * FROM furnitoret WHERE furnitorID = '{$furnitorID}'";
     $result = $link->query($sqlFurnitoret);
     if ($result) {
         if (mysqli_num_rows($result) == 0) {
             $validated = false;
-            $furnitoretIDErr = "Furnitori nuk egziston";
+            $furnitorIDErr = "Furnitori nuk egziston";
         }
     } else {
         return false;
@@ -107,22 +107,22 @@ if (empty($_POST["inputNjesi"])) {
     }
 }
 
-if (empty($_POST["inputcat_produktet"])) {
+if (empty($_POST["inputproduktet_cat"])) {
     $validated = false;
-    $cat_produktetIDErr = "Kategorite i detyrueshëm";
+    $produkt_catIDErr = "Kategorite i detyrueshëm";
 } else {
-    $cat_produktetID = clean_input($_POST["inputcat_produktet"]);
-    if (!preg_match('/^[0-9]+$/', $cat_produktetID)) {
+    $produkt_catID = clean_input($_POST["inputproduktet_cat"]);
+    if (!preg_match('/^[0-9]+$/', $produkt_catID)) {
         $validated = false;
-        $cat_produktetIDErr = "Lejohen vetëm numra (pa hapësirë)";
+        $produkt_catIDErr = "Lejohen vetëm numra (pa hapësirë)";
     }
     // Check is category exists
-    $sqlBrend = "SELECT * FROM cat_produktet WHERE cat_produktetID = '{$cat_produktetID}'";
+    $sqlBrend = "SELECT * FROM produktet_cat WHERE produkt_catID = '{$produkt_catID}'";
     $result = $link->query($sqlBrend);
     if ($result) {
         if (mysqli_num_rows($result) == 0) {
             $validated = false;
-            $cat_produktetIDErr = "Kategoria nuk egziston";
+            $produkt_catIDErr = "Kategoria nuk egziston";
         }
     } else {
         return false;

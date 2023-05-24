@@ -65,27 +65,6 @@
                 </table>
             </div>
 
-            <!-- <div class="table-responsive">
-                <table class="table table-clear">
-                    <thead>
-                        <tr>
-                            <th>Emri i matësit</th>
-                            <th>Numri serik</th>
-                            <th>Maksimum lexim</th>
-                            <th>Kubik të lexuara</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><i><?= $prow["brendi"]; ?></i></td>
-                            <td><i><?= $prow["serialnumer"]; ?></i></td>
-                            <td><i><?= $prow["vlera_max"]; ?></i></td>
-                            <td><i><?= $prow["vlera_prez"]; ?></i> </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div> -->
-
             <div class="table-responsive">
                 <table class="table table-striped table-sm table-hover">
                     <thead>

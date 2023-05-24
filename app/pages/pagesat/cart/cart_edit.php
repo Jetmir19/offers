@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     // Prepare and bind the update statement using prepared statements
     $stmt = DBLINK->prepare(
         "UPDATE cart SET c_sasia = ?, c_vlera_pa_tvsh = ?, c_vlera_e_tvsh = ?, c_vlera_me_tvsh = ? 
-        WHERE cart_ID = ?"
+        WHERE cartID = ?"
     );
     $stmt->bind_param(
         "iiiii",

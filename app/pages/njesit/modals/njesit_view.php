@@ -1,5 +1,6 @@
 <?php
-$row = getNjesiById((int)$_GET['njeID']) ?? [];
+$njesiaID = filter_input(INPUT_GET, "njeId", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$row = getNjesiById($njesiaID) ?? [];
 
 if (count($row) > 0) {
 ?>
@@ -17,5 +18,11 @@ if (count($row) > 0) {
     </div>
 
 <?php
+} else {
+    echo '<tr>
+            <td colspan="100%">
+                <div class="border text-center p-2"><span class="text-muted">Nuk u gjet asnjë regjistrim.</span></div>
+            </td>
+        </tr>';
 }
 ?>

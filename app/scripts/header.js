@@ -2,7 +2,10 @@
 
 // Loading Spinner Remove
 window.onload = function () {
-    setTimeout(() => document.getElementById("main-spinner").remove(), 400);
+    const mainSpinner = document.getElementById("main-spinner");
+    if (mainSpinner) {
+        setTimeout(() => mainSpinner.remove(), 400);
+    }
 }
 
 // First time page loaded

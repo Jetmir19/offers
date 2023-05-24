@@ -1,5 +1,6 @@
 <?php
-$row = getStafiById((int)$_GET['stid']) ?? [];
+$stafiID = filter_input(INPUT_GET, "stid", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$row = getStafiById($stafiID) ?? [];
 
 if (count($row) > 0) {
 ?>
@@ -34,5 +35,11 @@ if (count($row) > 0) {
     </div>
 
 <?php
+} else {
+    echo '<tr>
+            <td colspan="100%">
+                <div class="border text-center p-2"><span class="text-muted">Nuk u gjet asnjë regjistrim.</span></div>
+            </td>
+        </tr>';
 }
 ?>
