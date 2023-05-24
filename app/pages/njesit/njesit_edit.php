@@ -1,0 +1,1 @@
+<h1 class="text-center mt-5">Faqja ne perpunim e siper!</h1>
