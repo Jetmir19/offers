@@ -1,0 +1,8 @@
+[24-May-2023 20:23:21 Europe/Skopje] PHP Warning:  Undefined array key "barkod" in D:\xampp\htdocs\offers\app\pages\produktet\produktet.php on line 135
+[24-May-2023 20:23:25 Europe/Skopje] PHP Warning:  Undefined array key "barkod" in D:\xampp\htdocs\offers\app\pages\produktet\produktet.php on line 135
+[04-May-2025 00:14:50 Europe/Skopje] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown database 'ewins' in D:\xampp\htdocs\offers\app\config\connect.php:5
+Stack trace:
+#0 D:\xampp\htdocs\offers\app\config\connect.php(5): mysqli_connect('localhost', 'root', Object(SensitiveParameterValue), 'ewins')
+#1 D:\xampp\htdocs\offers\index.php(7): require_once('D:\\xampp\\htdocs...')
+#2 {main}
+  thrown in D:\xampp\htdocs\offers\app\config\connect.php on line 5
