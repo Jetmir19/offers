@@ -35,7 +35,7 @@ date_default_timezone_set('Europe/Skopje');
 // MySQL Database Connection
 //-------------------------------------------------------
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'ewins');
+define('DB_NAME', 'offers');
 define('DB_CHARSET', 'utf8');
 define('DB_USER', 'root');
 define('DB_PASS', '123456');
